@@ -42,163 +42,148 @@ function FacultyReplies() {
   ];
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white border rounded-xl shadow-sm">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="flex justify-between items-center p-5 border-b">
 
-      <div className="flex justify-between items-center p-6 border-b">
+      <div>
+        <h2 className="text-lg font-semibold text-gray-800">
+          Faculty Replies
+        </h2>
 
-        <div>
-          <h2 className="text-2xl font-bold">
-            Faculty Replies
-          </h2>
-
-          <p className="text-gray-500 mt-2">
-            Recent responses from your faculty.
-          </p>
-        </div>
-
-        <button className="text-blue-700 font-semibold hover:text-blue-900">
-          View All
-        </button>
-
+        <p className="text-sm text-gray-500 mt-1">
+          Recent responses from your faculty.
+        </p>
       </div>
 
-      {/* Replies */}
+      <button className="text-sm font-medium text-blue-600 hover:text-blue-800 transition">
+        View All
+      </button>
 
-      <div className="divide-y">
+    </div>
 
-        {replies.map((item) => (
+    {/* Replies */}
+    <div className="divide-y">
 
-          <div
-            key={item.id}
-            className="p-6 hover:bg-gray-50 transition"
-          >
+      {replies.map((item) => (
+        <div
+          key={item.id}
+          className="p-5 hover:bg-gray-50 transition"
+        >
 
-            {/* Subject */}
+          {/* Top */}
+          <div className="flex justify-between items-start gap-4">
 
-            <div className="flex justify-between items-start">
+            <div>
 
-              <div>
+              <div className="flex items-center gap-3 flex-wrap">
 
-                <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center">
+                  <FaBookOpen className="text-blue-600" />
+                </div>
 
-                  <FaBookOpen className="text-blue-700"/>
+                <div>
 
-                  <h3 className="text-lg font-semibold">
-                    {item.subject}
-                  </h3>
+                  <div className="flex items-center gap-2">
 
-                  {item.status === "New" && (
+                    <h3 className="font-medium text-gray-800">
+                      {item.subject}
+                    </h3>
 
-                    <span className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full">
-                      NEW
-                    </span>
+                    {item.status === "New" && (
+                      <span className="px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-medium">
+                        New
+                      </span>
+                    )}
 
-                  )}
+                  </div>
+
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                    <FaUserTie />
+                    {item.faculty}
+                  </div>
 
                 </div>
 
-                <div className="flex items-center gap-2 text-gray-500 mt-3">
-
-                  <FaUserTie />
-
-                  {item.faculty}
-
-                </div>
-
-              </div>
-
-              <div className="flex items-center gap-2 text-gray-400">
-
-                <FaClock />
-
-                {item.time}
-
               </div>
 
             </div>
 
-            {/* Question */}
-
-            <div className="bg-gray-50 rounded-xl p-4 mt-5">
-
-              <p className="text-sm text-gray-500 mb-2">
-                Your Question
-              </p>
-
-              <p className="font-medium">
-                {item.question}
-              </p>
-
-            </div>
-
-            {/* Faculty Reply */}
-
-            <div className="bg-blue-50 rounded-xl p-4 mt-4">
-
-              <div className="flex items-center gap-2 text-blue-700 mb-3">
-
-                <FaComments />
-
-                <span className="font-semibold">
-                  Faculty Reply
-                </span>
-
-              </div>
-
-              <p className="text-gray-700 leading-7">
-
-                {item.reply}
-
-              </p>
-
-            </div>
-
-            {/* Actions */}
-
-            <div className="flex justify-between items-center mt-5">
-
-              <div className="flex items-center gap-2 text-green-600">
-
-                <FaCircleCheck />
-
-                {item.status}
-
-              </div>
-
-              <button className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg flex items-center gap-2">
-
-                Open Discussion
-
-                <FaArrowRight />
-
-              </button>
-
+            <div className="flex items-center gap-2 text-xs text-gray-400">
+              <FaClock />
+              {item.time}
             </div>
 
           </div>
 
-        ))}
+          {/* Question */}
+          <div className="mt-4 border rounded-lg p-4 bg-gray-50">
 
-      </div>
+            <p className="text-xs uppercase text-gray-400 mb-2">
+              Your Question
+            </p>
 
-      {/* Footer */}
+            <p className="text-gray-700">
+              {item.question}
+            </p>
 
-      <div className="bg-gray-50 rounded-b-2xl border-t p-5 flex justify-between">
+          </div>
 
-        <span className="text-gray-600">
-          Unread Faculty Replies
-        </span>
+          {/* Reply */}
+          <div className="mt-3 border border-blue-100 rounded-lg p-4 bg-blue-50">
 
-        <span className="text-red-600 font-bold">
-          1
-        </span>
+            <div className="flex items-center gap-2 text-blue-700 mb-2">
+              <FaComments />
+              <span className="text-sm font-medium">
+                Faculty Reply
+              </span>
+            </div>
 
-      </div>
+            <p className="text-gray-700 leading-7">
+              {item.reply}
+            </p>
+
+          </div>
+
+          {/* Bottom */}
+          <div className="flex justify-between items-center mt-4">
+
+            <div className="flex items-center gap-2 text-sm text-green-600">
+
+              <FaCircleCheck />
+
+              <span>{item.status}</span>
+
+            </div>
+
+            <button className="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg flex items-center gap-2 transition">
+              Open Discussion
+              <FaArrowRight size={12} />
+            </button>
+
+          </div>
+
+        </div>
+      ))}
 
     </div>
-  );
+
+    {/* Footer */}
+    <div className="border-t p-5 flex justify-between items-center">
+
+      <span className="text-sm text-gray-500">
+        Unread Faculty Replies
+      </span>
+
+      <span className="text-lg font-bold text-red-600">
+        1
+      </span>
+
+    </div>
+
+  </div>
+);
 }
 
 export default FacultyReplies;

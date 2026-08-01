@@ -39,161 +39,174 @@ function Users() {
   ];
 
   return (
-    <DashboardLayout >
-      {/* Header */}
+  <DashboardLayout>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="max-w-7xl mx-auto bg-white border rounded-xl shadow-sm">
 
-      <div className="flex justify-between items-center">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 p-6 border-b">
 
-        <div>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-800">
+              User Management
+            </h1>
 
-          <h1 className="text-3xl font-bold">
-            User Management
-          </h1>
+            <p className="text-gray-500 mt-1">
+              Manage students and faculty accounts.
+            </p>
+          </div>
 
-          <p className="text-gray-500 mt-2">
-            Manage students and faculty accounts.
-          </p>
-
-        </div>
-
-        <button
-  onClick={() => navigate("/admin/users/add")}
-  className="bg-blue-800 text-white px-5 py-3 rounded-lg hover:bg-blue-900 flex items-center gap-2"
->
-  <FaUserPlus />
-  Add User
-</button>
-
-      </div>
-
-      {/* Search */}
-
-      <div className="bg-white rounded-xl shadow-sm mt-8 p-5">
-
-        <div className="flex items-center border rounded-lg px-4">
-
-          <FaMagnifyingGlass className="text-gray-400" />
-
-          <input
-            className="flex-1 outline-none px-3 py-3"
-            placeholder="Search users..."
-          />
+          <button
+            onClick={() => navigate("/admin/users/add")}
+            className="flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white px-5 py-2.5 rounded-lg transition"
+          >
+            <FaUserPlus />
+            Add User
+          </button>
 
         </div>
 
-      </div>
+        {/* Search */}
+        <div className="p-6 border-b">
 
-      {/* Table */}
+          <div className="flex items-center border rounded-lg px-4">
 
-      <div className="bg-white rounded-xl shadow-sm mt-8 overflow-hidden">
+            <FaMagnifyingGlass className="text-gray-400" />
 
-        <table className="w-full">
+            <input
+              type="text"
+              placeholder="Search users..."
+              className="flex-1 px-3 py-3 outline-none"
+            />
 
-          <thead className="bg-slate-100">
+          </div>
 
-            <tr>
+        </div>
 
-              <th className="text-left px-6 py-4">
-                Name
-              </th>
+        {/* User Table */}
+        <div className="overflow-x-auto">
 
-              <th className="text-left">
-                Role
-              </th>
+          <table className="w-full">
 
-              <th className="text-left">
-                Department
-              </th>
+            <thead className="bg-gray-50">
+              <tr className="text-left text-gray-600">
 
-              <th className="text-left">
-                Email
-              </th>
+                <th className="px-6 py-4 font-semibold">
+                  User
+                </th>
 
-              <th className="text-left">
-                Status
-              </th>
+                <th className="px-6 py-4 font-semibold">
+                  Role
+                </th>
 
-              <th className="text-center">
-                Actions
-              </th>
+                <th className="px-6 py-4 font-semibold">
+                  Department
+                </th>
 
-            </tr>
+                <th className="px-6 py-4 font-semibold">
+                  Email
+                </th>
 
-          </thead>
+                <th className="px-6 py-4 font-semibold">
+                  Status
+                </th>
 
-          <tbody>
-
-            {users.map((user) => (
-
-              <tr
-                key={user.id}
-                className="border-t hover:bg-slate-50"
-              >
-
-                <td className="px-6 py-5">
-
-                  <div className="flex items-center gap-3">
-
-                    {user.role === "Student" ? (
-                      <FaUserGraduate className="text-blue-600" />
-                    ) : (
-                      <FaUserTie className="text-green-600" />
-                    )}
-
-                    {user.name}
-
-                  </div>
-
-                </td>
-
-                <td>{user.role}</td>
-
-                <td>{user.department}</td>
-
-                <td>{user.email}</td>
-
-                <td>
-
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm ${
-                      user.status === "Active"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    {user.status}
-                  </span>
-
-                </td>
-
-                <td>
-
-                  <div className="flex justify-center gap-5">
-
-                    <button className="text-yellow-600">
-                      <FaPen />
-                    </button>
-
-                    <button className="text-red-600">
-                      <FaTrash />
-                    </button>
-
-                  </div>
-
-                </td>
+                <th className="px-6 py-4 text-center font-semibold">
+                  Actions
+                </th>
 
               </tr>
+            </thead>
 
-            ))}
+            <tbody>
 
-          </tbody>
+              {users.map((user) => (
+                <tr
+                  key={user.id}
+                  className="border-t hover:bg-gray-50 transition"
+                >
 
-        </table>
+                  <td className="px-6 py-5">
+
+                    <div className="flex items-center gap-3">
+
+                      <div
+                        className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                          user.role === "Student"
+                            ? "bg-blue-100 text-blue-600"
+                            : "bg-green-100 text-green-600"
+                        }`}
+                      >
+                        {user.role === "Student" ? (
+                          <FaUserGraduate />
+                        ) : (
+                          <FaUserTie />
+                        )}
+                      </div>
+
+                      <span className="font-medium text-gray-800">
+                        {user.name}
+                      </span>
+
+                    </div>
+
+                  </td>
+
+                  <td className="px-6 text-gray-600">
+                    {user.role}
+                  </td>
+
+                  <td className="px-6 text-gray-600">
+                    {user.department}
+                  </td>
+
+                  <td className="px-6 text-gray-600">
+                    {user.email}
+                  </td>
+
+                  <td className="px-6">
+
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        user.status === "Active"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {user.status}
+                    </span>
+
+                  </td>
+
+                  <td className="px-6">
+
+                    <div className="flex justify-center gap-2">
+
+                      <button className="p-2 rounded-lg text-yellow-600 hover:bg-yellow-100 transition">
+                        <FaPen />
+                      </button>
+
+                      <button className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition">
+                        <FaTrash />
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+              ))}
+
+            </tbody>
+
+          </table>
+
+        </div>
 
       </div>
-
-    </DashboardLayout>
-  );
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default Users;

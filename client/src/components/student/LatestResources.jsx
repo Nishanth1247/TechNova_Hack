@@ -57,165 +57,134 @@ function LatestResources() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white border border-gray-200 rounded-2xl shadow-sm">
 
-      {/* Header */}
-
-      <div className="flex justify-between items-center p-6 border-b">
-
-        <div>
-
-          <h2 className="text-2xl font-bold">
-
-            Latest Resources
-
-          </h2>
-
-          <p className="text-gray-500 mt-2">
-
-            Recently uploaded learning materials.
-
-          </p>
-
-        </div>
-
-        <button className="text-blue-700 font-semibold hover:text-blue-900">
-
-          View Library
-
-        </button>
-
+    {/* Header */}
+    <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200">
+      <div>
+        <h2 className="text-xl font-semibold text-gray-800">
+          Latest Resources
+        </h2>
+        <p className="text-sm text-gray-500 mt-1">
+          Recently uploaded learning materials.
+        </p>
       </div>
 
-      {/* Resources */}
+      <button className="text-sm font-medium text-blue-600 hover:text-blue-700">
+        View Library
+      </button>
+    </div>
 
-      <div className="divide-y">
+    {/* Resources */}
+    <div className="divide-y divide-gray-200">
 
-        {resources.map((item) => (
+      {resources.map((item) => (
 
-          <div
-            key={item.id}
-            className="p-6 hover:bg-gray-50 transition"
-          >
+        <div
+          key={item.id}
+          className="p-6 hover:bg-gray-50 transition"
+        >
 
-            <div className="flex justify-between flex-wrap gap-5">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
 
-              <div className="flex gap-5">
+            {/* Left */}
+            <div className="flex gap-4">
 
+              <div className="h-14 w-14 rounded-xl bg-gray-100 flex items-center justify-center">
                 {getIcon(item.type)}
+              </div>
 
-                <div>
+              <div>
 
-                  <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-wrap">
 
-                    <h3 className="text-xl font-semibold">
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {item.title}
+                  </h3>
 
-                      {item.title}
+                  {item.isNew && (
+                    <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-700">
+                      NEW
+                    </span>
+                  )}
 
-                    </h3>
+                </div>
 
-                    {item.isNew && (
+                <div className="flex flex-wrap gap-5 mt-3 text-sm text-gray-500">
 
-                      <span className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full">
-
-                        NEW
-
-                      </span>
-
-                    )}
-
+                  <div className="flex items-center gap-2">
+                    <FaUserTie className="text-gray-400" />
+                    <span>{item.faculty}</span>
                   </div>
 
-                  <div className="flex flex-wrap gap-5 mt-4 text-gray-500 text-sm">
-
-                    <div className="flex items-center gap-2">
-
-                      <FaUserTie />
-
-                      {item.faculty}
-
-                    </div>
-
-                    <div className="flex items-center gap-2">
-
-                      <FaCalendarDays />
-
-                      {item.date}
-
-                    </div>
-
+                  <div className="flex items-center gap-2">
+                    <FaCalendarDays className="text-gray-400" />
+                    <span>{item.date}</span>
                   </div>
 
                 </div>
 
               </div>
 
-              <div className="text-right">
-
-                <p className="font-semibold">
-
-                  {item.size}
-
-                </p>
-
-                <span className="text-sm text-gray-500">
-
-                  {item.type}
-
-                </span>
-
-              </div>
-
             </div>
 
-            {/* Buttons */}
+            {/* Right */}
+            <div className="text-left lg:text-right">
 
-            <div className="flex gap-3 mt-6">
+              <p className="font-semibold text-gray-800">
+                {item.size}
+              </p>
 
-              <button className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg flex items-center gap-2">
-
-                <FaEye />
-
-                Preview
-
-              </button>
-
-              <button className="border px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center gap-2">
-
-                <FaDownload />
-
-                Download
-
-              </button>
+              <p className="text-sm text-gray-500">
+                {item.type}
+              </p>
 
             </div>
 
           </div>
 
-        ))}
+          {/* Buttons */}
+          <div className="flex flex-wrap gap-3 mt-6">
 
-      </div>
+            <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
 
-      {/* Footer */}
+              <FaEye size={14} />
 
-      <div className="bg-gray-50 border-t rounded-b-2xl p-5 flex justify-between">
+              Preview
 
-        <span className="text-gray-600">
+            </button>
 
-          New Resources This Week
+            <button className="flex items-center gap-2 border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-lg text-sm transition">
 
-        </span>
+              <FaDownload size={14} />
 
-        <span className="font-bold text-blue-700">
+              Download
 
-          8
+            </button>
 
-        </span>
+          </div>
 
-      </div>
+        </div>
+
+      ))}
 
     </div>
-  );
+
+    {/* Footer */}
+    <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-t border-gray-200 rounded-b-2xl">
+
+      <span className="text-sm text-gray-600">
+        New Resources This Week
+      </span>
+
+      <span className="text-lg font-semibold text-blue-600">
+        8
+      </span>
+
+    </div>
+
+  </div>
+);
 }
 
 export default LatestResources;

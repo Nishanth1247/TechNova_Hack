@@ -57,108 +57,133 @@ function Resources() {
   };
 
   return (
-    <DashboardLayout >
-      {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold">Resource Hub</h1>
-          <p className="text-gray-500 mt-1">
-            Manage study materials, timetables and official documents.
-          </p>
-        </div>
+  <DashboardLayout>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="max-w-7xl mx-auto bg-white border rounded-xl shadow-sm">
 
-        <button
-  onClick={() => navigate("/admin/resources/upload")}
-  className="bg-blue-800 hover:bg-blue-900 text-white px-5 py-3 rounded-lg flex items-center gap-2"
->
-  <FaPlus />
-  Upload Resource
-</button>
-      </div>
+        {/* Header */}
+        <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 p-6 border-b">
 
-      {/* Search */}
-      <div className="bg-white rounded-xl shadow-sm p-5 mt-8 flex gap-4">
-        <div className="flex items-center border rounded-lg px-4 flex-1">
-          <FaMagnifyingGlass className="text-gray-400" />
+          <div>
+            <h1 className="text-2xl font-bold text-gray-800">
+              Resource Hub
+            </h1>
 
-          <input
-            className="flex-1 px-3 py-3 outline-none"
-            placeholder="Search resources..."
-          />
-        </div>
+            <p className="text-gray-500 mt-1">
+              Manage study materials, timetables and official documents.
+            </p>
+          </div>
 
-        <select className="border rounded-lg px-4">
-          <option>All Categories</option>
-          <option>Study Material</option>
-          <option>Timetable</option>
-          <option>Placement</option>
-          <option>Circular</option>
-        </select>
-      </div>
-
-      {/* Cards */}
-      <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
-
-        {resources.map((item) => (
-
-          <div
-            key={item.id}
-            className="bg-white rounded-2xl shadow-sm border p-6"
+          <button
+            onClick={() => navigate("/admin/resources/upload")}
+            className="flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white px-5 py-2.5 rounded-lg transition"
           >
-            <div className="flex justify-between items-start">
+            <FaPlus />
+            Upload Resource
+          </button>
 
-              {fileIcon(item.type)}
+        </div>
 
-              <span className="text-sm bg-slate-100 px-3 py-1 rounded-full">
-                {item.category}
-              </span>
+        {/* Search */}
+        <div className="flex flex-col md:flex-row gap-4 p-6 border-b">
 
-            </div>
+          <div className="flex items-center flex-1 border rounded-lg px-4">
 
-            <h2 className="font-bold text-xl mt-5">
-              {item.title}
-            </h2>
+            <FaMagnifyingGlass className="text-gray-400" />
 
-            <div className="space-y-2 mt-4 text-gray-600 text-sm">
-
-              <p>
-                Department : {item.department}
-              </p>
-
-              <p>
-                Uploaded By : {item.uploadedBy}
-              </p>
-
-              <p>
-                Date : {item.date}
-              </p>
-
-            </div>
-
-            <div className="flex justify-between mt-6">
-
-              <button className="text-blue-700">
-                <FaEye size={18} />
-              </button>
-
-              <button className="text-green-700">
-                <FaDownload size={18} />
-              </button>
-
-              <button className="text-red-600">
-                <FaTrash size={18} />
-              </button>
-
-            </div>
+            <input
+              placeholder="Search resources..."
+              className="flex-1 px-3 py-3 outline-none"
+            />
 
           </div>
 
-        ))}
+          <select className="border rounded-lg px-4 py-3 md:w-56">
+            <option>All Categories</option>
+            <option>Study Material</option>
+            <option>Timetable</option>
+            <option>Placement</option>
+            <option>Circular</option>
+          </select>
+
+        </div>
+
+        {/* Resources */}
+        <div className="divide-y">
+
+          {resources.map((item) => (
+            <div
+              key={item.id}
+              className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 p-6 hover:bg-gray-50 transition"
+            >
+
+              {/* Left */}
+              <div className="flex gap-4 flex-1">
+
+                <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
+                  {fileIcon(item.type)}
+                </div>
+
+                <div>
+
+                  <div className="flex items-center gap-3 flex-wrap">
+
+                    <h2 className="font-semibold text-gray-800">
+                      {item.title}
+                    </h2>
+
+                    <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
+                      {item.category}
+                    </span>
+
+                  </div>
+
+                  <div className="mt-2 text-sm text-gray-500 flex flex-wrap gap-6">
+
+                    <span>
+                      Department: {item.department}
+                    </span>
+
+                    <span>
+                      Uploaded By: {item.uploadedBy}
+                    </span>
+
+                    <span>
+                      {item.date}
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-2">
+
+                <button className="p-2 rounded-lg text-blue-600 hover:bg-blue-100 transition">
+                  <FaEye />
+                </button>
+
+                <button className="p-2 rounded-lg text-green-600 hover:bg-green-100 transition">
+                  <FaDownload />
+                </button>
+
+                <button className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition">
+                  <FaTrash />
+                </button>
+
+              </div>
+
+            </div>
+          ))}
+
+        </div>
 
       </div>
-
-    </DashboardLayout>
-  );
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default Resources;

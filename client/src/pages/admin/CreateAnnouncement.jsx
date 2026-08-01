@@ -36,180 +36,245 @@ function CreateAnnouncement() {
   };
 
   return (
-    <DashboardLayout >
-      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-md p-8">
-        <h1 className="text-3xl font-bold mb-2">
+  <DashboardLayout>
+    <div className="max-w-5xl mx-auto">
+
+      {/* Header */}
+      <div className="mb-8">
+
+        <h1 className="text-3xl font-bold text-gray-800">
           Create Announcement
         </h1>
 
-        <p className="text-gray-500 mb-8">
+        <p className="mt-2 text-gray-500">
           Publish official announcements for students and faculty.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+      </div>
 
-          {/* Title */}
+      {/* Form Card */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
 
-          <div>
-            <label className="block font-medium mb-2">
-              Announcement Title
-            </label>
+        <form
+          onSubmit={handleSubmit}
+          className="p-8 space-y-8"
+        >
 
-            <input
-              type="text"
-              name="title"
-              placeholder="Enter announcement title"
-              value={formData.title}
-              onChange={handleChange}
-              className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-
-          {/* Description */}
+          {/* Announcement Details */}
 
           <div>
-            <label className="block font-medium mb-2">
-              Description
-            </label>
 
-            <textarea
-              rows="6"
-              name="description"
-              placeholder="Write announcement details..."
-              value={formData.description}
-              onChange={handleChange}
-              className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-              required
-            />
-          </div>
+            <h2 className="text-lg font-semibold text-gray-700 mb-5">
+              Announcement Details
+            </h2>
 
-          {/* Priority & Target */}
+            <div className="space-y-6">
 
-          <div className="grid md:grid-cols-2 gap-6">
+              {/* Title */}
 
-            <div>
-              <label className="block font-medium mb-2">
-                Priority
-              </label>
+              <div>
 
-              <select
-                name="priority"
-                value={formData.priority}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-              >
-                <option>Normal</option>
-                <option>High</option>
-                <option>Emergency</option>
-              </select>
-            </div>
+                <label className="block text-sm font-medium text-gray-600 mb-2">
+                  Announcement Title
+                </label>
 
-            <div>
-              <label className="block font-medium mb-2">
-                Target Audience
-              </label>
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Enter announcement title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                  required
+                />
 
-              <select
-                name="target"
-                value={formData.target}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-              >
-                <option>All Students</option>
-                <option>Faculty</option>
-                <option>Entire College</option>
-                <option>Final Year</option>
-                <option>Second Year</option>
-              </select>
+              </div>
+
+              {/* Description */}
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-600 mb-2">
+                  Description
+                </label>
+
+                <textarea
+                  rows="6"
+                  name="description"
+                  placeholder="Write announcement details..."
+                  value={formData.description}
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                  required
+                />
+
+              </div>
+
             </div>
 
           </div>
 
-          {/* Department & Publish Date */}
-
-          <div className="grid md:grid-cols-2 gap-6">
-
-            <div>
-              <label className="block font-medium mb-2">
-                Department
-              </label>
-
-              <select
-                name="department"
-                value={formData.department}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-              >
-                <option>All</option>
-                <option>CSE</option>
-                <option>IT</option>
-                <option>ECE</option>
-                <option>EEE</option>
-                <option>Mechanical</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block font-medium mb-2">
-                Publish Date
-              </label>
-
-              <input
-                type="date"
-                name="publishDate"
-                value={formData.publishDate}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-              />
-            </div>
-
-          </div>
-
-          {/* File Upload */}
+          {/* Announcement Settings */}
 
           <div>
-            <label className="block font-medium mb-2">
+
+            <h2 className="text-lg font-semibold text-gray-700 mb-5">
+              Announcement Settings
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              {/* Priority */}
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-600 mb-2">
+                  Priority
+                </label>
+
+                <select
+                  name="priority"
+                  value={formData.priority}
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                >
+                  <option>Normal</option>
+                  <option>High</option>
+                  <option>Emergency</option>
+                </select>
+
+              </div>
+
+              {/* Target */}
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-600 mb-2">
+                  Target Audience
+                </label>
+
+                <select
+                  name="target"
+                  value={formData.target}
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                >
+                  <option>All Students</option>
+                  <option>Faculty</option>
+                  <option>Entire College</option>
+                  <option>Final Year</option>
+                  <option>Second Year</option>
+                </select>
+
+              </div>
+
+              {/* Department */}
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-600 mb-2">
+                  Department
+                </label>
+
+                <select
+                  name="department"
+                  value={formData.department}
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                >
+                  <option>All</option>
+                  <option>CSE</option>
+                  <option>IT</option>
+                  <option>ECE</option>
+                  <option>EEE</option>
+                  <option>Mechanical</option>
+                </select>
+
+              </div>
+
+              {/* Publish Date */}
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-600 mb-2">
+                  Publish Date
+                </label>
+
+                <input
+                  type="date"
+                  name="publishDate"
+                  value={formData.publishDate}
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                />
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* Attachment */}
+
+          <div>
+
+            <h2 className="text-lg font-semibold text-gray-700 mb-5">
               Attachment
-            </label>
+            </h2>
 
             <input
               type="file"
               name="attachment"
               onChange={handleChange}
-              className="w-full border rounded-lg px-4 py-3"
+              className="block w-full rounded-xl border border-gray-300 px-4 py-3 file:mr-4 file:rounded-lg file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-blue-600 file:font-medium hover:file:bg-blue-100"
             />
+
           </div>
 
           {/* Acknowledgement */}
 
-          <div className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              name="acknowledgement"
-              checked={formData.acknowledgement}
-              onChange={handleChange}
-            />
+          <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
 
-            <label>
-              Require student acknowledgement
+            <label className="flex items-center gap-3 cursor-pointer">
+
+              <input
+                type="checkbox"
+                name="acknowledgement"
+                checked={formData.acknowledgement}
+                onChange={handleChange}
+                className="h-5 w-5 rounded accent-blue-600"
+              />
+
+              <div>
+
+                <p className="font-medium text-gray-700">
+                  Require Student Acknowledgement
+                </p>
+
+                <p className="text-sm text-gray-500">
+                  Students must confirm they have read this announcement.
+                </p>
+
+              </div>
+
             </label>
+
           </div>
 
-          {/* Buttons */}
+          {/* Footer Buttons */}
 
-          <div className="flex justify-end gap-4 pt-4">
+          <div className="flex justify-end gap-4 pt-6 border-t border-gray-200">
 
             <button
               type="button"
-              className="px-6 py-3 rounded-lg border"
+              className="rounded-xl border border-gray-300 px-6 py-3 text-gray-700 hover:bg-gray-100 transition"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="px-6 py-3 rounded-lg bg-blue-800 text-white hover:bg-blue-900"
+              className="rounded-xl bg-blue-600 px-8 py-3 text-white font-medium hover:bg-blue-700 transition"
             >
               Publish Announcement
             </button>
@@ -217,9 +282,12 @@ function CreateAnnouncement() {
           </div>
 
         </form>
+
       </div>
-    </DashboardLayout>
-  );
+
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default CreateAnnouncement;

@@ -41,178 +41,202 @@ function AnnouncementAnalytics() {
   ];
 
   return (
-    <DashboardLayout >
+  <DashboardLayout>
+    <div className="max-w-7xl mx-auto space-y-8">
 
-      <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800">
+            Announcement Analytics
+          </h1>
 
-        <div className="bg-gradient-to-r from-blue-900 to-blue-700 rounded-2xl text-white p-8">
+          <p className="text-gray-500 mt-2">
+            Mid Semester Examination Schedule
+          </p>
+        </div>
 
-          <div className="flex justify-between items-center flex-wrap gap-4">
+        <button className="flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-3 text-gray-700 shadow-sm hover:bg-gray-100 transition">
+          <FaDownload />
+          Export Report
+        </button>
+
+      </div>
+
+      {/* Statistics */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+
+        {/* Total Recipients */}
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition p-6">
+
+          <div className="flex justify-between items-center">
 
             <div>
-
-              <h1 className="text-4xl font-bold">
-                Announcement Analytics
-              </h1>
-
-              <p className="text-blue-200 mt-3">
-                Mid Semester Examination Schedule
+              <p className="text-gray-500 text-sm">
+                Total Recipients
               </p>
 
+              <h2 className="text-3xl font-bold mt-2 text-gray-800">
+                1200
+              </h2>
             </div>
 
-            <button className="bg-white text-blue-800 px-5 py-3 rounded-lg flex items-center gap-2">
-
-              <FaDownload />
-
-              Export Report
-
-            </button>
+            <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+              <FaUsers className="text-blue-600 text-xl" />
+            </div>
 
           </div>
 
         </div>
 
-        {/* Statistics */}
+        {/* Acknowledged */}
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition p-6">
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+          <div className="flex justify-between items-center">
 
-          <div className="bg-white rounded-xl border shadow-sm p-6">
+            <div>
+              <p className="text-gray-500 text-sm">
+                Acknowledged
+              </p>
 
-            <FaUsers className="text-blue-700 text-2xl" />
+              <h2 className="text-3xl font-bold mt-2 text-gray-800">
+                1054
+              </h2>
+            </div>
 
-            <h2 className="text-3xl font-bold mt-4">
-              1200
-            </h2>
-
-            <p className="text-gray-500">
-              Total Recipients
-            </p>
-
-          </div>
-
-          <div className="bg-white rounded-xl border shadow-sm p-6">
-
-            <FaCircleCheck className="text-green-600 text-2xl" />
-
-            <h2 className="text-3xl font-bold mt-4">
-              1054
-            </h2>
-
-            <p className="text-gray-500">
-              Acknowledged
-            </p>
-
-          </div>
-
-          <div className="bg-white rounded-xl border shadow-sm p-6">
-
-            <FaTriangleExclamation className="text-red-600 text-2xl" />
-
-            <h2 className="text-3xl font-bold mt-4">
-              146
-            </h2>
-
-            <p className="text-gray-500">
-              Pending
-            </p>
-
-          </div>
-
-          <div className="bg-white rounded-xl border shadow-sm p-6">
-
-            <FaClock className="text-orange-500 text-2xl" />
-
-            <h2 className="text-3xl font-bold mt-4">
-              92%
-            </h2>
-
-            <p className="text-gray-500">
-              Read Rate
-            </p>
+            <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
+              <FaCircleCheck className="text-green-600 text-xl" />
+            </div>
 
           </div>
 
         </div>
 
-        {/* Department Progress */}
+        {/* Pending */}
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition p-6">
 
-        <div className="bg-white rounded-2xl shadow-sm border p-6">
+          <div className="flex justify-between items-center">
 
-          <h2 className="text-2xl font-semibold mb-6">
-            Department Acknowledgement
-          </h2>
+            <div>
+              <p className="text-gray-500 text-sm">
+                Pending
+              </p>
 
-          <div className="space-y-6">
+              <h2 className="text-3xl font-bold mt-2 text-gray-800">
+                146
+              </h2>
+            </div>
 
-            {departmentStats.map((dept) => (
+            <div className="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center">
+              <FaTriangleExclamation className="text-red-600 text-xl" />
+            </div>
 
-              <div key={dept.department}>
+          </div>
 
-                <div className="flex justify-between mb-2">
+        </div>
 
-                  <span className="font-medium">
-                    {dept.department}
-                  </span>
+        {/* Read Rate */}
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition p-6">
 
-                  <span>
-                    {dept.percentage}%
-                  </span>
+          <div className="flex justify-between items-center">
 
-                </div>
+            <div>
+              <p className="text-gray-500 text-sm">
+                Read Rate
+              </p>
 
-                <div className="w-full bg-gray-200 rounded-full h-4">
+              <h2 className="text-3xl font-bold mt-2 text-gray-800">
+                92%
+              </h2>
+            </div>
 
-                  <div
-                    className="bg-blue-700 h-4 rounded-full"
-                    style={{
-                      width: `${dept.percentage}%`,
-                    }}
-                  ></div>
+            <div className="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center">
+              <FaClock className="text-orange-500 text-xl" />
+            </div>
 
-                </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* Department Progress */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
+
+        <h2 className="text-xl font-semibold text-gray-800 mb-6">
+          Department Acknowledgement
+        </h2>
+
+        <div className="space-y-6">
+
+          {departmentStats.map((dept) => (
+
+            <div key={dept.department}>
+
+              <div className="flex justify-between mb-2 text-sm">
+
+                <span className="font-medium text-gray-700">
+                  {dept.department}
+                </span>
+
+                <span className="text-gray-500">
+                  {dept.percentage}%
+                </span>
 
               </div>
 
-            ))}
+              <div className="w-full h-3 bg-gray-100 rounded-full">
 
-          </div>
+                <div
+                  className="h-3 bg-blue-600 rounded-full transition-all duration-500"
+                  style={{
+                    width: `${dept.percentage}%`,
+                  }}
+                />
+
+              </div>
+
+            </div>
+
+          ))}
 
         </div>
 
-        {/* Pending Students */}
+      </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border overflow-hidden">
+      {/* Pending Students */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
 
-          <div className="px-6 py-5 border-b">
+        <div className="px-6 py-5 border-b border-gray-200">
 
-            <h2 className="text-2xl font-semibold">
-              Students Pending Acknowledgement
-            </h2>
+          <h2 className="text-xl font-semibold text-gray-800">
+            Students Pending Acknowledgement
+          </h2>
 
-          </div>
+        </div>
+
+        <div className="overflow-x-auto">
 
           <table className="w-full">
 
-            <thead className="bg-slate-100">
+            <thead className="bg-gray-50">
 
               <tr>
 
-                <th className="text-left px-6 py-4">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
                   Register No
                 </th>
 
-                <th className="text-left">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
                   Name
                 </th>
 
-                <th className="text-left">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
                   Department
                 </th>
 
-                <th className="text-left">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
                   Status
                 </th>
 
@@ -226,23 +250,25 @@ function AnnouncementAnalytics() {
 
                 <tr
                   key={student.regNo}
-                  className="border-t hover:bg-slate-50"
+                  className="border-t border-gray-100 hover:bg-gray-50 transition"
                 >
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-gray-700">
                     {student.regNo}
                   </td>
 
-                  <td>{student.name}</td>
+                  <td className="px-6 py-4 text-gray-700">
+                    {student.name}
+                  </td>
 
-                  <td>{student.department}</td>
+                  <td className="px-6 py-4 text-gray-700">
+                    {student.department}
+                  </td>
 
-                  <td>
+                  <td className="px-6 py-4">
 
-                    <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">
-
+                    <span className="inline-flex items-center rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-600">
                       Pending
-
                     </span>
 
                   </td>
@@ -259,8 +285,9 @@ function AnnouncementAnalytics() {
 
       </div>
 
-    </DashboardLayout>
-  );
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default AnnouncementAnalytics;

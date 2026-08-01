@@ -47,62 +47,104 @@ function Notifications() {
   };
 
   return (
-    <DashboardLayout>
-      <div className="space-y-6">
+  <DashboardLayout>
+    <div className="max-w-6xl mx-auto space-y-8">
+
+      {/* Header */}
+      <div className="flex items-center justify-between">
 
         <div>
-          <h1 className="text-3xl font-bold">
+
+          <h1 className="text-3xl font-bold text-gray-800">
             Notifications
           </h1>
 
-          <p className="text-gray-500 mt-2">
+          <p className="mt-2 text-gray-500">
             Stay updated with important activities.
           </p>
+
         </div>
 
-        <div className="space-y-4">
+        <div className="hidden md:flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-xl">
+
+          <FaBell />
+
+          <span className="font-medium">
+            {notifications.length} Notifications
+          </span>
+
+        </div>
+
+      </div>
+
+      {/* Notifications List */}
+
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+
+        <div className="px-6 py-5 border-b border-gray-200">
+
+          <h2 className="text-lg font-semibold text-gray-800">
+            Recent Notifications
+          </h2>
+
+        </div>
+
+        <div className="divide-y divide-gray-100">
 
           {notifications.map((notification) => (
+
             <div
               key={notification.id}
-              className="bg-white rounded-xl shadow-sm border p-5 flex justify-between items-start"
+              className="flex items-start justify-between p-6 hover:bg-gray-50 transition"
             >
+
               <div className="flex gap-4">
 
-                <div className="text-2xl">
+                <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-xl">
+
                   {getIcon(notification.type)}
+
                 </div>
 
                 <div>
-                  <h3 className="font-semibold">
+
+                  <h3 className="font-semibold text-gray-800">
                     {notification.title}
                   </h3>
 
-                  <p className="text-gray-600 mt-1">
+                  <p className="mt-1 text-gray-600">
                     {notification.message}
                   </p>
 
-                  <p className="text-sm text-gray-400 mt-2">
+                  <p className="mt-3 text-sm text-gray-400">
                     {notification.time}
                   </p>
+
                 </div>
 
               </div>
 
               {user.role === "admin" && (
-                <button className="text-red-600 hover:text-red-700">
+
+                <button className="rounded-lg px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 transition">
+
                   Delete
+
                 </button>
+
               )}
 
             </div>
+
           ))}
 
         </div>
 
       </div>
-    </DashboardLayout>
-  );
+
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default Notifications;

@@ -47,26 +47,25 @@ function SupportDesk() {
   };
 
   return (
-    <DashboardLayout >
-      {/* Header */}
+  <DashboardLayout>
+    <div className="max-w-7xl mx-auto space-y-8">
 
-      <div className="flex justify-between items-center">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
         <div>
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-3xl font-bold text-gray-800">
             Support Desk
           </h1>
 
-          <p className="text-gray-500 mt-2">
+          <p className="mt-2 text-gray-500">
             Manage student support requests.
           </p>
         </div>
 
         <button
-          onClick={() =>
-            navigate("/admin/support/create")
-          }
-          className="bg-blue-800 hover:bg-blue-900 text-white px-5 py-3 rounded-lg flex items-center gap-2"
+          onClick={() => navigate("/admin/support/create")}
+          className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-white font-medium hover:bg-blue-700 transition"
         >
           <FaPlus />
           New Ticket
@@ -74,140 +73,175 @@ function SupportDesk() {
 
       </div>
 
-      {/* Search */}
+      {/* Search & Filter */}
 
-      <div className="bg-white rounded-xl shadow-sm p-5 mt-8 flex gap-4">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
 
-        <div className="flex items-center border rounded-lg px-4 flex-1">
+        <div className="flex flex-col md:flex-row gap-4">
 
-          <FaMagnifyingGlass className="text-gray-400" />
+          <div className="flex flex-1 items-center rounded-xl border border-gray-300 px-4">
 
-          <input
-            placeholder="Search tickets..."
-            className="flex-1 outline-none px-3 py-3"
-          />
+            <FaMagnifyingGlass className="text-gray-400" />
+
+            <input
+              placeholder="Search tickets..."
+              className="w-full bg-transparent px-3 py-3 outline-none"
+            />
+
+          </div>
+
+          <select className="rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500">
+
+            <option>All Status</option>
+            <option>Open</option>
+            <option>In Progress</option>
+            <option>Resolved</option>
+
+          </select>
 
         </div>
 
-        <select className="border rounded-lg px-4">
-
-          <option>All Status</option>
-          <option>Open</option>
-          <option>In Progress</option>
-          <option>Resolved</option>
-
-        </select>
-
       </div>
 
-      {/* Table */}
+      {/* Tickets Table */}
 
-      <div className="bg-white rounded-xl shadow-sm mt-8 overflow-hidden">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
 
-        <table className="w-full">
+        <div className="border-b border-gray-200 px-6 py-5">
 
-          <thead className="bg-slate-100">
+          <h2 className="text-xl font-semibold text-gray-800">
+            Support Tickets
+          </h2>
 
-            <tr>
+        </div>
 
-              <th className="text-left px-6 py-4">
-                Ticket
-              </th>
+        <div className="overflow-x-auto">
 
-              <th className="text-left">
-                Student
-              </th>
+          <table className="w-full">
 
-              <th className="text-left">
-                Category
-              </th>
+            <thead className="bg-gray-50">
 
-              <th className="text-left">
-                Priority
-              </th>
+              <tr>
 
-              <th className="text-left">
-                Status
-              </th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+                  Ticket
+                </th>
 
-              <th className="text-left">
-                Date
-              </th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+                  Student
+                </th>
 
-              <th className="text-center">
-                Action
-              </th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+                  Category
+                </th>
 
-            </tr>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+                  Priority
+                </th>
 
-          </thead>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+                  Status
+                </th>
 
-          <tbody>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+                  Date
+                </th>
 
-            {tickets.map((ticket) => (
-
-              <tr
-                key={ticket.id}
-                className="border-t hover:bg-slate-50"
-              >
-
-                <td className="px-6 py-5 font-medium">
-                  {ticket.title}
-                </td>
-
-                <td>{ticket.student}</td>
-
-                <td>{ticket.category}</td>
-
-                <td>{ticket.priority}</td>
-
-                <td>
-
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm ${statusColor[ticket.status]}`}
-                  >
-                    {ticket.status}
-                  </span>
-
-                </td>
-
-                <td>{ticket.date}</td>
-
-                <td>
-
-                  <div className="flex justify-center gap-4">
-
-                    <button
-                      onClick={() =>
-                        navigate(
-                          `/admin/support/${ticket.id}`
-                        )
-                      }
-                      className="text-blue-700"
-                    >
-                      <FaEye />
-                    </button>
-
-                    <button className="text-yellow-600">
-                      <FaPen />
-                    </button>
-
-                  </div>
-
-                </td>
+                <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600">
+                  Actions
+                </th>
 
               </tr>
 
-            ))}
+            </thead>
 
-          </tbody>
+            <tbody>
 
-        </table>
+              {tickets.map((ticket) => (
+
+                <tr
+                  key={ticket.id}
+                  className="border-t border-gray-100 hover:bg-gray-50 transition"
+                >
+
+                  <td className="px-6 py-5 font-medium text-gray-800">
+                    {ticket.title}
+                  </td>
+
+                  <td className="px-6 py-5 text-gray-600">
+                    {ticket.student}
+                  </td>
+
+                  <td className="px-6 py-5 text-gray-600">
+                    {ticket.category}
+                  </td>
+
+                  <td className="px-6 py-5">
+
+                    <span
+                      className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${
+                        ticket.priority === "High"
+                          ? "bg-red-100 text-red-600"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+                      {ticket.priority}
+                    </span>
+
+                  </td>
+
+                  <td className="px-6 py-5">
+
+                    <span
+                      className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${statusColor[ticket.status]}`}
+                    >
+                      {ticket.status}
+                    </span>
+
+                  </td>
+
+                  <td className="px-6 py-5 text-gray-500">
+                    {ticket.date}
+                  </td>
+
+                  <td className="px-6 py-5">
+
+                    <div className="flex justify-center gap-3">
+
+                      <button
+                        onClick={() =>
+                          navigate(`/admin/support/${ticket.id}`)
+                        }
+                        className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
+                      >
+                        <FaEye />
+                      </button>
+
+                      <button
+                        className="flex h-9 w-9 items-center justify-center rounded-lg bg-yellow-50 text-yellow-600 hover:bg-yellow-100 transition"
+                      >
+                        <FaPen />
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+
+        </div>
 
       </div>
 
-    </DashboardLayout>
-  );
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default SupportDesk;

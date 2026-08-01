@@ -57,176 +57,126 @@ function TodayClasses() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white border rounded-xl shadow-sm">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="p-5 border-b">
 
-      <div className="flex justify-between items-center p-6 border-b">
+      <h2 className="text-lg font-semibold text-gray-800">
+        Today's Classes
+      </h2>
 
-        <div>
+      <p className="text-sm text-gray-500 mt-1">
+        Your learning schedule for today.
+      </p>
 
-          <h2 className="text-2xl font-bold">
+    </div>
 
-            Today's Classes
+    {/* Classes */}
+    <div className="p-5 space-y-4">
 
-          </h2>
+      {classes.map((item) => (
+        <div
+          key={item.id}
+          className="border rounded-lg p-4 hover:bg-gray-50 transition"
+        >
 
-          <p className="text-gray-500 mt-2">
+          {/* Top */}
+          <div className="flex justify-between items-start gap-4 flex-wrap">
 
-            Your learning schedule for today
+            <div className="flex items-center gap-3">
 
-          </p>
-
-        </div>
-
-      </div>
-
-      {/* Classes */}
-
-      <div className="p-6 space-y-5">
-
-        {classes.map((item) => (
-
-          <div
-            key={item.id}
-            className="border rounded-2xl p-5 hover:shadow-md transition"
-          >
-
-            <div className="flex justify-between items-start flex-wrap gap-4">
+              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                <FaBookOpen className="text-blue-600" />
+              </div>
 
               <div>
 
-                <div className="flex items-center gap-3">
+                <h3 className="font-medium text-gray-800">
+                  {item.subject}
+                </h3>
 
-                  <FaBookOpen className="text-blue-700"/>
-
-                  <div>
-
-                    <h3 className="text-xl font-semibold">
-
-                      {item.subject}
-
-                    </h3>
-
-                    <p className="text-gray-500">
-
-                      {item.code}
-
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusStyle(item.status)}`}
-              >
-
-                {item.status}
-
-              </span>
-
-            </div>
-
-            {/* Information */}
-
-            <div className="grid md:grid-cols-3 gap-5 mt-6">
-
-              <div className="flex items-center gap-3 text-gray-600">
-
-                <FaClock />
-
-                {item.time}
-
-              </div>
-
-              <div className="flex items-center gap-3 text-gray-600">
-
-                <FaLocationDot />
-
-                {item.room}
-
-              </div>
-
-              <div className="flex items-center gap-3 text-gray-600">
-
-                <FaUserTie />
-
-                {item.faculty}
+                <p className="text-sm text-gray-500">
+                  {item.code}
+                </p>
 
               </div>
 
             </div>
 
-            {/* Buttons */}
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusStyle(
+                item.status
+              )}`}
+            >
+              {item.status}
+            </span>
 
-            <div className="flex gap-3 mt-6 flex-wrap">
+          </div>
 
-              <button
-                onClick={() => navigate(`/workspace/${item.id}`)}
-                className="bg-blue-800 hover:bg-blue-900 text-white px-5 py-2 rounded-lg flex items-center gap-2"
-              >
+          {/* Details */}
+          <div className="flex flex-wrap gap-6 mt-4 text-sm text-gray-600">
 
-                Open Workspace
+            <div className="flex items-center gap-2">
+              <FaClock />
+              {item.time}
+            </div>
 
-                <FaArrowRight />
+            <div className="flex items-center gap-2">
+              <FaLocationDot />
+              {item.room}
+            </div>
 
-              </button>
-
-              <button className="border px-5 py-2 rounded-lg hover:bg-gray-100">
-
-                Resources
-
-              </button>
-
-              <button className="border px-5 py-2 rounded-lg hover:bg-gray-100">
-
-                Discussion
-
-              </button>
-
+            <div className="flex items-center gap-2">
+              <FaUserTie />
+              {item.faculty}
             </div>
 
           </div>
 
-        ))}
+          {/* Actions */}
+          <div className="flex flex-wrap gap-3 mt-5">
 
+            <button
+              onClick={() => navigate(`/workspace/${item.id}`)}
+              className="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg transition flex items-center gap-2"
+            >
+              Open Workspace
+              <FaArrowRight size={12} />
+            </button>
+
+            <button className="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">
+              Resources
+            </button>
+
+            <button className="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">
+              Discussion
+            </button>
+
+          </div>
+
+        </div>
+      ))}
+
+    </div>
+
+    {/* Footer */}
+    <div className="border-t p-5 flex justify-between items-center flex-wrap gap-3">
+
+      <div className="flex items-center gap-2 text-green-600 text-sm">
+        <FaCircleCheck />
+        <span>1 Class Completed</span>
       </div>
 
-      {/* Footer */}
-
-      <div className="border-t bg-gray-50 rounded-b-2xl p-5 flex justify-between items-center">
-
-        <div className="flex items-center gap-2 text-green-700">
-
-          <FaCircleCheck />
-
-          <span>
-
-            1 Class Completed
-
-          </span>
-
-        </div>
-
-        <div className="flex items-center gap-2 text-blue-700">
-
-          <FaPlay />
-
-          <span>
-
-            1 Ongoing
-
-          </span>
-
-        </div>
-
+      <div className="flex items-center gap-2 text-blue-600 text-sm">
+        <FaPlay />
+        <span>1 Ongoing</span>
       </div>
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default TodayClasses;

@@ -52,177 +52,168 @@ function WorkspaceList() {
   ];
 
   return (
-    <DashboardLayout >
-      <div>
+  <DashboardLayout>
+    <div className="max-w-7xl mx-auto space-y-8">
 
-        {/* Header */}
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-        <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800">
+            Academic Workspaces
+          </h1>
 
-          <div>
-            <h1 className="text-3xl font-bold">
-              Academic Workspaces
-            </h1>
-
-            <p className="text-gray-500 mt-2">
-              Subject-based collaborative learning spaces.
-            </p>
-          </div>
-
+          <p className="mt-2 text-gray-500">
+            Subject-based collaborative learning spaces.
+          </p>
         </div>
 
-        {/* Search */}
+      </div>
 
-        <div className="bg-white rounded-xl shadow-sm mt-8 p-5">
+      {/* Search */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
 
-          <div className="flex items-center border rounded-lg px-4">
+        <div className="flex items-center rounded-xl border border-gray-300 px-4">
 
-            <FaMagnifyingGlass className="text-gray-400"/>
+          <FaMagnifyingGlass className="text-gray-400" />
 
-            <input
-              className="flex-1 outline-none px-3 py-3"
-              placeholder="Search workspace..."
-            />
-
-          </div>
-
-        </div>
-
-        {/* Workspace Cards */}
-
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
-
-          {workspaces.map((workspace) => (
-
-            <div
-              key={workspace.id}
-              className="bg-white rounded-2xl shadow-sm border hover:shadow-lg transition"
-            >
-
-              {/* Top */}
-
-              <div className="bg-blue-800 text-white rounded-t-2xl p-6">
-
-                <FaBookOpen
-                  size={35}
-                  className="mb-5"
-                />
-
-                <h2 className="text-2xl font-bold">
-
-                  {workspace.subject}
-
-                </h2>
-
-                <p className="text-blue-200 mt-2">
-
-                  {workspace.code}
-
-                </p>
-
-              </div>
-
-              {/* Body */}
-
-              <div className="p-6">
-
-                <p className="font-medium">
-
-                  Faculty
-
-                </p>
-
-                <p className="text-gray-600 mb-6">
-
-                  {workspace.faculty}
-
-                </p>
-
-                <div className="grid grid-cols-3 gap-4 text-center">
-
-                  <div>
-
-                    <FaFolderOpen
-                      className="mx-auto text-blue-700"
-                      size={22}
-                    />
-
-                    <h3 className="font-bold mt-2">
-
-                      {workspace.resources}
-
-                    </h3>
-
-                    <p className="text-xs text-gray-500">
-                      Resources
-                    </p>
-
-                  </div>
-
-                  <div>
-
-                    <FaComments
-                      className="mx-auto text-green-700"
-                      size={22}
-                    />
-
-                    <h3 className="font-bold mt-2">
-
-                      {workspace.discussions}
-
-                    </h3>
-
-                    <p className="text-xs text-gray-500">
-                      Discussions
-                    </p>
-
-                  </div>
-
-                  <div>
-
-                    <FaUsers
-                      className="mx-auto text-orange-600"
-                      size={22}
-                    />
-
-                    <h3 className="font-bold mt-2">
-
-                      {workspace.students}
-
-                    </h3>
-
-                    <p className="text-xs text-gray-500">
-                      Students
-                    </p>
-
-                  </div>
-
-                </div>
-
-                <button
-                  onClick={() =>
-                    navigate(`/workspace/${workspace.id}`)
-                  }
-                  className="mt-8 w-full bg-blue-800 hover:bg-blue-900 text-white py-3 rounded-lg flex justify-center items-center gap-3"
-                >
-
-                  Open Workspace
-
-                  <FaArrowRight />
-
-                </button>
-
-              </div>
-
-            </div>
-
-          ))}
+          <input
+            placeholder="Search workspace..."
+            className="w-full bg-transparent px-3 py-3 outline-none"
+          />
 
         </div>
 
       </div>
-    </DashboardLayout>
-  );
+
+      {/* Workspace Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+        {workspaces.map((workspace) => (
+
+          <div
+            key={workspace.id}
+            className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition"
+          >
+
+            {/* Card Header */}
+            <div className="border-b border-gray-200 p-6">
+
+              <div className="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
+
+                <FaBookOpen
+                  className="text-blue-600"
+                  size={24}
+                />
+
+              </div>
+
+              <h2 className="text-xl font-semibold text-gray-800">
+                {workspace.subject}
+              </h2>
+
+              <p className="text-sm text-gray-500 mt-1">
+                {workspace.code}
+              </p>
+
+            </div>
+
+            {/* Card Body */}
+            <div className="p-6">
+
+              <div className="mb-6">
+
+                <p className="text-sm text-gray-500">
+                  Faculty
+                </p>
+
+                <p className="font-medium text-gray-800 mt-1">
+                  {workspace.faculty}
+                </p>
+
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-4">
+
+                <div className="rounded-xl bg-gray-50 p-4 text-center">
+
+                  <FaFolderOpen
+                    className="mx-auto text-blue-600"
+                    size={20}
+                  />
+
+                  <p className="mt-2 text-lg font-bold text-gray-800">
+                    {workspace.resources}
+                  </p>
+
+                  <p className="text-xs text-gray-500">
+                    Resources
+                  </p>
+
+                </div>
+
+                <div className="rounded-xl bg-gray-50 p-4 text-center">
+
+                  <FaComments
+                    className="mx-auto text-green-600"
+                    size={20}
+                  />
+
+                  <p className="mt-2 text-lg font-bold text-gray-800">
+                    {workspace.discussions}
+                  </p>
+
+                  <p className="text-xs text-gray-500">
+                    Discussions
+                  </p>
+
+                </div>
+
+                <div className="rounded-xl bg-gray-50 p-4 text-center">
+
+                  <FaUsers
+                    className="mx-auto text-orange-500"
+                    size={20}
+                  />
+
+                  <p className="mt-2 text-lg font-bold text-gray-800">
+                    {workspace.students}
+                  </p>
+
+                  <p className="text-xs text-gray-500">
+                    Students
+                  </p>
+
+                </div>
+
+              </div>
+
+              {/* Button */}
+              <button
+                onClick={() =>
+                  navigate(`/workspace/${workspace.id}`)
+                }
+                className="mt-6 w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 text-white font-medium hover:bg-blue-700 transition"
+              >
+
+                Open Workspace
+
+                <FaArrowRight size={14} />
+
+              </button>
+
+            </div>
+
+          </div>
+
+        ))}
+
+      </div>
+
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default WorkspaceList;

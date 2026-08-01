@@ -43,145 +43,117 @@ function PendingTasks() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white border rounded-xl shadow-sm">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="flex items-center gap-3 p-5 border-b">
 
-      <div className="p-6 border-b">
+      <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+        <FaClipboardCheck className="text-blue-600" />
+      </div>
 
-        <div className="flex items-center gap-3">
+      <div>
+        <h2 className="text-lg font-semibold text-gray-800">
+          Pending Tasks
+        </h2>
 
-          <FaClipboardCheck className="text-blue-700 text-2xl"/>
+        <p className="text-sm text-gray-500">
+          Complete these before their deadline.
+        </p>
+      </div>
 
-          <div>
+    </div>
 
-            <h2 className="text-2xl font-bold">
+    {/* Tasks */}
+    <div className="divide-y">
 
-              Pending Tasks
+      {tasks.map((task) => (
+        <div
+          key={task.id}
+          className="p-5 hover:bg-gray-50 transition"
+        >
 
-            </h2>
+          {/* Top */}
+          <div className="flex justify-between items-start gap-4">
 
-            <p className="text-gray-500 mt-1">
+            <div>
 
-              Complete these before their deadline.
+              <h3 className="font-medium text-gray-800">
+                {task.title}
+              </h3>
 
-            </p>
+              <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
+                <FaBookOpen />
+                {task.subject}
+              </div>
+
+            </div>
+
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-medium ${
+                priorityColor[task.priority]
+              }`}
+            >
+              {task.priority}
+            </span>
 
           </div>
 
-        </div>
+          {/* Schedule */}
+          <div className="flex flex-wrap gap-6 mt-4 text-sm text-gray-600">
 
-      </div>
-
-      {/* Tasks */}
-
-      <div className="divide-y">
-
-        {tasks.map((task) => (
-
-          <div
-            key={task.id}
-            className="p-5 hover:bg-gray-50 transition"
-          >
-
-            <div className="flex justify-between items-start">
-
-              <div>
-
-                <h3 className="font-semibold text-lg">
-
-                  {task.title}
-
-                </h3>
-
-                <div className="flex items-center gap-2 mt-2 text-gray-500">
-
-                  <FaBookOpen />
-
-                  {task.subject}
-
-                </div>
-
-              </div>
-
-              <span
-                className={`px-3 py-1 rounded-full text-sm ${priorityColor[task.priority]}`}
-              >
-                {task.priority}
-              </span>
-
+            <div className="flex items-center gap-2">
+              <FaCalendarDays />
+              {task.due}
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mt-5">
-
-              <div className="flex items-center gap-2 text-gray-600">
-
-                <FaCalendarDays />
-
-                {task.due}
-
-              </div>
-
-              <div className="flex items-center gap-2 text-gray-600">
-
-                <FaClock />
-
-                {task.time}
-
-              </div>
-
-            </div>
-
-            <div className="flex gap-3 mt-5">
-
-              <button className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg">
-
-                View Details
-
-              </button>
-
-              <button className="border px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center gap-2">
-
-                Open Workspace
-
-                <FaArrowRight />
-
-              </button>
-
+            <div className="flex items-center gap-2">
+              <FaClock />
+              {task.time}
             </div>
 
           </div>
 
-        ))}
+          {/* Actions */}
+          <div className="flex gap-3 mt-5">
 
-      </div>
+            <button className="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg transition">
+              View Details
+            </button>
 
-      {/* Footer */}
+            <button className="px-4 py-2 border rounded-lg hover:bg-gray-100 transition flex items-center gap-2">
+              Open Workspace
+              <FaArrowRight size={12} />
+            </button>
 
-      <div className="bg-yellow-50 rounded-b-2xl border-t p-5 flex items-center justify-between">
-
-        <div className="flex items-center gap-2 text-yellow-700">
-
-          <FaTriangleExclamation />
-
-          <span>
-
-            1 Task Due Today
-
-          </span>
+          </div>
 
         </div>
+      ))}
 
-        <span className="font-bold">
+    </div>
 
-          3 Pending
+    {/* Footer */}
+    <div className="border-t p-5 flex justify-between items-center">
 
+      <div className="flex items-center gap-2 text-yellow-600 text-sm">
+
+        <FaTriangleExclamation />
+
+        <span>
+          1 Task Due Today
         </span>
 
       </div>
 
+      <span className="font-semibold text-gray-800">
+        3 Pending
+      </span>
+
     </div>
-  );
+
+  </div>
+);
 }
 
 export default PendingTasks;

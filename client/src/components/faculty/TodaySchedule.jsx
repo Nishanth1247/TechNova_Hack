@@ -45,149 +45,140 @@ function TodaySchedule() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-8 py-6 border-b border-gray-100">
 
-      <div className="flex justify-between items-center p-6 border-b">
+      <div>
+        <h2 className="text-2xl font-bold text-gray-800">
+          Today's Schedule
+        </h2>
 
-        <div>
-
-          <h2 className="text-2xl font-bold">
-            Today's Schedule
-          </h2>
-
-          <p className="text-gray-500 mt-1">
-            Your teaching schedule for today.
-          </p>
-
-        </div>
-
-        <button className="bg-blue-800 hover:bg-blue-900 text-white px-5 py-2 rounded-lg flex items-center gap-2">
-
-          <FaPlay />
-
-          Start Class
-
-        </button>
-
+        <p className="text-gray-500 mt-1">
+          Manage today's teaching sessions.
+        </p>
       </div>
 
-      {/* Schedule */}
+      <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl transition">
 
-      <div className="p-6 space-y-6">
+        <FaPlay />
 
-        {classes.map((item) => (
+        Start Class
 
-          <div
-            key={item.id}
-            className="border rounded-2xl p-5 hover:shadow-md transition"
-          >
+      </button>
 
-            <div className="flex justify-between items-start flex-wrap gap-4">
+    </div>
+
+    {/* Schedule */}
+    <div className="p-6 space-y-5">
+
+      {classes.map((item) => (
+
+        <div
+          key={item.id}
+          className="border border-gray-200 rounded-2xl p-6 hover:shadow-md transition"
+        >
+
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+
+            {/* Left */}
+            <div className="flex gap-4">
+
+              <div className="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center">
+
+                <FaBookOpen
+                  className="text-blue-600"
+                  size={22}
+                />
+
+              </div>
 
               <div>
 
                 <div className="flex items-center gap-3">
 
-                  <FaBookOpen className="text-blue-700" />
-
-                  <h3 className="text-xl font-semibold">
-
+                  <h3 className="text-xl font-semibold text-gray-800">
                     {item.subject}
-
                   </h3>
+
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-medium ${statusStyle[item.status]}`}
+                  >
+                    {item.status}
+                  </span>
 
                 </div>
 
-                <p className="text-gray-500 mt-2">
+                <p className="text-gray-500 mt-1">
                   {item.code}
                 </p>
 
-              </div>
+                <div className="flex flex-wrap gap-6 mt-4 text-sm text-gray-600">
 
-              <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${statusStyle[item.status]}`}
-              >
-                {item.status}
-              </span>
+                  <div className="flex items-center gap-2">
+                    <FaClock className="text-blue-500" />
+                    {item.time}
+                  </div>
 
-            </div>
+                  <div className="flex items-center gap-2">
+                    <FaLocationDot className="text-red-500" />
+                    {item.room}
+                  </div>
 
-            <div className="grid md:grid-cols-3 gap-5 mt-6">
+                  <div className="flex items-center gap-2">
+                    <FaUsers className="text-green-500" />
+                    {item.students} Students
+                  </div>
 
-              <div className="flex items-center gap-3 text-gray-600">
-
-                <FaClock />
-
-                <span>{item.time}</span>
-
-              </div>
-
-              <div className="flex items-center gap-3 text-gray-600">
-
-                <FaLocationDot />
-
-                <span>{item.room}</span>
-
-              </div>
-
-              <div className="flex items-center gap-3 text-gray-600">
-
-                <FaUsers />
-
-                <span>{item.students} Students</span>
+                </div>
 
               </div>
 
             </div>
 
-            <div className="flex gap-3 mt-6 flex-wrap">
+            {/* Right */}
+            <div className="flex flex-wrap gap-3">
 
-              <button className="bg-blue-800 hover:bg-blue-900 text-white px-5 py-2 rounded-lg">
-
-                Open Workspace
-
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl transition">
+                Workspace
               </button>
 
-              <button className="border px-5 py-2 rounded-lg hover:bg-gray-50">
-
+              <button className="border border-gray-300 hover:bg-gray-50 px-5 py-2.5 rounded-xl transition">
                 Attendance
-
               </button>
 
-              <button className="border px-5 py-2 rounded-lg hover:bg-gray-50">
-
+              <button className="border border-gray-300 hover:bg-gray-50 px-5 py-2.5 rounded-xl transition">
                 Resources
-
               </button>
 
             </div>
 
           </div>
 
-        ))}
-
-      </div>
-
-      {/* Footer */}
-
-      <div className="border-t p-6 bg-gray-50 rounded-b-2xl">
-
-        <div className="flex items-center gap-3 text-green-700">
-
-          <FaCircleCheck />
-
-          <span className="font-medium">
-            1 Class Completed • 1 Ongoing • 1 Upcoming
-          </span>
-
         </div>
+
+      ))}
+
+    </div>
+
+    {/* Footer */}
+    <div className="bg-gray-50 border-t border-gray-200 px-8 py-5">
+
+      <div className="flex items-center gap-3 text-green-600 font-medium">
+
+        <FaCircleCheck />
+
+        <span>
+          1 Class Completed • 1 Ongoing • 1 Upcoming
+        </span>
 
       </div>
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default TodaySchedule;

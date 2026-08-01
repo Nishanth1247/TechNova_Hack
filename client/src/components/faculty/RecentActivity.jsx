@@ -87,107 +87,91 @@ function RecentActivity() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white border rounded-xl shadow-sm">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="flex justify-between items-center p-5 border-b">
 
-      <div className="flex justify-between items-center p-6 border-b">
+      <div>
+        <h2 className="text-lg font-semibold text-gray-800">
+          Recent Activity
+        </h2>
 
-        <div>
-
-          <h2 className="text-2xl font-bold">
-            Recent Activity
-          </h2>
-
-          <p className="text-gray-500 mt-2">
-            Your latest activities across CampusConnect.
-          </p>
-
-        </div>
-
-        <button className="text-blue-700 font-semibold flex items-center gap-2 hover:text-blue-900">
-
-          View All
-
-          <FaArrowRight />
-
-        </button>
-
+        <p className="text-sm text-gray-500 mt-1">
+          Your latest activities across CampusConnect.
+        </p>
       </div>
 
-      {/* Timeline */}
+      <button className="flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition">
+        View All
+        <FaArrowRight size={12} />
+      </button>
 
-      <div className="p-6">
+    </div>
 
-        <div className="relative">
+    {/* Timeline */}
+    <div className="p-5">
 
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+      <div className="relative">
 
-          <div className="space-y-8">
+        {/* Vertical Line */}
+        <div className="absolute left-5 top-0 bottom-0 w-px bg-gray-200"></div>
 
-            {activities.map((activity) => (
+        <div className="space-y-6">
 
-              <div
-                key={activity.id}
-                className="relative flex gap-5"
-              >
+          {activities.map((activity) => (
+            <div
+              key={activity.id}
+              className="relative flex gap-4"
+            >
 
-                <div className="relative z-10">
+              {/* Icon */}
+              <div className="relative z-10">
+                {getIcon(activity.type)}
+              </div>
 
-                  {getIcon(activity.type)}
+              {/* Content */}
+              <div className="flex-1">
 
-                </div>
+                <h3 className="font-medium text-gray-800">
+                  {activity.title}
+                </h3>
 
-                <div className="flex-1">
+                <p className="text-sm text-gray-600 mt-1">
+                  {activity.description}
+                </p>
 
-                  <h3 className="font-semibold text-lg">
-
-                    {activity.title}
-
-                  </h3>
-
-                  <p className="text-gray-500 mt-1">
-
-                    {activity.description}
-
-                  </p>
-
-                  <div className="flex items-center gap-2 mt-3 text-sm text-gray-400">
-
-                    <FaClock />
-
-                    {activity.time}
-
-                  </div>
-
+                <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
+                  <FaClock />
+                  {activity.time}
                 </div>
 
               </div>
 
-            ))}
-
-          </div>
+            </div>
+          ))}
 
         </div>
 
       </div>
 
-      {/* Footer */}
+    </div>
 
-      <div className="bg-gray-50 border-t rounded-b-2xl p-5 flex justify-between items-center">
+    {/* Footer */}
+    <div className="border-t p-5 flex justify-between items-center">
 
-        <span className="text-gray-600">
-          Activities Today
-        </span>
+      <span className="text-sm text-gray-500">
+        Activities Today
+      </span>
 
-        <span className="font-bold text-blue-700 text-xl">
-          18
-        </span>
-
-      </div>
+      <span className="text-xl font-bold text-blue-700">
+        18
+      </span>
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default RecentActivity;

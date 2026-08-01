@@ -23,52 +23,48 @@ function Profile() {
   };
 
   return (
-    <DashboardLayout role="student">
-      <div className="max-w-6xl mx-auto">
+  <DashboardLayout role="student">
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="max-w-6xl mx-auto space-y-6">
 
-        {/* Header */}
+        {/* Profile Header */}
+        <div className="bg-white border rounded-xl shadow-sm p-6">
 
-        <div className="bg-gradient-to-r from-blue-900 to-blue-700 rounded-2xl p-8 text-white">
-
-          <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
 
             <div className="relative">
 
-              <div className="w-36 h-36 rounded-full bg-white text-blue-800 flex items-center justify-center text-6xl">
-
+              <div className="w-28 h-28 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-5xl">
                 <FaUser />
-
               </div>
 
-              <button className="absolute bottom-2 right-2 bg-blue-600 p-3 rounded-full hover:bg-blue-700">
-
-                <FaCamera />
-
+              <button className="absolute bottom-0 right-0 w-9 h-9 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center transition">
+                <FaCamera size={14} />
               </button>
 
             </div>
 
-            <div>
+            <div className="flex-1">
 
-              <h1 className="text-4xl font-bold">
+              <h1 className="text-2xl font-bold text-gray-800">
                 {user.name}
               </h1>
 
-              <p className="text-blue-200 mt-2">
+              <p className="text-gray-500 mt-1">
                 {user.role}
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 mt-4">
 
-                <span className="bg-white/20 px-4 py-2 rounded-full">
+                <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
                   {user.department}
                 </span>
 
-                <span className="bg-white/20 px-4 py-2 rounded-full">
+                <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
                   {user.semester}
                 </span>
 
-                <span className="bg-white/20 px-4 py-2 rounded-full">
+                <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
                   Section {user.section}
                 </span>
 
@@ -76,72 +72,88 @@ function Profile() {
 
             </div>
 
+            <button className="flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white px-5 py-2.5 rounded-lg transition">
+              <FaPenToSquare />
+              Edit Profile
+            </button>
+
           </div>
 
         </div>
 
         {/* Information */}
+        <div className="grid lg:grid-cols-2 gap-6">
 
-        <div className="grid lg:grid-cols-2 gap-6 mt-8">
+          {/* Personal */}
+          <div className="bg-white border rounded-xl shadow-sm p-6">
 
-          <div className="bg-white rounded-2xl shadow-sm border p-6">
-
-            <h2 className="text-2xl font-semibold mb-6">
+            <h2 className="text-lg font-semibold mb-5">
               Personal Information
             </h2>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
 
-              <div className="flex items-center gap-4">
-                <FaEnvelope className="text-blue-700" />
-                <div>
-                  <p className="text-gray-500 text-sm">Email</p>
-                  <p>{user.email}</p>
-                </div>
+              <div>
+                <p className="text-sm text-gray-500">
+                  Email
+                </p>
+
+                <p className="font-medium">
+                  {user.email}
+                </p>
               </div>
 
-              <div className="flex items-center gap-4">
-                <FaPhone className="text-blue-700" />
-                <div>
-                  <p className="text-gray-500 text-sm">Phone</p>
-                  <p>{user.phone}</p>
-                </div>
+              <div>
+                <p className="text-sm text-gray-500">
+                  Phone
+                </p>
+
+                <p className="font-medium">
+                  {user.phone}
+                </p>
               </div>
 
-              <div className="flex items-center gap-4">
-                <FaIdBadge className="text-blue-700" />
-                <div>
-                  <p className="text-gray-500 text-sm">Register Number</p>
-                  <p>{user.regNo}</p>
-                </div>
+              <div>
+                <p className="text-sm text-gray-500">
+                  Register Number
+                </p>
+
+                <p className="font-medium">
+                  {user.regNo}
+                </p>
               </div>
 
             </div>
 
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm border p-6">
+          {/* Academic */}
+          <div className="bg-white border rounded-xl shadow-sm p-6">
 
-            <h2 className="text-2xl font-semibold mb-6">
+            <h2 className="text-lg font-semibold mb-5">
               Academic Information
             </h2>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
 
-              <div className="flex items-center gap-4">
-                <FaBuilding className="text-blue-700" />
-                <div>
-                  <p className="text-gray-500 text-sm">Department</p>
-                  <p>{user.department}</p>
-                </div>
+              <div>
+                <p className="text-sm text-gray-500">
+                  Department
+                </p>
+
+                <p className="font-medium">
+                  {user.department}
+                </p>
               </div>
 
-              <div className="flex items-center gap-4">
-                <FaGraduationCap className="text-blue-700" />
-                <div>
-                  <p className="text-gray-500 text-sm">Semester</p>
-                  <p>{user.semester}</p>
-                </div>
+              <div>
+                <p className="text-sm text-gray-500">
+                  Semester
+                </p>
+
+                <p className="font-medium">
+                  {user.semester}
+                </p>
               </div>
 
             </div>
@@ -150,57 +162,63 @@ function Profile() {
 
         </div>
 
-        {/* Activity */}
+        {/* Activity Summary */}
+        <div className="bg-white border rounded-xl shadow-sm p-6">
 
-        <div className="bg-white rounded-2xl shadow-sm border p-6 mt-8">
-
-          <h2 className="text-2xl font-semibold mb-6">
+          <h2 className="text-lg font-semibold mb-6">
             Activity Summary
           </h2>
 
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 
             <div className="text-center">
-              <h3 className="text-3xl font-bold text-blue-700">24</h3>
-              <p className="text-gray-500">Announcements Read</p>
+              <h3 className="text-3xl font-bold text-blue-700">
+                24
+              </h3>
+
+              <p className="text-sm text-gray-500 mt-1">
+                Announcements Read
+              </p>
             </div>
 
             <div className="text-center">
-              <h3 className="text-3xl font-bold text-green-600">18</h3>
-              <p className="text-gray-500">Resources Downloaded</p>
+              <h3 className="text-3xl font-bold text-green-600">
+                18
+              </h3>
+
+              <p className="text-sm text-gray-500 mt-1">
+                Resources Downloaded
+              </p>
             </div>
 
             <div className="text-center">
-              <h3 className="text-3xl font-bold text-orange-500">12</h3>
-              <p className="text-gray-500">Discussion Posts</p>
+              <h3 className="text-3xl font-bold text-orange-500">
+                12
+              </h3>
+
+              <p className="text-sm text-gray-500 mt-1">
+                Discussion Posts
+              </p>
             </div>
 
             <div className="text-center">
-              <h3 className="text-3xl font-bold text-purple-600">3</h3>
-              <p className="text-gray-500">Open Support Tickets</p>
+              <h3 className="text-3xl font-bold text-purple-600">
+                3
+              </h3>
+
+              <p className="text-sm text-gray-500 mt-1">
+                Open Tickets
+              </p>
             </div>
 
           </div>
-
-        </div>
-
-        {/* Action */}
-
-        <div className="flex justify-end mt-8">
-
-          <button className="bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg flex items-center gap-2">
-
-            <FaPenToSquare />
-
-            Edit Profile
-
-          </button>
 
         </div>
 
       </div>
-    </DashboardLayout>
-  );
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default Profile;

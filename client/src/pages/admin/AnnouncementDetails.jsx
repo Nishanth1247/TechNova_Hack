@@ -30,183 +30,125 @@ function AnnouncementDetails() {
   );
 
   return (
-    <DashboardLayout >
-      <div className="max-w-6xl mx-auto">
+  <DashboardLayout>
+    <div className="min-h-screen bg-gray-100 py-8 px-4">
+      <div className="max-w-5xl mx-auto bg-white rounded-xl shadow border">
 
         {/* Header */}
-
-        <div className="bg-white rounded-2xl shadow-sm p-8">
-
-          <div className="flex justify-between items-start">
-
-            <div>
-
-              <div className="flex items-center gap-3 mb-4">
-
-                <FaBullhorn className="text-blue-700 text-2xl" />
-
-                <h1 className="text-3xl font-bold">
-                  {announcement.title}
-                </h1>
-
-              </div>
-
-              <span className="inline-block px-4 py-1 rounded-full bg-yellow-100 text-yellow-700 font-medium">
-                {announcement.priority} Priority
-              </span>
-
+        <div className="flex justify-between items-start p-8 border-b">
+          <div>
+            <div className="flex items-center gap-3">
+              <FaBullhorn className="text-blue-700 text-xl" />
+              <h1 className="text-2xl font-bold text-gray-800">
+                {announcement.title}
+              </h1>
             </div>
 
-            <button className="bg-blue-800 text-white px-5 py-3 rounded-lg hover:bg-blue-900">
-              Edit Announcement
-            </button>
-
+            <span className="inline-block mt-4 px-3 py-1 rounded-md bg-yellow-100 text-yellow-700 text-sm font-medium">
+              {announcement.priority} Priority
+            </span>
           </div>
 
+          <button className="bg-blue-700 hover:bg-blue-800 text-white px-5 py-2.5 rounded-lg transition">
+            Edit Announcement
+          </button>
+        </div>
+
+        {/* Announcement Details */}
+        <div className="p-8 border-b">
+          <h2 className="text-lg font-semibold mb-4 text-gray-800">
+            Announcement Details
+          </h2>
+
+          <p className="text-gray-600 leading-8">
+            {announcement.description}
+          </p>
+
+          {announcement.attachment && (
+            <button className="mt-6 flex items-center gap-2 border px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+              <FaDownload />
+              {announcement.attachment}
+            </button>
+          )}
         </div>
 
         {/* Information */}
+        <div className="p-8 border-b">
+          <h2 className="text-lg font-semibold mb-6 text-gray-800">
+            Information
+          </h2>
 
-        <div className="grid lg:grid-cols-3 gap-6 mt-6">
+          <div className="grid md:grid-cols-2 gap-6">
 
-          <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm p-8">
+            <div>
+              <p className="text-sm text-gray-500">Published</p>
+              <p className="font-medium">{announcement.publishDate}</p>
+            </div>
 
-            <h2 className="text-xl font-semibold mb-4">
-              Announcement Details
-            </h2>
+            <div>
+              <p className="text-sm text-gray-500">Published By</p>
+              <p className="font-medium">{announcement.publishedBy}</p>
+            </div>
 
-            <p className="text-gray-600 leading-8">
-              {announcement.description}
-            </p>
+            <div>
+              <p className="text-sm text-gray-500">Department</p>
+              <p className="font-medium">{announcement.department}</p>
+            </div>
 
-            <div className="mt-8">
-
-              <button className="flex items-center gap-3 bg-slate-100 hover:bg-slate-200 px-5 py-3 rounded-lg">
-
-                <FaDownload />
-
-                {announcement.attachment}
-
-              </button>
-
+            <div>
+              <p className="text-sm text-gray-500">Target Audience</p>
+              <p className="font-medium">{announcement.target}</p>
             </div>
 
           </div>
-
-          {/* Information Card */}
-
-          <div className="bg-white rounded-2xl shadow-sm p-6">
-
-            <h2 className="text-xl font-semibold mb-5">
-              Information
-            </h2>
-
-            <div className="space-y-5">
-
-              <div className="flex gap-3">
-                <FaCalendarDays className="mt-1 text-blue-700" />
-                <div>
-                  <p className="text-gray-500">Published</p>
-                  <p>{announcement.publishDate}</p>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <FaUser className="mt-1 text-blue-700" />
-                <div>
-                  <p className="text-gray-500">Published By</p>
-                  <p>{announcement.publishedBy}</p>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <FaBuilding className="mt-1 text-blue-700" />
-                <div>
-                  <p className="text-gray-500">Department</p>
-                  <p>{announcement.department}</p>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <FaEye className="mt-1 text-blue-700" />
-                <div>
-                  <p className="text-gray-500">Target Audience</p>
-                  <p>{announcement.target}</p>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
         </div>
 
         {/* Acknowledgement */}
-
-        <div className="bg-white rounded-2xl shadow-sm p-8 mt-6">
-
-          <div className="flex justify-between items-center">
-
-            <h2 className="text-xl font-semibold">
+        <div className="p-8 border-b">
+          <div className="flex justify-between items-center mb-5">
+            <h2 className="text-lg font-semibold text-gray-800">
               Acknowledgement Status
             </h2>
 
             <span className="font-semibold text-blue-700">
               {announcement.acknowledged} / {announcement.total}
             </span>
-
           </div>
 
-          <div className="w-full bg-gray-200 rounded-full h-4 mt-6">
-
+          <div className="w-full h-3 bg-gray-200 rounded-full">
             <div
-              className="bg-blue-700 h-4 rounded-full"
-              style={{
-                width: `${percentage}%`,
-              }}
-            ></div>
-
+              className="h-3 rounded-full bg-blue-700"
+              style={{ width: `${percentage}%` }}
+            />
           </div>
 
-          <p className="mt-3 text-gray-500">
+          <p className="text-sm text-gray-500 mt-3">
             {percentage}% of recipients have acknowledged this announcement.
           </p>
-
         </div>
 
-        {/* Student View Button */}
+        {/* Student Action */}
+        <div className="flex justify-between items-center p-8">
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800">
+              Student Action
+            </h2>
 
-        <div className="bg-white rounded-2xl shadow-sm p-8 mt-6">
-
-          <div className="flex justify-between items-center">
-
-            <div>
-
-              <h2 className="text-xl font-semibold">
-                Student Action
-              </h2>
-
-              <p className="text-gray-500 mt-1">
-                Students will see this button if acknowledgement is required.
-              </p>
-
-            </div>
-
-            <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg flex items-center gap-3">
-
-              <FaCircleCheck />
-
-              Acknowledge
-
-            </button>
-
+            <p className="text-gray-500 text-sm mt-1">
+              Students can acknowledge this announcement after reading it.
+            </p>
           </div>
 
+          <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-lg flex items-center gap-2 transition">
+            <FaCircleCheck />
+            Acknowledge
+          </button>
         </div>
 
       </div>
-    </DashboardLayout>
-  );
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default AnnouncementDetails;

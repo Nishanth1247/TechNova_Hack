@@ -32,43 +32,50 @@ function SupportTicketDetails() {
   };
 
   return (
-    <DashboardLayout >
-      <div className="grid lg:grid-cols-3 gap-6">
+  <DashboardLayout>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-6">
 
-        {/* Left Section */}
+        {/* Left */}
+        <div className="lg:col-span-2 bg-white border rounded-xl shadow-sm">
 
-        <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm p-8">
+          {/* Header */}
+          <div className="p-6 border-b">
 
-          <h1 className="text-3xl font-bold">
-            {ticket.title}
-          </h1>
+            <h1 className="text-2xl font-bold text-gray-800">
+              {ticket.title}
+            </h1>
 
-          <p className="text-gray-500 mt-2">
-            Ticket ID: {ticket.id}
-          </p>
+            <p className="text-sm text-gray-500 mt-1">
+              Ticket ID: {ticket.id}
+            </p>
 
-          <hr className="my-6" />
+          </div>
 
-          <h2 className="text-xl font-semibold">
-            Description
-          </h2>
+          {/* Description */}
+          <div className="p-6 border-b">
 
-          <p className="mt-3 text-gray-600 leading-7">
-            {ticket.description}
-          </p>
+            <h2 className="text-lg font-semibold mb-3">
+              Description
+            </h2>
+
+            <p className="text-gray-600 leading-7">
+              {ticket.description}
+            </p>
+
+          </div>
 
           {/* Conversation */}
+          <div className="p-6 border-b">
 
-          <div className="mt-10">
-
-            <h2 className="text-xl font-semibold mb-4">
+            <h2 className="text-lg font-semibold mb-5">
               Conversation
             </h2>
 
-            <div className="space-y-5">
+            <div className="space-y-4">
 
-              <div className="bg-slate-100 rounded-xl p-4">
-                <p className="font-semibold">
+              <div className="bg-gray-50 border rounded-lg p-4">
+                <p className="font-semibold text-gray-800">
                   Rahul Kumar
                 </p>
 
@@ -77,8 +84,8 @@ function SupportTicketDetails() {
                 </p>
               </div>
 
-              <div className="bg-blue-50 rounded-xl p-4">
-                <p className="font-semibold">
+              <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                <p className="font-semibold text-blue-700">
                   Admin
                 </p>
 
@@ -92,20 +99,23 @@ function SupportTicketDetails() {
           </div>
 
           {/* Reply */}
+          <div className="p-6">
 
-          <div className="mt-8">
+            <h2 className="text-lg font-semibold mb-4">
+              Reply
+            </h2>
 
             <textarea
               rows="4"
-              placeholder="Write your reply..."
               value={reply}
               onChange={(e) => setReply(e.target.value)}
-              className="w-full border rounded-xl p-4 resize-none outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Write your reply..."
+              className="w-full border rounded-lg p-4 resize-none outline-none focus:ring-2 focus:ring-blue-600"
             />
 
             <button
               onClick={handleReply}
-              className="mt-4 bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg flex items-center gap-2"
+              className="mt-4 bg-blue-700 hover:bg-blue-800 text-white px-6 py-2.5 rounded-lg flex items-center gap-2 transition"
             >
               <FaReply />
               Send Reply
@@ -115,49 +125,54 @@ function SupportTicketDetails() {
 
         </div>
 
-        {/* Right Section */}
+        {/* Right */}
+        <div className="bg-white border rounded-xl shadow-sm p-6 h-fit">
 
-        <div className="bg-white rounded-2xl shadow-sm p-6">
-
-          <h2 className="text-xl font-semibold mb-6">
+          <h2 className="text-lg font-semibold mb-6">
             Ticket Information
           </h2>
 
-          <div className="space-y-6">
+          <div className="space-y-5">
 
-            <div className="flex gap-3">
-              <FaUserGraduate className="mt-1 text-blue-700" />
-              <div>
-                <p className="text-gray-500">Student</p>
-                <p>{ticket.student}</p>
-              </div>
-            </div>
+            <div>
+              <p className="text-sm text-gray-500">
+                Student
+              </p>
 
-            <div className="flex gap-3">
-              <FaTag className="mt-1 text-blue-700" />
-              <div>
-                <p className="text-gray-500">Category</p>
-                <p>{ticket.category}</p>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <FaCalendarDays className="mt-1 text-blue-700" />
-              <div>
-                <p className="text-gray-500">Created On</p>
-                <p>{ticket.createdOn}</p>
-              </div>
+              <p className="font-medium">
+                {ticket.student}
+              </p>
             </div>
 
             <div>
-              <label className="font-medium block mb-2">
+              <p className="text-sm text-gray-500">
+                Category
+              </p>
+
+              <p className="font-medium">
+                {ticket.category}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm text-gray-500">
+                Created On
+              </p>
+
+              <p className="font-medium">
+                {ticket.createdOn}
+              </p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">
                 Ticket Status
               </label>
 
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full border rounded-lg px-4 py-3"
+                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 outline-none"
               >
                 <option>Open</option>
                 <option>In Progress</option>
@@ -165,7 +180,7 @@ function SupportTicketDetails() {
               </select>
             </div>
 
-            <button className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg flex justify-center items-center gap-2">
+            <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-lg transition flex justify-center items-center gap-2">
               <FaCircleCheck />
               Update Status
             </button>
@@ -175,8 +190,9 @@ function SupportTicketDetails() {
         </div>
 
       </div>
-    </DashboardLayout>
-  );
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default SupportTicketDetails;

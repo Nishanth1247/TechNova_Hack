@@ -53,169 +53,139 @@ function Announcements() {
   };
 
   return (
-    <DashboardLayout>
-      {/* Header */}
+  <DashboardLayout>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="max-w-7xl mx-auto bg-white rounded-xl shadow border">
 
-      <div className="flex justify-between items-center">
+        {/* Header */}
+        <div className="flex justify-between items-center p-6 border-b">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-800">
+              Announcement Center
+            </h1>
+            <p className="text-gray-500 mt-1">
+              Manage official college announcements.
+            </p>
+          </div>
 
-        <div>
-
-          <h1 className="text-3xl font-bold">
-            Announcement Center
-          </h1>
-
-          <p className="text-gray-500 mt-1">
-            Manage official college announcements.
-          </p>
-
-        </div>
-
-        <button
+          <button
             onClick={() => navigate("/admin/announcements/create")}
-            className="bg-blue-800 hover:bg-blue-900 text-white px-5 py-3 rounded-lg flex items-center gap-2"
-            >
+            className="flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white px-5 py-2.5 rounded-lg transition"
+          >
             <FaPlus />
             Create Announcement
-        </button>
-        
+          </button>
+        </div>
 
-      </div>
+        {/* Search & Filter */}
+        <div className="flex flex-col md:flex-row gap-4 p-6 border-b">
 
-      {/* Search */}
+          <div className="flex items-center flex-1 border rounded-lg px-4">
+            <FaMagnifyingGlass className="text-gray-400" />
 
-      <div className="bg-white rounded-xl shadow-sm p-5 mt-8 flex gap-4">
+            <input
+              type="text"
+              placeholder="Search announcements..."
+              className="flex-1 px-3 py-3 outline-none"
+            />
+          </div>
 
-        <div className="flex items-center border rounded-lg px-4 flex-1">
-
-          <FaMagnifyingGlass className="text-gray-400" />
-
-          <input
-            type="text"
-            placeholder="Search announcements..."
-            className="flex-1 outline-none px-3 py-3"
-          />
+          <select className="border rounded-lg px-4 py-3 md:w-56">
+            <option>All Priority</option>
+            <option>Emergency</option>
+            <option>High</option>
+            <option>Normal</option>
+          </select>
 
         </div>
 
-        <select className="border rounded-lg px-4">
+        {/* Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full">
 
-          <option>All Priority</option>
-          <option>Emergency</option>
-          <option>High</option>
-          <option>Normal</option>
+            <thead className="bg-gray-50">
+              <tr className="text-left text-gray-600">
 
-        </select>
-
-      </div>
-
-      {/* Table */}
-
-      <div className="bg-white rounded-xl shadow-sm mt-8 overflow-hidden">
-
-        <table className="w-full">
-
-          <thead className="bg-slate-100">
-
-            <tr>
-
-              <th className="text-left px-6 py-4">
-                Title
-              </th>
-
-              <th className="text-left">
-                Priority
-              </th>
-
-              <th className="text-left">
-                Target
-              </th>
-
-              <th className="text-left">
-                Acknowledged
-              </th>
-
-              <th className="text-left">
-                Date
-              </th>
-
-              <th className="text-center">
-                Actions
-              </th>
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            {announcements.map((item) => (
-
-              <tr
-                key={item.id}
-                className="border-t hover:bg-slate-50"
-              >
-
-                <td className="px-6 py-5 font-medium">
-                  {item.title}
-                </td>
-
-                <td>
-
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm ${priorityColor(
-                      item.priority
-                    )}`}
-                  >
-                    {item.priority}
-                  </span>
-
-                </td>
-
-                <td>{item.target}</td>
-
-                <td>{item.acknowledgements}</td>
-
-                <td>{item.date}</td>
-
-                <td>
-
-                  <div className="flex justify-center gap-5">
-
-                    <button
-  onClick={() => navigate(`/admin/announcements/${item.id}`)}
-  className="text-blue-700"
->
-  <FaEye />
-</button>
-
-                    <button className="text-yellow-600">
-
-                      <FaPen />
-
-                    </button>
-
-                    <button className="text-red-600">
-
-                      <FaTrash />
-
-                    </button>
-
-                  </div>
-
-                </td>
+                <th className="px-6 py-4 font-semibold">Title</th>
+                <th className="px-6 py-4 font-semibold">Priority</th>
+                <th className="px-6 py-4 font-semibold">Target</th>
+                <th className="px-6 py-4 font-semibold">Acknowledged</th>
+                <th className="px-6 py-4 font-semibold">Date</th>
+                <th className="px-6 py-4 text-center font-semibold">
+                  Actions
+                </th>
 
               </tr>
+            </thead>
 
-            ))}
+            <tbody>
 
-          </tbody>
+              {announcements.map((item) => (
+                <tr
+                  key={item.id}
+                  className="border-t hover:bg-gray-50 transition"
+                >
+                  <td className="px-6 py-5 font-medium text-gray-800">
+                    {item.title}
+                  </td>
 
-        </table>
+                  <td className="px-6">
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-medium ${priorityColor(
+                        item.priority
+                      )}`}
+                    >
+                      {item.priority}
+                    </span>
+                  </td>
+
+                  <td className="px-6 text-gray-600">
+                    {item.target}
+                  </td>
+
+                  <td className="px-6 text-gray-600">
+                    {item.acknowledgements}
+                  </td>
+
+                  <td className="px-6 text-gray-600">
+                    {item.date}
+                  </td>
+
+                  <td className="px-6">
+                    <div className="flex justify-center gap-2">
+
+                      <button
+                        onClick={() =>
+                          navigate(`/admin/announcements/${item.id}`)
+                        }
+                        className="p-2 rounded-lg text-blue-600 hover:bg-blue-100 transition"
+                      >
+                        <FaEye />
+                      </button>
+
+                      <button className="p-2 rounded-lg text-yellow-600 hover:bg-yellow-100 transition">
+                        <FaPen />
+                      </button>
+
+                      <button className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition">
+                        <FaTrash />
+                      </button>
+
+                    </div>
+                  </td>
+
+                </tr>
+              ))}
+
+            </tbody>
+
+          </table>
+        </div>
 
       </div>
-
-    </DashboardLayout>
-  );
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default Announcements;

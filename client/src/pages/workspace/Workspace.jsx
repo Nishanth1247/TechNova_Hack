@@ -86,34 +86,44 @@ function WorkspaceDetails() {
 
     };
 
-    return(
+    return (
+  <DashboardLayout>
+    <div className="min-h-screen bg-gray-100 p-6">
 
-        <DashboardLayout>
+      <div className="max-w-7xl mx-auto bg-white border rounded-xl shadow-sm">
 
-            <WorkspaceHeader
-                role={user.role}
-                subjectId={subjectId}
+        {/* Workspace Header */}
+        <div className="border-b">
+          <WorkspaceHeader
+            role={user.role}
+            subjectId={subjectId}
+          />
+        </div>
+
+        {/* Workspace Content */}
+        <div className="grid lg:grid-cols-4 gap-6 p-6">
+
+          {/* Sidebar */}
+          <div>
+            <WorkspaceSidebar
+              role={user.role}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
             />
+          </div>
 
-            <div className="grid lg:grid-cols-4 gap-6 mt-6">
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            {renderContent()}
+          </div>
 
-                <WorkspaceSidebar
-                    role={user.role}
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                />
+        </div>
 
-                <div className="lg:col-span-3">
+      </div>
 
-                    {renderContent()}
-
-                </div>
-
-            </div>
-
-        </DashboardLayout>
-
-    );
+    </div>
+  </DashboardLayout>
+);
 
 }
 

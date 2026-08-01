@@ -47,72 +47,72 @@ function LatestAnnouncements() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="flex items-center justify-between px-7 py-6 border-b border-gray-200">
 
-      <div className="flex justify-between items-center p-6 border-b">
+      <div>
+        <h2 className="text-2xl font-bold text-gray-800">
+          Latest Announcements
+        </h2>
 
-        <div>
-
-          <h2 className="text-2xl font-bold">
-
-            Latest Announcements
-
-          </h2>
-
-          <p className="text-gray-500 mt-2">
-
-            Stay updated with the latest faculty announcements.
-
-          </p>
-
-        </div>
-
-        <button className="text-blue-700 font-semibold hover:text-blue-900">
-
-          View All
-
-        </button>
-
+        <p className="text-gray-500 mt-1">
+          Stay updated with the latest faculty announcements.
+        </p>
       </div>
 
-      {/* Cards */}
+      <button className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium">
 
-      <div className="divide-y">
+        View All
 
-        {announcements.map((item) => (
+        <FaArrowRight size={13} />
 
-          <div
-            key={item.id}
-            className="p-6 hover:bg-gray-50 transition"
-          >
+      </button>
 
-            <div className="flex justify-between flex-wrap gap-4">
+    </div>
+
+    {/* Announcement List */}
+    <div className="divide-y divide-gray-200">
+
+      {announcements.map((item) => (
+
+        <div
+          key={item.id}
+          className="p-7 hover:bg-gray-50 transition"
+        >
+
+          {/* Top */}
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5">
+
+            <div className="flex gap-4">
+
+              <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+
+                <FaBullhorn
+                  className="text-blue-600"
+                  size={18}
+                />
+
+              </div>
 
               <div>
 
-                <div className="flex items-center gap-3 flex-wrap">
+                <div className="flex flex-wrap items-center gap-3">
 
-                  <FaBullhorn className="text-blue-700"/>
-
-                  <h3 className="text-xl font-semibold">
-
+                  <h3 className="text-xl font-semibold text-gray-800">
                     {item.title}
-
                   </h3>
 
                   <span
-                    className={`px-3 py-1 rounded-full text-sm ${getPriority(item.priority)}`}
+                    className={`px-3 py-1 rounded-full text-xs font-medium ${getPriority(item.priority)}`}
                   >
-
                     {item.priority}
-
                   </span>
 
                 </div>
 
-                <div className="flex flex-wrap gap-5 mt-4 text-gray-500 text-sm">
+                <div className="flex flex-wrap gap-6 mt-3 text-sm text-gray-500">
 
                   <div className="flex items-center gap-2">
 
@@ -136,82 +136,80 @@ function LatestAnnouncements() {
 
             </div>
 
-            <p className="mt-5 text-gray-600 leading-7">
+          </div>
 
-              {item.description}
+          {/* Description */}
+          <p className="mt-5 text-gray-600 leading-7">
+            {item.description}
+          </p>
 
-            </p>
+          {/* Attachment */}
+          <div className="mt-5 inline-flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-lg text-sm text-blue-600">
 
-            <div className="flex items-center gap-3 mt-5 text-blue-700">
+            <FaPaperclip />
 
-              <FaPaperclip />
-
-              {item.attachment}
-
-            </div>
-
-            <div className="flex flex-wrap gap-3 mt-6">
-
-              <button className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg flex items-center gap-2">
-
-                <FaDownload />
-
-                Download
-
-              </button>
-
-              <button className="border px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center gap-2">
-
-                <FaComments />
-
-                Discussion
-
-              </button>
-
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
-                  item.acknowledged
-                    ? "bg-green-100 text-green-700"
-                    : "bg-yellow-100 text-yellow-700"
-                }`}
-              >
-
-                <FaCircleCheck />
-
-                {item.acknowledged
-                  ? "Acknowledged"
-                  : "Acknowledge"}
-
-              </button>
-
-            </div>
+            {item.attachment}
 
           </div>
 
-        ))}
+          {/* Actions */}
+          <div className="flex flex-wrap gap-3 mt-6">
 
-      </div>
+            <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl transition">
 
-      {/* Footer */}
+              <FaDownload />
 
-      <div className="bg-gray-50 border-t rounded-b-2xl p-5 flex justify-between">
+              Download
 
-        <span className="text-gray-600">
+            </button>
 
-          Unread Announcements
+            <button className="flex items-center gap-2 border border-gray-300 hover:bg-gray-50 px-5 py-2.5 rounded-xl transition">
 
-        </span>
+              <FaComments />
 
-        <span className="text-red-600 font-bold">
+              Discussion
 
-          2
+            </button>
 
-        </span>
+            <button
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium ${
+                item.acknowledged
+                  ? "bg-green-100 text-green-700"
+                  : "bg-yellow-100 text-yellow-700"
+              }`}
+            >
 
-      </div>
+              <FaCircleCheck />
+
+              {item.acknowledged
+                ? "Acknowledged"
+                : "Acknowledge"}
+
+            </button>
+
+          </div>
+
+        </div>
+
+      ))}
 
     </div>
-  );
+
+    {/* Footer */}
+    <div className="flex items-center justify-between px-7 py-5 bg-gray-50 border-t border-gray-200">
+
+      <span className="text-gray-600 font-medium">
+        Unread Announcements
+      </span>
+
+      <span className="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">
+        2
+      </span>
+
+    </div>
+
+  </div>
+);
 }
 
 export default LatestAnnouncements;

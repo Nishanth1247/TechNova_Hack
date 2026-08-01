@@ -52,55 +52,53 @@ function FacultyStats() {
   ];
 
   return (
-    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
 
-      {stats.map((item, index) => (
+    {stats.map((item, index) => (
+      <div
+        key={index}
+        className="bg-white border rounded-xl shadow-sm hover:shadow-md transition duration-200 p-5"
+      >
 
-        <div
-          key={index}
-          className="bg-white rounded-2xl shadow-sm border hover:shadow-lg transition-all duration-300 p-6"
-        >
+        <div className="flex justify-between items-start">
 
-          <div className="flex justify-between items-start">
+          <div>
 
-            <div>
+            <p className="text-sm text-gray-500">
+              {item.title}
+            </p>
 
-              <p className="text-gray-500 text-sm">
-                {item.title}
-              </p>
-
-              <h2 className="text-4xl font-bold mt-3">
-                {item.value}
-              </h2>
-
-            </div>
-
-            <div
-              className={`${item.bg} ${item.color} w-14 h-14 rounded-xl flex items-center justify-center text-2xl`}
-            >
-              {item.icon}
-            </div>
+            <h2 className="text-3xl font-bold text-gray-800 mt-2">
+              {item.value}
+            </h2>
 
           </div>
 
           <div
-            className={`flex items-center gap-2 mt-6 ${item.trendColor}`}
+            className={`w-12 h-12 rounded-lg flex items-center justify-center ${item.bg} ${item.color}`}
           >
-
-            {item.trendIcon}
-
-            <span className="text-sm font-medium">
-              {item.trend}
-            </span>
-
+            {item.icon}
           </div>
 
         </div>
 
-      ))}
+        <div className="mt-5 flex items-center gap-2">
 
-    </div>
-  );
+          <span className={item.trendColor}>
+            {item.trendIcon}
+          </span>
+
+          <span className={`text-sm font-medium ${item.trendColor}`}>
+            {item.trend}
+          </span>
+
+        </div>
+
+      </div>
+    ))}
+
+  </div>
+);
 }
 
 export default FacultyStats;

@@ -56,98 +56,95 @@ function LinksPanel({
   ];
 
   return (
-    <div className="space-y-6">
+  <div className="space-y-6">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="bg-white border rounded-xl shadow-sm p-5">
 
-      <div className="bg-white rounded-2xl shadow-sm border p-6">
+      <h2 className="text-lg font-semibold text-gray-800">
+        Important Links
+      </h2>
 
-        <h2 className="text-2xl font-bold">
-          Important Links
-        </h2>
+      <p className="text-sm text-gray-500 mt-1">
+        Frequently used resources and external platforms.
+      </p>
 
-        <p className="text-gray-500 mt-2">
-          Frequently used resources and external platforms.
-        </p>
+    </div>
 
-      </div>
+    {/* Links */}
+    <div className="grid md:grid-cols-2 gap-5">
 
-      {/* Cards */}
+      {links.map((link) => (
+        <div
+          key={link.id}
+          className="bg-white border rounded-xl shadow-sm hover:shadow-md transition p-5"
+        >
 
-      <div className="grid md:grid-cols-2 gap-6">
+          {/* Top */}
+          <div className="flex justify-between items-start">
 
-        {links.map((link) => (
-
-          <div
-            key={link.id}
-            className="bg-white rounded-2xl shadow-sm border p-6 hover:shadow-lg transition"
-          >
-
-            <div className="flex justify-between">
-
-              <div className="text-3xl">
-                {link.icon}
-              </div>
-
-              <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
-                {link.category}
-              </span>
-
+            <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
+              {link.icon}
             </div>
 
-            <h3 className="text-xl font-semibold mt-6">
-              {link.title}
-            </h3>
-
-            <p className="text-gray-500 mt-3">
-              {link.description}
-            </p>
-
-            <button
-              className="mt-6 w-full bg-blue-800 hover:bg-blue-900 text-white py-3 rounded-lg flex justify-center items-center gap-2"
-            >
-              <FaArrowUpRightFromSquare />
-
-              Open Link
-
-            </button>
+            <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+              {link.category}
+            </span>
 
           </div>
 
-        ))}
+          {/* Content */}
+          <h3 className="mt-5 font-semibold text-gray-800">
+            {link.title}
+          </h3>
 
-      </div>
+          <p className="text-sm text-gray-500 mt-2 leading-6">
+            {link.description}
+          </p>
 
-      {/* Quick Notes */}
+          {/* Button */}
+          <button className="mt-5 w-full border rounded-lg py-2.5 hover:bg-blue-50 hover:border-blue-500 transition flex justify-center items-center gap-2">
 
-      <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6">
+            <FaArrowUpRightFromSquare />
 
-        <div className="flex gap-4">
+            Open Link
 
-          <FaLink
-            className="text-blue-700 text-2xl mt-1"
-          />
+          </button>
 
-          <div>
+        </div>
+      ))}
 
-            <h3 className="font-semibold">
-              Faculty Notice
-            </h3>
+    </div>
 
-            <p className="text-gray-600 mt-2">
-              All important academic links for this subject
-              are maintained here. Students should regularly
-              check this section for updates.
-            </p>
+    {/* Notice */}
+    <div className="bg-white border rounded-xl shadow-sm p-5">
 
-          </div>
+      <div className="flex gap-4">
+
+        <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+          <FaLink className="text-blue-600" />
+        </div>
+
+        <div>
+
+          <h3 className="font-medium text-gray-800">
+            Faculty Notice
+          </h3>
+
+          <p className="text-sm text-gray-500 mt-2 leading-6">
+            All important academic links for this subject are
+            maintained here. Students should regularly check
+            this section for updates.
+          </p>
 
         </div>
 
       </div>
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default LinksPanel;

@@ -49,154 +49,126 @@ function StudentEngagement() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white border rounded-xl shadow-sm">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="p-5 border-b">
 
-      <div className="p-6 border-b">
+      <h2 className="text-lg font-semibold text-gray-800">
+        Student Engagement
+      </h2>
 
-        <h2 className="text-2xl font-bold">
+      <p className="text-sm text-gray-500 mt-1">
+        Participation level across your subjects.
+      </p>
 
-          Student Engagement
+    </div>
 
-        </h2>
+    {/* Subjects */}
+    <div className="divide-y">
 
-        <p className="text-gray-500 mt-2">
+      {subjects.map((item) => (
+        <div
+          key={item.id}
+          className="p-5 hover:bg-gray-50 transition"
+        >
 
-          Participation level across your subjects
+          <div className="flex justify-between items-start gap-4">
 
-        </p>
+            {/* Subject */}
+            <div>
 
-      </div>
+              <div className="flex items-center gap-3">
 
-      {/* Subjects */}
+                <div className="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center">
+                  <FaBookOpen className="text-blue-600" />
+                </div>
 
-      <div className="divide-y">
+                <div>
 
-        {subjects.map((item) => (
-
-          <div
-            key={item.id}
-            className="p-5 hover:bg-gray-50 transition"
-          >
-
-            <div className="flex justify-between">
-
-              <div>
-
-                <div className="flex items-center gap-2">
-
-                  <FaBookOpen className="text-blue-700"/>
-
-                  <h3 className="font-semibold">
-
+                  <h3 className="font-medium text-gray-800">
                     {item.subject}
-
                   </h3>
+
+                  <p className="text-sm text-gray-500">
+                    {item.code}
+                  </p>
 
                 </div>
 
-                <p className="text-gray-500 text-sm mt-1">
-
-                  {item.code}
-
-                </p>
-
-              </div>
-
-              <div className="flex items-center gap-2">
-
-                {item.trend === "up" ? (
-
-                  <FaArrowTrendUp className="text-green-600"/>
-
-                ) : (
-
-                  <FaArrowTrendDown className="text-red-600"/>
-
-                )}
-
-                <span className="font-bold text-lg">
-
-                  {item.engagement}%
-
-                </span>
-
               </div>
 
             </div>
 
-            {/* Progress */}
+            {/* Percentage */}
+            <div className="flex items-center gap-2">
 
-            <div className="w-full bg-gray-200 rounded-full h-3 mt-4">
+              {item.trend === "up" ? (
+                <FaArrowTrendUp className="text-green-600" />
+              ) : (
+                <FaArrowTrendDown className="text-red-600" />
+              )}
 
-              <div
-                className={`${getProgressColor(item.engagement)} h-3 rounded-full`}
-                style={{ width: `${item.engagement}%` }}
-              ></div>
-
-            </div>
-
-            {/* Statistics */}
-
-            <div className="grid grid-cols-3 gap-4 mt-5 text-sm">
-
-              <div className="flex items-center gap-2 text-gray-600">
-
-                <FaUsers />
-
-                {item.students}
-
-              </div>
-
-              <div className="flex items-center gap-2 text-gray-600">
-
-                <FaComments />
-
-                {item.discussions}
-
-              </div>
-
-              <div className="flex items-center gap-2 text-gray-600">
-
-                <FaBullhorn />
-
-                {item.announcements}
-
-              </div>
+              <span className="text-lg font-semibold text-gray-800">
+                {item.engagement}%
+              </span>
 
             </div>
 
           </div>
 
-        ))}
+          {/* Progress */}
+          <div className="mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
 
-      </div>
+            <div
+              className={`${getProgressColor(item.engagement)} h-full rounded-full transition-all duration-500`}
+              style={{
+                width: `${item.engagement}%`,
+              }}
+            />
 
-      {/* Footer */}
+          </div>
 
-      <div className="bg-blue-50 border-t rounded-b-2xl p-5">
+          {/* Statistics */}
+          <div className="flex flex-wrap gap-6 mt-4 text-sm text-gray-600">
 
-        <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <FaUsers />
+              {item.students}
+            </div>
 
-          <span className="text-gray-600">
+            <div className="flex items-center gap-2">
+              <FaComments />
+              {item.discussions}
+            </div>
 
-            Overall Engagement
+            <div className="flex items-center gap-2">
+              <FaBullhorn />
+              {item.announcements}
+            </div>
 
-          </span>
-
-          <span className="text-2xl font-bold text-blue-700">
-
-            90%
-
-          </span>
+          </div>
 
         </div>
-
-      </div>
+      ))}
 
     </div>
-  );
+
+    {/* Footer */}
+    <div className="border-t p-5 flex justify-between items-center">
+
+      <span className="text-sm text-gray-500">
+        Overall Engagement
+      </span>
+
+      <span className="text-2xl font-bold text-blue-700">
+        90%
+      </span>
+
+    </div>
+
+  </div>
+);
 }
 
 export default StudentEngagement;

@@ -58,77 +58,65 @@ function StudentQuickActions() {
     },
   ];
 
-  return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+ return (
+  <div className="bg-white border rounded-xl shadow-sm">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="p-5 border-b">
 
-      <div className="p-6 border-b">
+      <h2 className="text-lg font-semibold text-gray-800">
+        Quick Actions
+      </h2>
 
-        <h2 className="text-2xl font-bold">
+      <p className="text-sm text-gray-500 mt-1">
+        Frequently used shortcuts.
+      </p>
 
-          Quick Actions
+    </div>
 
-        </h2>
+    {/* Actions */}
+    <div className="p-5 space-y-3">
 
-        <p className="text-gray-500 mt-2">
+      {actions.map((item, index) => (
+        <button
+          key={index}
+          onClick={() => navigate(item.path)}
+          className="w-full flex justify-between items-center border rounded-lg p-4 hover:bg-gray-50 hover:border-blue-500 transition"
+        >
 
-          Frequently used shortcuts
+          {/* Left */}
+          <div className="flex items-center gap-4">
 
-        </p>
+            <div
+              className={`w-10 h-10 rounded-lg flex items-center justify-center ${item.color}`}
+            >
+              {item.icon}
+            </div>
 
-      </div>
+            <div className="text-left">
 
-      {/* Buttons */}
+              <h3 className="font-medium text-gray-800">
+                {item.title}
+              </h3>
 
-      <div className="p-5 space-y-4">
-
-        {actions.map((item, index) => (
-
-          <button
-            key={index}
-            onClick={() => navigate(item.path)}
-            className="w-full flex justify-between items-center border rounded-xl p-4 hover:border-blue-500 hover:shadow-md transition-all"
-          >
-
-            <div className="flex items-center gap-4">
-
-              <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center text-xl ${item.color}`}
-              >
-
-                {item.icon}
-
-              </div>
-
-              <div className="text-left">
-
-                <h3 className="font-semibold">
-
-                  {item.title}
-
-                </h3>
-
-                <p className="text-sm text-gray-500">
-
-                  {item.description}
-
-                </p>
-
-              </div>
+              <p className="text-sm text-gray-500">
+                {item.description}
+              </p>
 
             </div>
 
-            <FaArrowRight className="text-gray-400"/>
+          </div>
 
-          </button>
+          {/* Arrow */}
+          <FaArrowRight className="text-gray-400 text-sm" />
 
-        ))}
-
-      </div>
+        </button>
+      ))}
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default StudentQuickActions;

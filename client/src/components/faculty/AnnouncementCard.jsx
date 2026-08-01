@@ -17,185 +17,139 @@ function AnnouncementCard({ announcement }) {
   };
 
   return (
-    <div className="bg-white border rounded-2xl shadow-sm hover:shadow-md transition">
+  <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition duration-200">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="flex justify-between items-start p-5 border-b">
 
-      <div className="flex justify-between items-start p-6 border-b">
+      <div>
 
-        <div>
+        <div className="flex items-center gap-3">
 
-          <div className="flex items-center gap-3">
-
-            <FaBullhorn className="text-blue-700 text-xl" />
-
-            <h2 className="text-xl font-bold">
-
-              {announcement.title}
-
-            </h2>
-
+          <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+            <FaBullhorn className="text-blue-700" />
           </div>
 
-          <p className="text-gray-500 mt-2">
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800">
+              {announcement.title}
+            </h2>
 
-            {announcement.subject}
-
-          </p>
+            <p className="text-sm text-gray-500">
+              {announcement.subject}
+            </p>
+          </div>
 
         </div>
 
-        <span
-          className={`px-3 py-1 rounded-full text-sm font-medium ${
-            priorityColor[announcement.priority]
-          }`}
-        >
-          {announcement.priority}
+      </div>
+
+      <span
+        className={`px-3 py-1 rounded-full text-xs font-medium ${
+          priorityColor[announcement.priority]
+        }`}
+      >
+        {announcement.priority}
+      </span>
+
+    </div>
+
+    {/* Description */}
+    <div className="p-5">
+
+      <p className="text-gray-600 leading-7">
+        {announcement.description}
+      </p>
+
+    </div>
+
+    {/* Information */}
+    <div className="grid grid-cols-1 md:grid-cols-3 border-t">
+
+      <div className="p-5 md:border-r">
+        <p className="text-xs uppercase text-gray-400">
+          Published
+        </p>
+
+        <p className="font-medium mt-1">
+          {announcement.date}
+        </p>
+      </div>
+
+      <div className="p-5 md:border-r">
+        <p className="text-xs uppercase text-gray-400">
+          Audience
+        </p>
+
+        <p className="font-medium mt-1">
+          {announcement.audience}
+        </p>
+      </div>
+
+      <div className="p-5">
+        <p className="text-xs uppercase text-gray-400">
+          Acknowledged
+        </p>
+
+        <p className="font-medium mt-1">
+          {announcement.read}/{announcement.total}
+        </p>
+      </div>
+
+    </div>
+
+    {/* Progress */}
+    <div className="border-t p-5">
+
+      <div className="flex justify-between text-sm mb-2">
+
+        <span className="text-gray-500">
+          Progress
+        </span>
+
+        <span className="font-medium text-blue-700">
+          {Math.round(
+            (announcement.read / announcement.total) * 100
+          )}
+          %
         </span>
 
       </div>
 
-      {/* Description */}
+      <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
 
-      <div className="px-6 py-5">
-
-        <p className="text-gray-600 leading-7">
-
-          {announcement.description}
-
-        </p>
-
-      </div>
-
-      {/* Information */}
-
-      <div className="grid grid-cols-3 border-t">
-
-        <div className="p-5 border-r">
-
-          <div className="flex items-center gap-2 text-gray-500">
-
-            <FaCalendarDays />
-
-            Published
-
-          </div>
-
-          <p className="font-semibold mt-2">
-
-            {announcement.date}
-
-          </p>
-
-        </div>
-
-        <div className="p-5 border-r">
-
-          <div className="flex items-center gap-2 text-gray-500">
-
-            <FaUsers />
-
-            Audience
-
-          </div>
-
-          <p className="font-semibold mt-2">
-
-            {announcement.audience}
-
-          </p>
-
-        </div>
-
-        <div className="p-5">
-
-          <div className="flex items-center gap-2 text-gray-500">
-
-            <FaCircleCheck />
-
-            Acknowledged
-
-          </div>
-
-          <p className="font-semibold mt-2">
-
-            {announcement.read}/{announcement.total}
-
-          </p>
-
-        </div>
-
-      </div>
-
-      {/* Progress */}
-
-      <div className="px-6 py-5">
-
-        <div className="flex justify-between mb-2">
-
-          <span className="text-sm text-gray-500">
-
-            Acknowledgement Progress
-
-          </span>
-
-          <span className="font-semibold text-blue-700">
-
-            {Math.round(
+        <div
+          className="h-full bg-green-500 rounded-full transition-all"
+          style={{
+            width: `${
               (announcement.read / announcement.total) * 100
-            )}
-            %
-          </span>
-
-        </div>
-
-        <div className="w-full h-3 bg-gray-200 rounded-full">
-
-          <div
-            className="bg-green-500 h-3 rounded-full"
-            style={{
-              width: `${
-                (announcement.read / announcement.total) * 100
-              }%`,
-            }}
-          ></div>
-
-        </div>
-
-      </div>
-
-      {/* Footer */}
-
-      <div className="flex justify-end gap-3 border-t p-5">
-
-        <button className="border px-4 py-2 rounded-lg hover:bg-gray-50 flex items-center gap-2">
-
-          <FaEye />
-
-          View
-
-        </button>
-
-        <button className="border px-4 py-2 rounded-lg hover:bg-blue-50 text-blue-700 flex items-center gap-2">
-
-          <FaPen />
-
-          Edit
-
-        </button>
-
-        <button className="border px-4 py-2 rounded-lg hover:bg-red-50 text-red-600 flex items-center gap-2">
-
-          <FaTrash />
-
-          Delete
-
-        </button>
+            }%`,
+          }}
+        />
 
       </div>
 
     </div>
-  );
+
+    {/* Footer */}
+    <div className="flex justify-end gap-2 border-t p-4">
+
+      <button className="w-10 h-10 rounded-lg border hover:bg-gray-100 transition flex items-center justify-center">
+        <FaEye />
+      </button>
+
+      <button className="w-10 h-10 rounded-lg border text-blue-600 hover:bg-blue-50 transition flex items-center justify-center">
+        <FaPen />
+      </button>
+
+      <button className="w-10 h-10 rounded-lg border text-red-600 hover:bg-red-50 transition flex items-center justify-center">
+        <FaTrash />
+      </button>
+
+    </div>
+
+  </div>
+);
 }
 
 export default AnnouncementCard;

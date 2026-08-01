@@ -89,74 +89,75 @@ function StudentActivity() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white border border-gray-200 rounded-2xl shadow-sm">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200">
 
-      <div className="flex justify-between items-center p-6 border-b">
+      <div>
+        <h2 className="text-xl font-semibold text-gray-800">
+          Recent Activity
+        </h2>
 
-        <div>
-
-          <h2 className="text-2xl font-bold">
-            Recent Activity
-          </h2>
-
-          <p className="text-gray-500 mt-2">
-            Your latest activities in CampusConnect.
-          </p>
-
-        </div>
-
-        <button className="text-blue-700 font-semibold flex items-center gap-2 hover:text-blue-900">
-
-          View History
-
-          <FaArrowRight />
-
-        </button>
-
+        <p className="text-sm text-gray-500 mt-1">
+          Track your latest activities in CampusConnect.
+        </p>
       </div>
 
-      {/* Timeline */}
+      <button className="flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition">
 
-      <div className="p-6">
+        View History
 
-        <div className="relative">
+        <FaArrowRight size={14} />
 
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+      </button>
 
-          <div className="space-y-8">
+    </div>
 
-            {activities.map((activity) => (
+    {/* Timeline */}
+    <div className="p-6">
 
-              <div
-                key={activity.id}
-                className="relative flex gap-5"
-              >
+      <div className="relative">
 
-                <div className="relative z-10">
+        {/* Vertical Line */}
+        <div className="absolute left-6 top-2 bottom-2 w-px bg-gray-200"></div>
 
-                  {getIcon(activity.type)}
+        <div className="space-y-6">
 
-                </div>
+          {activities.map((activity) => (
 
-                <div className="flex-1">
+            <div
+              key={activity.id}
+              className="relative flex gap-4"
+            >
 
-                  <h3 className="font-semibold text-lg">
+              {/* Icon */}
+              <div className="relative z-10">
 
-                    {activity.title}
+                {getIcon(activity.type)}
 
-                  </h3>
+              </div>
 
-                  <p className="text-gray-500 mt-1">
+              {/* Content */}
+              <div className="flex-1 border border-gray-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition">
 
-                    {activity.description}
+                <div className="flex justify-between items-start gap-4">
 
-                  </p>
+                  <div>
 
-                  <div className="flex items-center gap-2 mt-3 text-sm text-gray-400">
+                    <h3 className="text-base font-semibold text-gray-800">
+                      {activity.title}
+                    </h3>
 
-                    <FaClock />
+                    <p className="text-sm text-gray-500 mt-1">
+                      {activity.description}
+                    </p>
+
+                  </div>
+
+                  <div className="flex items-center gap-1 text-xs text-gray-400 whitespace-nowrap">
+
+                    <FaClock size={12} />
 
                     {activity.time}
 
@@ -166,30 +167,31 @@ function StudentActivity() {
 
               </div>
 
-            ))}
+            </div>
 
-          </div>
+          ))}
 
         </div>
 
       </div>
 
-      {/* Footer */}
+    </div>
 
-      <div className="bg-gray-50 border-t rounded-b-2xl p-5 flex justify-between items-center">
+    {/* Footer */}
+    <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-t border-gray-200 rounded-b-2xl">
 
-        <span className="text-gray-600">
-          Activities This Week
-        </span>
+      <span className="text-sm text-gray-600">
+        Activities This Week
+      </span>
 
-        <span className="text-blue-700 font-bold text-xl">
-          27
-        </span>
-
-      </div>
+      <span className="text-lg font-semibold text-blue-600">
+        27
+      </span>
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default StudentActivity;

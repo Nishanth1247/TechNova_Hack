@@ -13,46 +13,63 @@ import RecentActivity from "../../components/faculty/RecentActivity";
 function FacultyDashboard() {
 
     return (
+  <DashboardLayout>
+    <div className="max-w-7xl mx-auto space-y-8">
 
-        <DashboardLayout >
+      {/* Header */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+        <FacultyHeader />
+      </div>
 
-            <div className="space-y-6">
+      {/* Statistics */}
+      <FacultyStats />
 
-                <FacultyHeader />
+      {/* Main Content */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
-                <FacultyStats />
+        {/* Left Section */}
+        <div className="xl:col-span-2 space-y-6">
 
-                <div className="grid xl:grid-cols-3 gap-6">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <TodaySchedule />
+          </div>
 
-                    <div className="xl:col-span-2 space-y-6">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <PendingDoubts />
+          </div>
 
-                        <TodaySchedule />
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <RecentActivity />
+          </div>
 
-                        <PendingDoubts />
+        </div>
 
-                        <RecentActivity />
+        {/* Right Section */}
+        <div className="space-y-6">
 
-                    </div>
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <QuickActions />
+          </div>
 
-                    <div className="space-y-6">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <RecentDownloads />
+          </div>
 
-                        <QuickActions />
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <StudentEngagement />
+          </div>
 
-                        <RecentDownloads />
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <CommunicationHealth />
+          </div>
 
-                        <StudentEngagement />
+        </div>
 
-                        <CommunicationHealth />
+      </div>
 
-                    </div>
-
-                </div>
-
-            </div>
-
-        </DashboardLayout>
-
-    );
+    </div>
+  </DashboardLayout>
+);
 
 }
 

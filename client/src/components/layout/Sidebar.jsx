@@ -93,7 +93,6 @@ const menuItems = [
 
 function Sidebar() {
   const navigate = useNavigate();
-
   const { user, logout } = useAuth();
 
   const role = user?.role;
@@ -102,56 +101,62 @@ function Sidebar() {
     logout();
     navigate("/login", { replace: true });
   };
+
   return (
-    <aside className="w-72 bg-blue-900 text-white flex flex-col">
+    <aside className="w-72 bg-white border-r border-gray-200 shadow-sm flex flex-col">
 
       {/* Logo */}
-
-      <div className="h-20 flex items-center justify-center border-b border-blue-800">
-        <h1 className="text-2xl font-bold">
+      <div className="h-20 flex items-center justify-center border-b border-gray-200">
+        <h1 className="text-2xl font-bold text-blue-600">
           CampusConnect
         </h1>
       </div>
 
       {/* Menu */}
-
-      <nav className="flex-1 py-6">
+      <nav className="flex-1 px-4 py-6 space-y-2">
 
         {menuItems
-  .filter((item) => item.roles.includes(role))
-  .map((item) => (
+          .filter((item) => item.roles.includes(role))
+          .map((item) => (
 
-          <NavLink
-            key={item.name}
-            to={item.paths[role]}
-            className={({ isActive }) =>
-              `flex items-center gap-4 px-8 py-4 transition
-              ${
-                isActive
-                  ? "bg-blue-700"
-                  : "hover:bg-blue-800"
-              }`
-            }
-          >
-            <span className="text-lg">{item.icon}</span>
+            <NavLink
+              key={item.name}
+              to={item.paths[role]}
+              className={({ isActive }) =>
+                `flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
+                ${
+                  isActive
+                    ? "bg-blue-50 text-blue-600 border-l-4 border-blue-600 shadow-sm"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-blue-600"
+                }`
+              }
+            >
+              <span className="text-lg">
+                {item.icon}
+              </span>
 
-            <span>{item.name}</span>
+              <span>
+                {item.name}
+              </span>
 
-          </NavLink>
+            </NavLink>
 
-        ))}
+          ))}
 
       </nav>
 
       {/* Logout */}
+      <div className="p-4 border-t border-gray-200">
 
-      <button
-  onClick={handleLogout}
-  className="m-6 flex items-center justify-center gap-3 py-3 rounded-lg bg-red-600 hover:bg-red-700 transition"
->
-  <FaRightFromBracket />
-  Logout
-</button>
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center justify-center gap-3 py-3 rounded-xl bg-red-50 text-red-600 font-medium hover:bg-red-100 transition"
+        >
+          <FaRightFromBracket />
+          Logout
+        </button>
+
+      </div>
 
     </aside>
   );

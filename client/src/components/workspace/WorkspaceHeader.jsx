@@ -10,228 +10,178 @@ import {
 
 function WorkspaceHeader({ role, subjectId }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border overflow-hidden">
+  <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
 
-      {/* Top Banner */}
+    {/* Banner */}
+    <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-900 text-white px-8 py-8">
 
-      <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white p-8">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
 
-        <div className="flex justify-between items-start flex-wrap gap-6">
+        {/* Subject Info */}
+        <div className="flex items-start gap-5">
+
+          <div className="w-16 h-16 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
+            <FaBookOpen size={28} />
+          </div>
 
           <div>
 
-            <div className="flex items-center gap-4">
+            <h1 className="text-3xl font-bold">
+              Data Structures
+            </h1>
 
-              <div className="w-16 h-16 rounded-xl bg-white/20 flex items-center justify-center">
+            <p className="text-blue-100 mt-2">
+              CS301 • Semester III • Computer Science
+            </p>
 
-                <FaBookOpen size={30} />
-
-              </div>
-
-              <div>
-
-                <h1 className="text-4xl font-bold">
-
-                  Data Structures
-
-                </h1>
-
-                <p className="text-blue-100 mt-2">
-
-                  CS301 • Semester III • Computer Science
-
-                </p>
-
-              </div>
-
-            </div>
-
-            <div className="flex items-center gap-3 mt-6">
+            <div className="flex items-center gap-2 mt-5 text-blue-100">
 
               <FaUserTie />
 
               <span>
-
                 {role === "faculty"
-  ? "Subject Coordinator"
-  : "Faculty"}
-
+                  ? "Subject Coordinator"
+                  : "Faculty"}
               </span>
 
             </div>
 
           </div>
 
-          {/* Quick Actions */}
-
-<div className="flex gap-3 flex-wrap">
-
-  {role === "faculty" && (
-    <>
-      <button className="bg-white text-blue-800 px-5 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-blue-100 transition">
-        <FaBullhorn />
-        New Announcement
-      </button>
-
-      <button className="bg-white text-blue-800 px-5 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-blue-100 transition">
-        <FaFolderOpen />
-        Upload Resource
-      </button>
-
-      <button className="bg-white text-blue-800 px-5 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-blue-100 transition">
-        <FaPlus />
-        Start Discussion
-      </button>
-    </>
-  )}
-
-  {role === "student" && (
-    <>
-      <button className="bg-white text-blue-800 px-5 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-blue-100 transition">
-        <FaFolderOpen />
-        View Resources
-      </button>
-
-      <button className="bg-white text-blue-800 px-5 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-blue-100 transition">
-        <FaComments />
-        Discussions
-      </button>
-
-      <button className="bg-white text-blue-800 px-5 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-blue-100 transition">
-        <FaBullhorn />
-        Announcements
-      </button>
-    </>
-  )}
-
-</div>
-
         </div>
 
-      </div>
+        {/* Actions */}
+        <div className="flex flex-wrap gap-3">
 
-      {/* Statistics */}
+          {role === "faculty" ? (
+            <>
+              <button className="bg-white text-blue-700 hover:bg-blue-50 px-5 py-3 rounded-xl font-medium flex items-center gap-2 transition">
+                <FaBullhorn />
+                Announcement
+              </button>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4">
+              <button className="bg-white text-blue-700 hover:bg-blue-50 px-5 py-3 rounded-xl font-medium flex items-center gap-2 transition">
+                <FaFolderOpen />
+                Upload
+              </button>
 
-        <div className="p-6 border-r border-b">
-
-          <div className="flex items-center gap-3">
-
-            <FaUsers
-              className="text-blue-700"
-              size={22}
-            />
-
-            <div>
-
-              <p className="text-gray-500 text-sm">
-  {role === "faculty" ? "Students" : "Classmates"}
-</p>
-
-              <h2 className="text-3xl font-bold">
-
-                72
-
-              </h2>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div className="p-6 border-r border-b">
-
-          <div className="flex items-center gap-3">
-
-            <FaFolderOpen
-              className="text-green-700"
-              size={22}
-            />
-
-            <div>
-
-              <p className="text-gray-500 text-sm">
-
+              <button className="bg-white text-blue-700 hover:bg-blue-50 px-5 py-3 rounded-xl font-medium flex items-center gap-2 transition">
+                <FaPlus />
+                Discussion
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="bg-white text-blue-700 hover:bg-blue-50 px-5 py-3 rounded-xl font-medium flex items-center gap-2 transition">
+                <FaFolderOpen />
                 Resources
+              </button>
 
-              </p>
-
-              <h2 className="text-3xl font-bold">
-
-                18
-
-              </h2>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div className="p-6 border-r border-b">
-
-          <div className="flex items-center gap-3">
-
-            <FaComments
-              className="text-orange-600"
-              size={22}
-            />
-
-            <div>
-
-              <p className="text-gray-500 text-sm">
-
+              <button className="bg-white text-blue-700 hover:bg-blue-50 px-5 py-3 rounded-xl font-medium flex items-center gap-2 transition">
+                <FaComments />
                 Discussions
+              </button>
 
-              </p>
-
-              <h2 className="text-3xl font-bold">
-
-                25
-
-              </h2>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div className="p-6 border-b">
-
-          <div className="flex items-center gap-3">
-
-            <FaBullhorn
-              className="text-red-600"
-              size={22}
-            />
-
-            <div>
-
-              <p className="text-gray-500 text-sm">
-
+              <button className="bg-white text-blue-700 hover:bg-blue-50 px-5 py-3 rounded-xl font-medium flex items-center gap-2 transition">
+                <FaBullhorn />
                 Announcements
-
-              </p>
-
-              <h2 className="text-3xl font-bold">
-
-                6
-
-              </h2>
-
-            </div>
-
-          </div>
+              </button>
+            </>
+          )}
 
         </div>
 
       </div>
 
     </div>
-  );
+
+    {/* Statistics */}
+    <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0">
+
+      <div className="p-6 flex items-center gap-4">
+
+        <div className="h-12 w-12 rounded-xl bg-blue-100 flex items-center justify-center">
+          <FaUsers className="text-blue-600" />
+        </div>
+
+        <div>
+
+          <p className="text-sm text-gray-500">
+            {role === "faculty" ? "Students" : "Classmates"}
+          </p>
+
+          <h3 className="text-2xl font-bold">
+            72
+          </h3>
+
+        </div>
+
+      </div>
+
+      <div className="p-6 flex items-center gap-4">
+
+        <div className="h-12 w-12 rounded-xl bg-green-100 flex items-center justify-center">
+          <FaFolderOpen className="text-green-600" />
+        </div>
+
+        <div>
+
+          <p className="text-sm text-gray-500">
+            Resources
+          </p>
+
+          <h3 className="text-2xl font-bold">
+            18
+          </h3>
+
+        </div>
+
+      </div>
+
+      <div className="p-6 flex items-center gap-4">
+
+        <div className="h-12 w-12 rounded-xl bg-orange-100 flex items-center justify-center">
+          <FaComments className="text-orange-600" />
+        </div>
+
+        <div>
+
+          <p className="text-sm text-gray-500">
+            Discussions
+          </p>
+
+          <h3 className="text-2xl font-bold">
+            25
+          </h3>
+
+        </div>
+
+      </div>
+
+      <div className="p-6 flex items-center gap-4">
+
+        <div className="h-12 w-12 rounded-xl bg-red-100 flex items-center justify-center">
+          <FaBullhorn className="text-red-600" />
+        </div>
+
+        <div>
+
+          <p className="text-sm text-gray-500">
+            Announcements
+          </p>
+
+          <h3 className="text-2xl font-bold">
+            6
+          </h3>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+);
 }
 
 export default WorkspaceHeader;

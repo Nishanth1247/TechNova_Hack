@@ -37,138 +37,196 @@ function Dashboard() {
   ];
 
   return (
-    <DashboardLayout >
-      {/* Welcome */}
+  <DashboardLayout>
+    <div className="min-h-screen bg-gray-100 p-6">
 
-      <div className="bg-gradient-to-r from-blue-900 to-blue-700 rounded-2xl text-white p-8 shadow-lg">
+      <div className="max-w-7xl mx-auto space-y-6">
 
-        <h1 className="text-3xl font-bold">
-          Welcome Back, Admin 👋
-        </h1>
+        {/* Welcome */}
+        <div className="bg-white rounded-xl border shadow-sm p-6">
+          <h1 className="text-2xl font-bold text-gray-800">
+            Welcome Back, Admin 👋
+          </h1>
 
-        <p className="mt-2 text-blue-100">
-          Manage announcements, academic resources, support requests,
-          and official communication across the campus.
-        </p>
+          <p className="text-gray-500 mt-2">
+            Manage announcements, academic resources, support requests,
+            and official communication across the campus.
+          </p>
+        </div>
 
-      </div>
+        {/* Statistics */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+          {stats.map((item) => (
+            <div
+              key={item.title}
+              className="bg-white border rounded-xl shadow-sm p-5 hover:shadow-md transition"
+            >
+              <div className="flex justify-between items-center">
 
-      {/* Statistics */}
+                <div>
+                  <p className="text-sm text-gray-500">
+                    {item.title}
+                  </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-8">
+                  <h2 className="text-3xl font-bold text-gray-800 mt-2">
+                    {item.value}
+                  </h2>
+                </div>
 
-        {stats.map((item) => (
-          <div
-            key={item.title}
-            className="bg-white rounded-2xl shadow-sm p-6 border"
-          >
-            <div className="flex justify-between items-center">
+                <div
+                  className={`w-12 h-12 rounded-lg flex items-center justify-center ${item.color}`}
+                >
+                  {item.icon}
+                </div>
 
-              <div>
+              </div>
+            </div>
+          ))}
+        </div>
 
-                <p className="text-gray-500 text-sm">
-                  {item.title}
+        {/* Main Content */}
+        <div className="grid lg:grid-cols-2 gap-6">
+
+          {/* Recent Announcements */}
+          <div className="bg-white border rounded-xl shadow-sm p-6">
+
+            <h2 className="text-lg font-semibold text-gray-800 mb-5">
+              Recent Announcements
+            </h2>
+
+            <div className="space-y-3">
+
+              <div className="border rounded-lg p-4 hover:bg-gray-50 transition">
+                <h3 className="font-medium">
+                  Mid Semester Examination Schedule
+                </h3>
+
+                <p className="text-sm text-gray-500 mt-1">
+                  Published for all departments.
                 </p>
-
-                <h2 className="text-3xl font-bold mt-2">
-                  {item.value}
-                </h2>
-
               </div>
 
-              <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center ${item.color}`}
-              >
-                {item.icon}
+              <div className="border rounded-lg p-4 hover:bg-gray-50 transition">
+                <h3 className="font-medium">
+                  Placement Training Registration
+                </h3>
+
+                <p className="text-sm text-gray-500 mt-1">
+                  Open for Final Year Students.
+                </p>
+              </div>
+
+              <div className="border rounded-lg p-4 hover:bg-gray-50 transition">
+                <h3 className="font-medium">
+                  Internal Assessment Circular
+                </h3>
+
+                <p className="text-sm text-gray-500 mt-1">
+                  Published by Academic Office.
+                </p>
               </div>
 
             </div>
+
           </div>
-        ))}
 
-      </div>
+          {/* Emergency */}
+          <div className="bg-white border rounded-xl shadow-sm p-6">
 
-      {/* Bottom Grid */}
+            <div className="flex justify-between items-center mb-5">
 
-      <div className="grid lg:grid-cols-2 gap-6 mt-8">
+              <h2 className="text-lg font-semibold">
+                Emergency Broadcast
+              </h2>
 
-        {/* Recent Announcements */}
+              <FaTriangleExclamation
+                className="text-red-500"
+                size={20}
+              />
 
-        <div className="bg-white rounded-2xl shadow-sm p-6">
-
-          <h2 className="text-xl font-semibold mb-4">
-            Recent Announcements
-          </h2>
-
-          <div className="space-y-4">
-
-            <div className="border rounded-xl p-4">
-              <h3 className="font-semibold">
-                Mid Semester Examination Schedule
-              </h3>
-
-              <p className="text-gray-500 text-sm mt-1">
-                Published for all departments.
-              </p>
             </div>
 
-            <div className="border rounded-xl p-4">
-              <h3 className="font-semibold">
-                Placement Training Registration
+            <div className="border-2 border-dashed rounded-xl h-64 flex flex-col items-center justify-center">
+
+              <FaTriangleExclamation
+                size={42}
+                className="text-red-500"
+              />
+
+              <h3 className="mt-4 font-semibold text-gray-700">
+                No Active Emergency
               </h3>
 
-              <p className="text-gray-500 text-sm mt-1">
-                Open for Final Year Students.
-              </p>
-            </div>
+              <button className="mt-6 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg transition">
+                Broadcast Alert
+              </button>
 
-            <div className="border rounded-xl p-4">
-              <h3 className="font-semibold">
-                Internal Assessment Circular
-              </h3>
-
-              <p className="text-gray-500 text-sm mt-1">
-                Published by Academic Office.
-              </p>
             </div>
 
           </div>
 
         </div>
 
-        {/* Emergency */}
+        {/* Bottom Cards */}
+        <div className="grid lg:grid-cols-2 gap-6">
 
-        <div className="bg-white rounded-2xl shadow-sm p-6">
+          {/* Support Tickets */}
+          <div className="bg-white border rounded-xl shadow-sm p-6">
 
-          <div className="flex justify-between items-center">
-
-            <h2 className="text-xl font-semibold">
-              Emergency Broadcast
+            <h2 className="text-lg font-semibold mb-5">
+              Pending Support Tickets
             </h2>
 
-            <FaTriangleExclamation
-              className="text-red-600"
-              size={24}
-            />
+            <div className="space-y-4">
+
+              <div className="flex justify-between border-b pb-3">
+                <span>Exam Hall Ticket Issue</span>
+                <span className="text-orange-500 font-medium">
+                  Pending
+                </span>
+              </div>
+
+              <div className="flex justify-between border-b pb-3">
+                <span>Library Card Renewal</span>
+                <span className="text-blue-600 font-medium">
+                  In Progress
+                </span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>WiFi Connectivity</span>
+                <span className="text-green-600 font-medium">
+                  Resolved
+                </span>
+              </div>
+
+            </div>
 
           </div>
 
-          <div className="mt-8 border-2 border-dashed rounded-xl h-56 flex flex-col items-center justify-center">
+          {/* Recent Activity */}
+          <div className="bg-white border rounded-xl shadow-sm p-6">
 
-            <FaTriangleExclamation
-              className="text-red-500"
-              size={45}
-            />
+            <div className="flex items-center gap-2 mb-5">
+              <FaArrowTrendUp className="text-blue-600" />
+              <h2 className="text-lg font-semibold">
+                Recent Activities
+              </h2>
+            </div>
 
-            <h3 className="mt-4 font-semibold">
-              No Active Emergency
-            </h3>
+            <ul className="space-y-3 text-gray-600">
 
-            <button className="mt-6 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg">
+              <li>✔ Faculty uploaded Data Structures notes.</li>
 
-              Broadcast Alert
+              <li>✔ Emergency alert acknowledged by 98% students.</li>
 
-            </button>
+              <li>✔ 12 new support tickets created today.</li>
+
+              <li>✔ Placement circular published.</li>
+
+              <li>✔ 36 students acknowledged exam schedule.</li>
+
+            </ul>
 
           </div>
 
@@ -176,79 +234,9 @@ function Dashboard() {
 
       </div>
 
-      {/* Second Row */}
-
-      <div className="grid lg:grid-cols-2 gap-6 mt-8">
-
-        {/* Support */}
-
-        <div className="bg-white rounded-2xl shadow-sm p-6">
-
-          <h2 className="text-xl font-semibold mb-4">
-            Pending Support Tickets
-          </h2>
-
-          <div className="space-y-4">
-
-            <div className="flex justify-between border-b pb-3">
-              <span>Exam Hall Ticket Issue</span>
-              <span className="text-orange-500 font-semibold">
-                Pending
-              </span>
-            </div>
-
-            <div className="flex justify-between border-b pb-3">
-              <span>Library Card Renewal</span>
-              <span className="text-blue-600 font-semibold">
-                In Progress
-              </span>
-            </div>
-
-            <div className="flex justify-between">
-              <span>WiFi Connectivity</span>
-              <span className="text-green-600 font-semibold">
-                Resolved
-              </span>
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* Activity */}
-
-        <div className="bg-white rounded-2xl shadow-sm p-6">
-
-          <div className="flex items-center gap-3 mb-5">
-
-            <FaArrowTrendUp className="text-blue-700" />
-
-            <h2 className="text-xl font-semibold">
-              Recent Activities
-            </h2>
-
-          </div>
-
-          <ul className="space-y-4 text-gray-600">
-
-            <li>✔ Faculty uploaded Data Structures notes.</li>
-
-            <li>✔ Emergency alert acknowledged by 98% students.</li>
-
-            <li>✔ 12 new support tickets created today.</li>
-
-            <li>✔ Placement circular published.</li>
-
-            <li>✔ 36 students acknowledged exam schedule.</li>
-
-          </ul>
-
-        </div>
-
-      </div>
-
-    </DashboardLayout>
-  );
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default Dashboard;

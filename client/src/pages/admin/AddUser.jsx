@@ -30,117 +30,107 @@ function AddUser() {
   };
 
   return (
-    <DashboardLayout >
-      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-sm border">
+  <DashboardLayout>
+    <div className="min-h-screen bg-gray-100 py-8 px-4">
+      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow border">
 
-        <div className="bg-blue-800 text-white rounded-t-2xl p-6 flex items-center gap-3">
-          <FaUserPlus size={24} />
-          <div>
-            <h1 className="text-3xl font-bold">Add New User</h1>
-            <p className="text-blue-200 mt-1">
-              Register a new student or faculty member.
-            </p>
-          </div>
+        {/* Header */}
+        <div className="border-b px-8 py-6">
+          <h1 className="text-2xl font-bold text-gray-800">
+            Add New User
+          </h1>
+          <p className="text-gray-500 mt-1">
+            Register a new student, faculty, or administrator.
+          </p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="p-8 space-y-6"
+          className="p-8 space-y-8"
         >
+          {/* Personal Information */}
+          <div>
+            <h2 className="text-lg font-semibold text-gray-700 mb-5">
+              Personal Information
+            </h2>
 
-          <div className="grid md:grid-cols-2 gap-6">
-
-            <div>
-              <label className="font-medium block mb-2">
-                Full Name
-              </label>
-
-              <div className="flex items-center border rounded-lg px-3">
-                <FaUser className="text-gray-400" />
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Full Name
+                </label>
                 <input
                   type="text"
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="flex-1 px-3 py-3 outline-none"
                   placeholder="Enter full name"
+                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="font-medium block mb-2">
-                Email
-              </label>
-
-              <div className="flex items-center border rounded-lg px-3">
-                <FaEnvelope className="text-gray-400" />
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Email
+                </label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="flex-1 px-3 py-3 outline-none"
                   placeholder="Enter email"
+                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                 />
               </div>
-            </div>
 
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-
-            <div>
-              <label className="font-medium block mb-2">
-                Phone Number
-              </label>
-
-              <div className="flex items-center border rounded-lg px-3">
-                <FaPhone className="text-gray-400" />
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Phone Number
+                </label>
                 <input
                   type="text"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="flex-1 px-3 py-3 outline-none"
                   placeholder="Phone number"
+                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                 />
               </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Role
+                </label>
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                >
+                  <option>Student</option>
+                  <option>Faculty</option>
+                  <option>Admin</option>
+                </select>
+              </div>
             </div>
-
-            <div>
-              <label className="font-medium block mb-2">
-                Role
-              </label>
-
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-              >
-                <option>Student</option>
-                <option>Faculty</option>
-                <option>Admin</option>
-              </select>
-            </div>
-
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          {/* Academic Information */}
+          <div>
+            <h2 className="text-lg font-semibold text-gray-700 mb-5">
+              Academic Information
+            </h2>
 
-            <div>
-              <label className="font-medium block mb-2">
-                Department
-              </label>
-
-              <div className="flex items-center border rounded-lg px-3">
-                <FaBuilding className="text-gray-400" />
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Department
+                </label>
                 <select
                   name="department"
                   value={formData.department}
                   onChange={handleChange}
-                  className="flex-1 py-3 outline-none bg-transparent"
+                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                 >
                   <option>CSE</option>
                   <option>IT</option>
@@ -149,20 +139,16 @@ function AddUser() {
                   <option>Mechanical</option>
                 </select>
               </div>
-            </div>
 
-            <div>
-              <label className="font-medium block mb-2">
-                Academic Year
-              </label>
-
-              <div className="flex items-center border rounded-lg px-3">
-                <FaGraduationCap className="text-gray-400" />
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Academic Year
+                </label>
                 <select
                   name="year"
                   value={formData.year}
                   onChange={handleChange}
-                  className="flex-1 py-3 outline-none bg-transparent"
+                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                 >
                   <option>First Year</option>
                   <option>Second Year</option>
@@ -170,103 +156,88 @@ function AddUser() {
                   <option>Final Year</option>
                 </select>
               </div>
-            </div>
 
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Register No (Student)
+                </label>
+                <input
+                  type="text"
+                  name="registerNo"
+                  value={formData.registerNo}
+                  onChange={handleChange}
+                  placeholder="22CSR001"
+                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Employee ID (Faculty/Admin)
+                </label>
+                <input
+                  type="text"
+                  name="employeeId"
+                  value={formData.employeeId}
+                  onChange={handleChange}
+                  placeholder="EMP001"
+                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Section
+                </label>
+                <select
+                  name="section"
+                  value={formData.section}
+                  onChange={handleChange}
+                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                >
+                  <option>A</option>
+                  <option>B</option>
+                  <option>C</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Temporary Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Enter temporary password"
+                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-
-            <div>
-              <label className="font-medium block mb-2">
-                Register No (Student)
-              </label>
-
-              <input
-                type="text"
-                name="registerNo"
-                value={formData.registerNo}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-                placeholder="22CSR001"
-              />
-            </div>
-
-            <div>
-              <label className="font-medium block mb-2">
-                Employee ID (Faculty/Admin)
-              </label>
-
-              <input
-                type="text"
-                name="employeeId"
-                value={formData.employeeId}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-                placeholder="EMP001"
-              />
-            </div>
-
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-
-            <div>
-              <label className="font-medium block mb-2">
-                Section
-              </label>
-
-              <select
-                name="section"
-                value={formData.section}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-              >
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="font-medium block mb-2">
-                Temporary Password
-              </label>
-
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-                placeholder="Enter temporary password"
-              />
-            </div>
-
-          </div>
-
-          <div className="flex justify-end gap-4 pt-4">
-
+          {/* Buttons */}
+          <div className="flex justify-end gap-3 border-t pt-6">
             <button
               type="button"
-              className="border px-6 py-3 rounded-lg hover:bg-gray-50"
+              className="px-6 py-2.5 border rounded-lg hover:bg-gray-100 transition"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="bg-blue-800 hover:bg-blue-900 text-white px-8 py-3 rounded-lg"
+              className="px-6 py-2.5 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition"
             >
               Create User
             </button>
-
           </div>
-
         </form>
-
       </div>
-    </DashboardLayout>
-  );
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default AddUser;

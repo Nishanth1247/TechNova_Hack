@@ -51,123 +51,118 @@ function PendingDoubts() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white border rounded-xl shadow-sm">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="flex justify-between items-center p-5 border-b">
 
-      <div className="flex justify-between items-center p-6 border-b">
+      <div>
+        <h2 className="text-lg font-semibold text-gray-800">
+          Student Doubts
+        </h2>
 
-        <div>
-
-          <h2 className="text-2xl font-bold">
-            Student Doubts
-          </h2>
-
-          <p className="text-gray-500 mt-1">
-            Questions awaiting your response.
-          </p>
-
-        </div>
-
-        <button className="text-blue-700 font-semibold hover:text-blue-900">
-          View All
-        </button>
-
+        <p className="text-sm text-gray-500 mt-1">
+          Questions awaiting your response.
+        </p>
       </div>
 
-      {/* Doubts */}
+      <button className="text-sm font-medium text-blue-600 hover:text-blue-800 transition">
+        View All
+      </button>
 
-      <div className="divide-y">
+    </div>
 
-        {doubts.map((item) => (
+    {/* Doubts */}
+    <div className="divide-y">
 
-          <div
-            key={item.id}
-            className="p-6 hover:bg-gray-50 transition"
-          >
+      {doubts.map((item) => (
+        <div
+          key={item.id}
+          className="p-5 hover:bg-gray-50 transition"
+        >
 
-            <div className="flex justify-between items-start gap-4">
+          <div className="flex justify-between gap-4">
 
-              <div className="flex-1">
+            {/* Left */}
+            <div className="flex-1">
 
-                <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex flex-wrap items-center gap-2">
 
-                  {item.pinned && (
-                    <FaThumbtack className="text-orange-500" />
-                  )}
+                {item.pinned && (
+                  <FaThumbtack className="text-orange-500 text-sm" />
+                )}
 
-                  <FaCircleQuestion className="text-blue-700" />
+                <FaCircleQuestion className="text-blue-600 text-sm" />
 
-                  <h3 className="font-semibold text-lg">
-                    {item.title}
-                  </h3>
+                <h3 className="font-semibold text-gray-800">
+                  {item.title}
+                </h3>
 
-                  {item.solved && (
-                    <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                      <FaCircleCheck />
-                      Solved
-                    </span>
-                  )}
-
-                </div>
-
-                <div className="flex flex-wrap gap-5 mt-4 text-sm text-gray-500">
-
-                  <div className="flex items-center gap-2">
-                    <FaUserGraduate />
-                    {item.student}
-                  </div>
-
-                  <div>
-                    {item.subject}
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <FaClock />
-                    {item.time}
-                  </div>
-
-                </div>
+                {item.solved && (
+                  <span className="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium flex items-center gap-1">
+                    <FaCircleCheck size={10} />
+                    Solved
+                  </span>
+                )}
 
               </div>
 
-              <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${priorityColor[item.priority]}`}
-              >
-                {item.priority}
-              </span>
+              <div className="flex flex-wrap gap-5 mt-3 text-sm text-gray-500">
+
+                <span className="flex items-center gap-2">
+                  <FaUserGraduate />
+                  {item.student}
+                </span>
+
+                <span>{item.subject}</span>
+
+                <span className="flex items-center gap-2">
+                  <FaClock />
+                  {item.time}
+                </span>
+
+              </div>
 
             </div>
 
-            <div className="flex justify-between items-center mt-6">
+            {/* Priority */}
+            <span
+              className={`px-3 py-1 h-fit rounded-full text-xs font-medium ${priorityColor[item.priority]}`}
+            >
+              {item.priority}
+            </span>
 
-              <div className="text-sm text-gray-500">
-                {item.replies} Replies
-              </div>
+          </div>
 
-              <div className="flex gap-3">
+          {/* Footer */}
+          <div className="flex justify-between items-center mt-5">
 
-                <button className="border px-4 py-2 rounded-lg hover:bg-gray-100">
-                  Reply
-                </button>
+            <span className="text-sm text-gray-500">
+              {item.replies} Replies
+            </span>
 
-                <button className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg flex items-center gap-2">
-                  Open
-                  <FaArrowRight size={12} />
-                </button>
+            <div className="flex gap-2">
 
-              </div>
+              <button className="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">
+                Reply
+              </button>
+
+              <button className="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg flex items-center gap-2 transition">
+                Open
+                <FaArrowRight size={12} />
+              </button>
 
             </div>
 
           </div>
 
-        ))}
-
-      </div>
+        </div>
+      ))}
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default PendingDoubts;

@@ -46,120 +46,114 @@ function SchedulePanel({
   ];
 
   return (
-    <div className="space-y-6">
+  <div className="space-y-6">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="bg-white border rounded-xl shadow-sm p-5">
 
-      <div className="bg-white rounded-2xl shadow-sm border p-6">
+      <h2 className="text-lg font-semibold text-gray-800">
+        Subject Schedule
+      </h2>
 
-        <h2 className="text-2xl font-bold">
-          Subject Schedule
-        </h2>
+      <p className="text-sm text-gray-500 mt-1">
+        Upcoming academic activities for this subject.
+      </p>
 
-        <p className="text-gray-500 mt-2">
-          Upcoming academic activities for this subject.
-        </p>
+    </div>
 
-      </div>
+    {/* Schedule */}
+    <div className="space-y-4">
 
-      {/* Timeline */}
+      {schedule.map((item) => (
+        <div
+          key={item.id}
+          className="bg-white border rounded-xl shadow-sm p-5"
+        >
 
-      <div className="space-y-5">
+          <div className="flex justify-between items-start gap-4 flex-wrap">
 
-        {schedule.map((item) => (
+            {/* Left */}
+            <div>
 
-          <div
-            key={item.id}
-            className="bg-white rounded-2xl shadow-sm border p-6"
-          >
+              <div className="flex items-center gap-3">
 
-            <div className="flex justify-between flex-wrap gap-6">
-
-              <div>
-
-                <div className="flex items-center gap-3">
-
-                  <FaBookOpen className="text-blue-700" />
-
-                  <h3 className="text-xl font-semibold">
-
-                    {item.title}
-
-                  </h3>
-
+                <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                  <FaBookOpen className="text-blue-600" />
                 </div>
 
-                <div className="mt-5 space-y-3 text-gray-600">
+                <div>
 
-                  <div className="flex items-center gap-3">
+                  <h3 className="font-semibold text-gray-800">
+                    {item.title}
+                  </h3>
 
-                    <FaCalendarDays />
-
-                    {item.day}
-
-                  </div>
-
-                  <div className="flex items-center gap-3">
-
-                    <FaClock />
-
-                    {item.time}
-
-                  </div>
-
-                  <div className="flex items-center gap-3">
-
-                    <FaLocationDot />
-
-                    {item.venue}
-
-                  </div>
+                  <p className="text-sm text-gray-500">
+                    {item.type}
+                  </p>
 
                 </div>
 
               </div>
 
-              <div>
+              <div className="flex flex-wrap gap-6 mt-4 text-sm text-gray-600">
 
-                <span
-                  className={`px-4 py-2 rounded-full text-sm font-medium ${
-                    item.type === "Exam"
-                      ? "bg-red-100 text-red-700"
-                      : item.type === "Assignment"
-                      ? "bg-yellow-100 text-yellow-700"
-                      : item.type === "Lab"
-                      ? "bg-green-100 text-green-700"
-                      : "bg-blue-100 text-blue-700"
-                  }`}
-                >
-                  {item.type}
-                </span>
+                <div className="flex items-center gap-2">
+                  <FaCalendarDays />
+                  {item.day}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <FaClock />
+                  {item.time}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <FaLocationDot />
+                  {item.venue}
+                </div>
 
               </div>
 
             </div>
 
+            {/* Badge */}
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-medium ${
+                item.type === "Exam"
+                  ? "bg-red-100 text-red-700"
+                  : item.type === "Assignment"
+                  ? "bg-yellow-100 text-yellow-700"
+                  : item.type === "Lab"
+                  ? "bg-green-100 text-green-700"
+                  : "bg-blue-100 text-blue-700"
+              }`}
+            >
+              {item.type}
+            </span>
+
           </div>
 
-        ))}
+        </div>
+      ))}
 
-      </div>
+    </div>
 
-      {/* Upcoming */}
+    {/* Upcoming Event */}
+    <div className="bg-white border rounded-xl shadow-sm p-5">
 
-      <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-6 flex gap-4">
+      <div className="flex gap-4">
 
-        <FaTriangleExclamation
-          className="text-yellow-600 text-2xl mt-1"
-        />
+        <div className="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center">
+          <FaTriangleExclamation className="text-yellow-600" />
+        </div>
 
         <div>
 
-          <h3 className="font-semibold">
+          <h3 className="font-medium text-gray-800">
             Upcoming Event
           </h3>
 
-          <p className="text-gray-600 mt-2">
+          <p className="text-sm text-gray-500 mt-2 leading-6">
             Internal Assessment begins next Tuesday.
             Make sure to complete all pending assignments.
           </p>
@@ -169,7 +163,9 @@ function SchedulePanel({
       </div>
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default SchedulePanel;

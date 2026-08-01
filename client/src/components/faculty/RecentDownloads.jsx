@@ -50,113 +50,99 @@ function RecentDownloads() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white border rounded-xl shadow-sm">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="p-5 border-b">
 
-      <div className="flex justify-between items-center p-6 border-b">
+      <h2 className="text-lg font-semibold text-gray-800">
+        Resource Activity
+      </h2>
 
-        <div>
+      <p className="text-sm text-gray-500 mt-1">
+        Student engagement with uploaded resources.
+      </p>
 
-          <h2 className="text-2xl font-bold">
-            Resource Activity
-          </h2>
+    </div>
 
-          <p className="text-gray-500 mt-1">
-            Student engagement with uploaded resources.
-          </p>
+    {/* Resources */}
+    <div className="divide-y">
 
-        </div>
+      {resources.map((item) => (
+        <div
+          key={item.id}
+          className="p-5 hover:bg-gray-50 transition"
+        >
 
-      </div>
+          <div className="flex justify-between gap-4">
 
-      {/* Resources */}
+            {/* Left */}
+            <div className="flex gap-4">
 
-      <div className="divide-y">
-
-        {resources.map((item) => (
-
-          <div
-            key={item.id}
-            className="p-5 hover:bg-gray-50 transition"
-          >
-
-            <div className="flex justify-between">
-
-              <div className="flex gap-4">
-
+              <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
                 {getIcon(item.type)}
-
-                <div>
-
-                  <h3 className="font-semibold">
-                    {item.title}
-                  </h3>
-
-                  <span className="text-sm text-gray-500">
-                    {item.type} Document
-                  </span>
-
-                </div>
-
               </div>
 
-              <div className="text-right">
+              <div>
 
-                <div className="flex items-center gap-2 text-green-600 text-sm">
+                <h3 className="font-medium text-gray-800">
+                  {item.title}
+                </h3>
 
-                  <FaArrowTrendUp />
-
-                  {item.trend}
-
-                </div>
+                <p className="text-sm text-gray-500 mt-1">
+                  {item.type} Document
+                </p>
 
               </div>
 
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mt-5">
+            {/* Trend */}
+            <div className="flex items-center gap-2 text-green-600 text-sm font-medium">
 
-              <div className="flex items-center gap-2 text-gray-600">
+              <FaArrowTrendUp />
 
-                <FaDownload />
-
-                {item.downloads} Downloads
-
-              </div>
-
-              <div className="flex items-center gap-2 text-gray-600">
-
-                <FaEye />
-
-                {item.views} Views
-
-              </div>
+              {item.trend}
 
             </div>
 
           </div>
 
-        ))}
+          {/* Stats */}
+          <div className="flex gap-6 mt-4 text-sm text-gray-600">
 
-      </div>
+            <div className="flex items-center gap-2">
+              <FaDownload />
+              {item.downloads} Downloads
+            </div>
 
-      {/* Footer */}
+            <div className="flex items-center gap-2">
+              <FaEye />
+              {item.views} Views
+            </div>
 
-      <div className="bg-gray-50 rounded-b-2xl border-t p-5 flex justify-between items-center">
+          </div>
 
-        <span className="text-gray-600">
-          Total Downloads Today
-        </span>
-
-        <span className="text-xl font-bold text-blue-700">
-          164
-        </span>
-
-      </div>
+        </div>
+      ))}
 
     </div>
-  );
+
+    {/* Footer */}
+    <div className="border-t p-5 flex justify-between items-center">
+
+      <span className="text-sm text-gray-500">
+        Total Downloads Today
+      </span>
+
+      <span className="text-xl font-bold text-blue-700">
+        164
+      </span>
+
+    </div>
+
+  </div>
+);
 }
 
 export default RecentDownloads;

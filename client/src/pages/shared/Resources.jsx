@@ -6,26 +6,38 @@ function Resources() {
   const { user } = useAuth();
 
   return (
-    <DashboardLayout>
-      <div className="space-y-6">
+  <DashboardLayout>
+    <div className="min-h-screen bg-gray-100 p-6">
 
-        <div>
-          <h1 className="text-3xl font-bold text-slate-800">
+      <div className="max-w-7xl mx-auto bg-white border rounded-xl shadow-sm">
+
+        {/* Header */}
+        <div className="p-6 border-b">
+
+          <h1 className="text-2xl font-bold text-gray-800">
             Resources
           </h1>
 
-          <p className="text-gray-500 mt-2">
+          <p className="text-gray-500 mt-1">
             Access and manage learning resources.
           </p>
+
         </div>
 
-        <ResourcePanel
-          role={user.role}
-        />
+        {/* Resource Content */}
+        <div className="p-6">
+
+          <ResourcePanel
+            role={user.role}
+          />
+
+        </div>
 
       </div>
-    </DashboardLayout>
-  );
+
+    </div>
+  </DashboardLayout>
+);
 }
 
 export default Resources;

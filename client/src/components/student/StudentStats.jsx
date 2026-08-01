@@ -48,67 +48,70 @@ function StudentStats() {
   ];
 
   return (
-    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+  <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
 
-      {stats.map((item, index) => (
+    {stats.map((item, index) => (
 
-        <div
-          key={index}
-          className="bg-white rounded-2xl shadow-sm border hover:shadow-lg transition-all p-6"
-        >
+      <div
+        key={index}
+        className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-300 transition"
+      >
 
-          <div className="flex justify-between">
+        {/* Top */}
+        <div className="flex items-start justify-between">
 
-            <div>
+          <div>
 
-              <p className="text-gray-500 text-sm">
+            <p className="text-sm font-medium text-gray-500">
+              {item.title}
+            </p>
 
-                {item.title}
-
-              </p>
-
-              <h2 className="text-4xl font-bold mt-3">
-
-                {item.value}
-
-              </h2>
-
-            </div>
-
-            <div
-              className={`${item.bg} ${item.color} w-14 h-14 rounded-xl flex items-center justify-center text-2xl`}
-            >
-
-              {item.icon}
-
-            </div>
+            <h2 className="text-3xl font-bold text-gray-800 mt-2">
+              {item.value}
+            </h2>
 
           </div>
 
-          <p className="text-gray-500 mt-4">
-
-            {item.subtitle}
-
-          </p>
-
-          <div className="flex items-center gap-2 mt-4 text-green-600">
-
-            <FaArrowTrendUp />
-
-            <span className="text-sm">
-
-              {item.trend}
-
+          <div
+            className={`h-12 w-12 rounded-xl flex items-center justify-center ${item.bg} ${item.color}`}
+          >
+            <span className="text-lg">
+              {item.icon}
             </span>
-
           </div>
 
         </div>
 
-      ))}
+        {/* Subtitle */}
+        <p className="text-sm text-gray-500 mt-4">
+          {item.subtitle}
+        </p>
 
-    </div>
-  );
+        {/* Bottom */}
+        <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
+
+          <div className="flex items-center gap-2 text-green-600">
+
+            <FaArrowTrendUp size={14} />
+
+            <span className="text-sm font-medium">
+              {item.trend}
+            </span>
+
+          </div>
+
+          <span className="text-xs text-gray-400">
+            Updated
+          </span>
+
+        </div>
+
+      </div>
+
+    ))}
+
+  </div>
+);
 }
 
 export default StudentStats;

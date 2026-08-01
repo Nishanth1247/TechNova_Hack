@@ -62,278 +62,70 @@ const [error, setError] = useState("");
 };
 
   return (
-    <div className="min-h-screen flex bg-slate-100">
+  <div className="min-h-screen bg-gray-100 flex">
 
-      {/* Left */}
+    {/* Left Side */}
+    <div className="hidden lg:flex w-1/2 bg-white border-r border-gray-200 items-center justify-center p-16">
 
-      <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white p-12 flex-col justify-between">
+      <div className="max-w-md">
 
-        <div>
-
-          <div className="flex items-center gap-3">
-
-            <HiAcademicCap size={45} />
-
-            <div>
-
-              <h1 className="text-4xl font-bold">
-
-                CampusConnect
-
-              </h1>
-
-              <p className="text-blue-200">
-
-                Smart Communication & Discussion Portal
-
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div>
-
-          <h2 className="text-5xl font-bold leading-tight">
-
-            One Portal.
-
-            <br />
-
-            Every Student.
-
-            <br />
-
-            Every Faculty.
-
-          </h2>
-
-          <p className="text-blue-200 mt-6 text-lg leading-8">
-
-            Connect students, faculty, HODs and administrators through one secure communication platform.
-
-          </p>
-
-        </div>
-
-        <div className="grid grid-cols-3 gap-6">
+        <div className="flex items-center gap-3 mb-10">
+          <HiAcademicCap className="text-blue-600" size={48} />
 
           <div>
+            <h1 className="text-4xl font-bold text-gray-800">
+              CampusConnect
+            </h1>
 
-            <h3 className="text-4xl font-bold">
+            <p className="text-gray-500 mt-1">
+              Unified Communication Platform
+            </p>
+          </div>
+        </div>
 
+        <h2 className="text-5xl font-bold leading-tight text-gray-800">
+          Learn.
+          <br />
+          Connect.
+          <br />
+          Grow.
+        </h2>
+
+        <p className="mt-6 text-gray-500 leading-8 text-lg">
+          A centralized platform for students, faculty, and administrators
+          to communicate, collaborate, and manage academic activities.
+        </p>
+
+        <div className="flex gap-10 mt-12">
+
+          <div>
+            <h3 className="text-3xl font-bold text-blue-600">
               1500+
-
             </h3>
 
-            <p className="text-blue-200">
-
+            <p className="text-gray-500">
               Students
-
             </p>
-
           </div>
 
           <div>
-
-            <h3 className="text-4xl font-bold">
-
+            <h3 className="text-3xl font-bold text-blue-600">
               120+
-
             </h3>
 
-            <p className="text-blue-200">
-
+            <p className="text-gray-500">
               Faculty
-
             </p>
-
           </div>
 
           <div>
-
-            <h3 className="text-4xl font-bold">
-
+            <h3 className="text-3xl font-bold text-blue-600">
               24/7
-
             </h3>
 
-            <p className="text-blue-200">
-
-              Communication
-
+            <p className="text-gray-500">
+              Support
             </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* Right */}
-
-      <div className="flex-1 flex justify-center items-center p-8">
-
-        <div className="bg-white w-full max-w-md rounded-3xl shadow-xl p-10">
-
-          <div className="text-center">
-
-            <div className="mx-auto w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center">
-
-              <FaGraduationCap
-                size={35}
-                className="text-blue-800"
-              />
-
-            </div>
-
-            <h2 className="text-3xl font-bold mt-6">
-
-              Welcome Back
-
-            </h2>
-
-            <p className="text-gray-500 mt-2">
-
-              Sign in to continue
-
-            </p>
-
-          </div>
-
-          <form
-            onSubmit={handleSubmit}
-            className="mt-10 space-y-6"
-          >
-
-            {/* Email */}
-
-            <div>
-
-              <label className="block mb-2 font-medium">
-
-                Email Address
-
-              </label>
-
-              <div className="flex items-center border rounded-xl px-4">
-
-                <FaEnvelope className="text-gray-400" />
-
-                <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full py-4 px-3 outline-none"
-                />
-
-              </div>
-
-            </div>
-
-            {/* Password */}
-
-            <div>
-
-              <label className="block mb-2 font-medium">
-
-                Password
-
-              </label>
-
-              <div className="flex items-center border rounded-xl px-4">
-
-                <FaLock className="text-gray-400" />
-
-                <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full py-4 px-3 outline-none"
-                    />
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setShowPassword(!showPassword)
-                  }
-                >
-
-                  {showPassword ? (
-
-                    <FaEyeSlash />
-
-                  ) : (
-
-                    <FaEye />
-
-                  )}
-
-                </button>
-
-              </div>
-
-            </div>
-
-            {/* Remember */}
-
-            <div className="flex justify-between items-center">
-
-              <label className="flex items-center gap-2">
-
-                <input type="checkbox" />
-
-                Remember Me
-
-              </label>
-
-              <Link
-                to="/forgot-password"
-                className="text-blue-700 hover:underline"
-              >
-
-                Forgot Password?
-
-              </Link>
-
-            </div>
-            {error && (
-            <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-lg">
-                {error}
-            </div>
-            )}
-
-            {/* Login */}
-
-            <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-800 hover:bg-blue-900 disabled:bg-gray-400 text-white py-4 rounded-xl text-lg font-semibold transition"
-            >
-            {loading ? "Signing In..." : "Login"}
-            </button>
-          </form>
-
-          {/* Footer */}
-
-          <div className="mt-10 border-t pt-6 text-center">
-
-            <p className="text-sm text-gray-500">
-
-              CampusConnect © 2026
-
-            </p>
-
-            <p className="text-xs text-gray-400 mt-2">
-
-              Bannari Amman Institute of Technology
-
-            </p>
-
           </div>
 
         </div>
@@ -341,7 +133,160 @@ const [error, setError] = useState("");
       </div>
 
     </div>
-  );
+
+    {/* Right Side */}
+    <div className="flex-1 flex items-center justify-center p-8">
+
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg border border-gray-200 p-10">
+
+        <div className="text-center">
+
+          <div className="mx-auto w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center">
+            <FaGraduationCap
+              className="text-blue-600"
+              size={28}
+            />
+          </div>
+
+          <h2 className="mt-6 text-3xl font-bold text-gray-800">
+            Welcome Back
+          </h2>
+
+          <p className="mt-2 text-gray-500">
+            Sign in to your account
+          </p>
+
+        </div>
+
+        <form
+          onSubmit={handleSubmit}
+          className="mt-8 space-y-5"
+        >
+
+          {/* Email */}
+
+          <div>
+
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Email Address
+            </label>
+
+            <div className="flex items-center rounded-xl border border-gray-300 px-4 focus-within:border-blue-500">
+
+              <FaEnvelope className="text-gray-400" />
+
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3 py-4 outline-none bg-transparent"
+              />
+
+            </div>
+
+          </div>
+
+          {/* Password */}
+
+          <div>
+
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Password
+            </label>
+
+            <div className="flex items-center rounded-xl border border-gray-300 px-4 focus-within:border-blue-500">
+
+              <FaLock className="text-gray-400" />
+
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-4 outline-none bg-transparent"
+              />
+
+              <button
+                type="button"
+                onClick={() =>
+                  setShowPassword(!showPassword)
+                }
+                className="text-gray-500"
+              >
+                {showPassword ? (
+                  <FaEyeSlash />
+                ) : (
+                  <FaEye />
+                )}
+              </button>
+
+            </div>
+
+          </div>
+
+          {/* Remember */}
+
+          <div className="flex items-center justify-between text-sm">
+
+            <label className="flex items-center gap-2 text-gray-600">
+
+              <input
+                type="checkbox"
+                className="rounded"
+              />
+
+              Remember Me
+
+            </label>
+
+            <Link
+              to="/forgot-password"
+              className="text-blue-600 hover:underline"
+            >
+              Forgot Password?
+            </Link>
+
+          </div>
+
+          {error && (
+
+            <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-600">
+
+              {error}
+
+            </div>
+
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-xl bg-blue-600 py-4 font-semibold text-white transition hover:bg-blue-700 disabled:bg-gray-400"
+          >
+            {loading ? "Signing In..." : "Login"}
+          </button>
+
+        </form>
+
+        <div className="mt-8 border-t border-gray-200 pt-6 text-center">
+
+          <p className="text-sm text-gray-500">
+            CampusConnect © 2026
+          </p>
+
+          <p className="mt-1 text-xs text-gray-400">
+            Bannari Amman Institute of Technology
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+);
 }
 
 export default Login;

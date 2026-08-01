@@ -16,106 +16,104 @@ function OverviewPanel({
     "Lab Schedule updated",
   ];
 
-  return (
-    <div className="space-y-6">
+  const stats = [
+  {
+    title: "Announcements",
+    value: 6,
+    icon: <FaBullhorn />,
+    color: "text-red-600",
+    bg: "bg-red-100",
+  },
+  {
+    title: "Resources",
+    value: 18,
+    icon: <FaFolderOpen />,
+    color: "text-blue-600",
+    bg: "bg-blue-100",
+  },
+  {
+    title: "Discussions",
+    value: 25,
+    icon: <FaComments />,
+    color: "text-green-600",
+    bg: "bg-green-100",
+  },
+  {
+    title: "Upcoming Events",
+    value: 4,
+    icon: <FaClock />,
+    color: "text-orange-600",
+    bg: "bg-orange-100",
+  },
+];
 
-      <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+return (
+  <div className="space-y-6">
 
-        <div className="bg-white rounded-2xl shadow-sm p-6 border">
+    {/* Stats */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
 
-          <FaBullhorn
-            className="text-red-600 text-2xl"
-          />
+      {stats.map((item, index) => (
+        <div
+          key={index}
+          className="bg-white border rounded-xl shadow-sm hover:shadow-md transition p-5"
+        >
 
-          <h2 className="text-3xl font-bold mt-4">
-            6
+          <div
+            className={`w-10 h-10 rounded-lg flex items-center justify-center ${item.bg}`}
+          >
+            <span className={`${item.color}`}>
+              {item.icon}
+            </span>
+          </div>
+
+          <h2 className="text-3xl font-bold text-gray-800 mt-4">
+            {item.value}
           </h2>
 
-          <p className="text-gray-500">
-            Announcements
+          <p className="text-sm text-gray-500 mt-1">
+            {item.title}
           </p>
 
         </div>
+      ))}
 
-        <div className="bg-white rounded-2xl shadow-sm p-6 border">
+    </div>
 
-          <FaFolderOpen
-            className="text-blue-700 text-2xl"
-          />
+    {/* Recent Activity */}
+    <div className="bg-white border rounded-xl shadow-sm">
 
-          <h2 className="text-3xl font-bold mt-4">
-            18
-          </h2>
+      <div className="p-5 border-b">
 
-          <p className="text-gray-500">
-            Resources
-          </p>
-
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-sm p-6 border">
-
-          <FaComments
-            className="text-green-600 text-2xl"
-          />
-
-          <h2 className="text-3xl font-bold mt-4">
-            25
-          </h2>
-
-          <p className="text-gray-500">
-            Discussions
-          </p>
-
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-sm p-6 border">
-
-          <FaClock
-            className="text-orange-600 text-2xl"
-          />
-
-          <h2 className="text-3xl font-bold mt-4">
-            4
-          </h2>
-
-          <p className="text-gray-500">
-            Upcoming Events
-          </p>
-
-        </div>
-
-      </div>
-
-      <div className="bg-white rounded-2xl shadow-sm border p-6">
-
-        <h2 className="text-xl font-semibold mb-5">
+        <h2 className="text-lg font-semibold text-gray-800">
           Recent Activity
         </h2>
 
-        <div className="space-y-4">
+      </div>
 
-          {activities.map((item, index) => (
+      <div className="divide-y">
 
-            <div
-              key={index}
-              className="flex items-center gap-3 border-b pb-4"
-            >
+        {activities.map((item, index) => (
+          <div
+            key={index}
+            className="flex items-center gap-3 p-4 hover:bg-gray-50 transition"
+          >
 
-              <div className="w-2 h-2 rounded-full bg-blue-700"></div>
+            <div className="w-2 h-2 rounded-full bg-blue-600"></div>
 
-              <p>{item}</p>
+            <p className="text-sm text-gray-700">
+              {item}
+            </p>
 
-            </div>
-
-          ))}
-
-        </div>
+          </div>
+        ))}
 
       </div>
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default OverviewPanel;

@@ -50,66 +50,64 @@ function QuickActions() {
   ];
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border">
+  <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
 
-      {/* Header */}
+    {/* Header */}
+    <div className="px-6 py-5 border-b border-gray-200">
 
-      <div className="p-6 border-b">
+      <h2 className="text-xl font-semibold text-gray-800">
+        Quick Actions
+      </h2>
 
-        <h2 className="text-2xl font-bold">
-          Quick Actions
-        </h2>
+      <p className="text-sm text-gray-500 mt-1">
+        Frequently used faculty actions.
+      </p>
 
-        <p className="text-gray-500 mt-1">
-          Frequently used faculty actions.
-        </p>
+    </div>
 
-      </div>
+    {/* Actions */}
+    <div className="p-5 space-y-3">
 
-      {/* Actions */}
+      {actions.map((item, index) => (
 
-      <div className="p-5 space-y-4">
+        <button
+          key={index}
+          onClick={() => navigate(item.path)}
+          className="group w-full flex items-center justify-between rounded-xl border border-gray-200 p-4 hover:border-blue-500 hover:bg-blue-50 transition-all duration-200"
+        >
 
-        {actions.map((item, index) => (
+          <div className="flex items-center gap-4">
 
-          <button
-            key={index}
-            onClick={() => navigate(item.path)}
-            className="w-full flex items-center justify-between border rounded-xl p-4 hover:shadow-md hover:border-blue-500 transition-all"
-          >
+            <div
+              className={`flex h-12 w-12 items-center justify-center rounded-xl text-lg ${item.color}`}
+            >
+              {item.icon}
+            </div>
 
-            <div className="flex items-center gap-4">
+            <div className="text-left">
 
-              <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center text-xl ${item.color}`}
-              >
-                {item.icon}
-              </div>
+              <h3 className="font-medium text-gray-800">
+                {item.title}
+              </h3>
 
-              <div className="text-left">
-
-                <h3 className="font-semibold">
-                  {item.title}
-                </h3>
-
-                <p className="text-sm text-gray-500 mt-1">
-                  {item.description}
-                </p>
-
-              </div>
+              <p className="text-sm text-gray-500">
+                {item.description}
+              </p>
 
             </div>
 
-            <FaArrowRight className="text-gray-400" />
+          </div>
 
-          </button>
+          <FaArrowRight className="text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
 
-        ))}
+        </button>
 
-      </div>
+      ))}
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default QuickActions;
