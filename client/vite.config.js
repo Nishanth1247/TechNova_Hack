@@ -3,6 +3,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/TechNova_Hack/", 
+  base: "/TechNova_Hack/",
 });
-
