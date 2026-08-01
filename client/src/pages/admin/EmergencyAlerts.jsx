@@ -6,6 +6,11 @@ import {
   FaClockRotateLeft,
   FaCircleCheck,
 } from "react-icons/fa6";
+import { useEffect } from "react";
+import {
+    getAlerts,
+    createAlert,
+} from "../../api/emergencyApi";
 
 function EmergencyAlerts() {
   const [formData, setFormData] = useState({
@@ -15,24 +20,26 @@ function EmergencyAlerts() {
     target: "Entire College",
   });
 
-  const history = [
-    {
-      id: 1,
-      title: "Heavy Rain - Afternoon Classes Suspended",
-      severity: "Critical",
-      target: "Entire College",
-      time: "31 Jul 2026 • 11:30 AM",
-      status: "Delivered",
-    },
-    {
-      id: 2,
-      title: "Fire Safety Drill",
-      severity: "Medium",
-      target: "CSE Block",
-      time: "28 Jul 2026 • 10:00 AM",
-      status: "Delivered",
-    },
-  ];
+  const [history, setHistory] = useState([]);
+  useEffect(() => {
+    loadAlerts();
+}, []);
+
+const loadAlerts = async () => {
+
+    try {
+
+        const data = await getAlerts();
+
+        setHistory(data);
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+};
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -41,18 +48,32 @@ function EmergencyAlerts() {
     }));
   };
 
-  const handleSend = (e) => {
+  const handleSend = async (e) => {
+
     e.preventDefault();
 
-    alert("Emergency Alert Sent Successfully!");
+    try {
 
-    setFormData({
-      title: "",
-      message: "",
-      severity: "High",
-      target: "Entire College",
-    });
-  };
+        await createAlert(formData);
+
+        alert("Emergency Alert Sent");
+
+        loadAlerts();
+
+        setFormData({
+            title: "",
+            message: "",
+            severity: "High",
+            target: "Entire College",
+        });
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+};
 
   return (
   <DashboardLayout>
@@ -253,32 +274,19 @@ function EmergencyAlerts() {
                 className="rounded-xl border border-gray-200 p-5 hover:shadow-sm transition"
               >
 
-                <h3 className="font-semibold text-gray-800">
-                  {item.title}
-                </h3>
+                <h3>{item.title}</h3>
 
                 <p className="mt-2 text-sm text-gray-500">
-                  {item.time}
+                    {new Date(item.created_at).toLocaleString()}
                 </p>
 
-                <div className="mt-4 flex flex-wrap gap-2">
+                <span>{item.severity}</span>
+                <br />
+                <span>{item.target}</span>
 
-                  <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-600">
-                    {item.severity}
-                  </span>
-
-                  <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-600">
-                    {item.target}
-                  </span>
-
-                </div>
-
-                <div className="mt-4 flex items-center gap-2 text-green-600 text-sm font-medium">
-
-                  <FaCircleCheck />
-
-                  {item.status}
-
+                <div className="mt-4 flex items-center gap-2 text-green-600">
+                    <FaCircleCheck />
+                    Sent
                 </div>
 
               </div>

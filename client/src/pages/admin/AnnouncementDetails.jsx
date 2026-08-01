@@ -8,24 +8,55 @@ import {
   FaDownload,
   FaEye,
 } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getAnnouncementById } from "../../api/announcementApi";
 
 function AnnouncementDetails() {
-  const announcement = {
-    title: "Mid Semester Examination Schedule",
-    description:
-      "The Mid Semester Examination for all departments will commence from 18th August 2026. Students are advised to download the timetable from the Resource Hub and verify their registered subjects before the examination. Any discrepancy should be reported to the department office before 10th August 2026.",
-    priority: "High",
-    department: "All Departments",
-    target: "All Students",
-    publishedBy: "Academic Office",
-    publishDate: "31 July 2026",
-    attachment: "Exam_Schedule.pdf",
-    acknowledgement: true,
-    acknowledged: 892,
-    total: 1200,
-  };
 
-  const percentage = Math.round(
+  const { id } = useParams();
+
+const [announcement, setAnnouncement] = useState(null);
+
+useEffect(() => {
+
+    const loadAnnouncement = async () => {
+
+        try {
+
+            const data = await getAnnouncementById(id);
+
+            setAnnouncement(data);
+
+        } catch (err) {
+
+            console.log(err);
+
+        }
+
+    };
+
+    loadAnnouncement();
+
+}, [id]);
+
+  
+
+  
+
+  if (!announcement) {
+
+    return (
+        <DashboardLayout>
+            <div className="p-8">
+                Loading...
+            </div>
+        </DashboardLayout>
+    );
+
+}
+
+const percentage = Math.round(
     (announcement.acknowledged / announcement.total) * 100
   );
 
@@ -82,22 +113,28 @@ function AnnouncementDetails() {
 
             <div>
               <p className="text-sm text-gray-500">Published</p>
-              <p className="font-medium">{announcement.publishDate}</p>
+              <p className="font-medium">
+  {new Date(announcement.created_at).toLocaleDateString()}
+</p>
             </div>
 
             <div>
               <p className="text-sm text-gray-500">Published By</p>
-              <p className="font-medium">{announcement.publishedBy}</p>
+              <p className="font-medium">
+  Admin
+</p>
             </div>
 
             <div>
               <p className="text-sm text-gray-500">Department</p>
-              <p className="font-medium">{announcement.department}</p>
+              <p className="font-medium">
+  Computer Science
+</p>
             </div>
 
             <div>
               <p className="text-sm text-gray-500">Target Audience</p>
-              <p className="font-medium">{announcement.target}</p>
+              <p className="font-medium">{announcement.target_role}</p>
             </div>
 
           </div>
@@ -111,11 +148,11 @@ function AnnouncementDetails() {
             </h2>
 
             <span className="font-semibold text-blue-700">
-              {announcement.acknowledged} / {announcement.total}
+              {announcement.acknowledgements} Acknowledgements
             </span>
           </div>
 
-          <div className="w-full h-3 bg-gray-200 rounded-full">
+          {/* <div className="w-full h-3 bg-gray-200 rounded-full">
             <div
               className="h-3 rounded-full bg-blue-700"
               style={{ width: `${percentage}%` }}
@@ -124,7 +161,7 @@ function AnnouncementDetails() {
 
           <p className="text-sm text-gray-500 mt-3">
             {percentage}% of recipients have acknowledged this announcement.
-          </p>
+          </p> */}
         </div>
 
         {/* Student Action */}

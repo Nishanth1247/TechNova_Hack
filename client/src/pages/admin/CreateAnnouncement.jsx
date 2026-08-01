@@ -1,17 +1,18 @@
 import { useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
+import { createAnnouncement } from "../../api/announcementApi";
+import { useNavigate } from "react-router-dom";
 
 function CreateAnnouncement() {
+
+  
+
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    priority: "Normal",
-    target: "All Students",
-    department: "All",
-    publishDate: "",
-    acknowledgement: false,
-    attachment: null,
-  });
+  title: "",
+  description: "",
+  priority: "Medium",
+  target_role: "all",
+});
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -27,13 +28,27 @@ function CreateAnnouncement() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    console.log(formData);
+  try {
+
+    await createAnnouncement(formData);
 
     alert("Announcement Created Successfully!");
-  };
+
+    navigate("/admin/announcements");
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Failed to create announcement.");
+
+  }
+};
+
+  const navigate = useNavigate();
 
   return (
   <DashboardLayout>
@@ -138,9 +153,9 @@ function CreateAnnouncement() {
                   onChange={handleChange}
                   className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 >
-                  <option>Normal</option>
-                  <option>High</option>
-                  <option>Emergency</option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
                 </select>
 
               </div>
@@ -154,111 +169,17 @@ function CreateAnnouncement() {
                 </label>
 
                 <select
-                  name="target"
-                  value={formData.target}
-                  onChange={handleChange}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                >
-                  <option>All Students</option>
-                  <option>Faculty</option>
-                  <option>Entire College</option>
-                  <option>Final Year</option>
-                  <option>Second Year</option>
-                </select>
+    name="target_role"
+    value={formData.target_role}
+    onChange={handleChange}
+>
+    <option value="all">All Users</option>
+    <option value="student">Students</option>
+    <option value="faculty">Faculty</option>
+</select>
 
               </div>
-
-              {/* Department */}
-
-              <div>
-
-                <label className="block text-sm font-medium text-gray-600 mb-2">
-                  Department
-                </label>
-
-                <select
-                  name="department"
-                  value={formData.department}
-                  onChange={handleChange}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                >
-                  <option>All</option>
-                  <option>CSE</option>
-                  <option>IT</option>
-                  <option>ECE</option>
-                  <option>EEE</option>
-                  <option>Mechanical</option>
-                </select>
-
-              </div>
-
-              {/* Publish Date */}
-
-              <div>
-
-                <label className="block text-sm font-medium text-gray-600 mb-2">
-                  Publish Date
-                </label>
-
-                <input
-                  type="date"
-                  name="publishDate"
-                  value={formData.publishDate}
-                  onChange={handleChange}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                />
-
-              </div>
-
             </div>
-
-          </div>
-
-          {/* Attachment */}
-
-          <div>
-
-            <h2 className="text-lg font-semibold text-gray-700 mb-5">
-              Attachment
-            </h2>
-
-            <input
-              type="file"
-              name="attachment"
-              onChange={handleChange}
-              className="block w-full rounded-xl border border-gray-300 px-4 py-3 file:mr-4 file:rounded-lg file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-blue-600 file:font-medium hover:file:bg-blue-100"
-            />
-
-          </div>
-
-          {/* Acknowledgement */}
-
-          <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
-
-            <label className="flex items-center gap-3 cursor-pointer">
-
-              <input
-                type="checkbox"
-                name="acknowledgement"
-                checked={formData.acknowledgement}
-                onChange={handleChange}
-                className="h-5 w-5 rounded accent-blue-600"
-              />
-
-              <div>
-
-                <p className="font-medium text-gray-700">
-                  Require Student Acknowledgement
-                </p>
-
-                <p className="text-sm text-gray-500">
-                  Students must confirm they have read this announcement.
-                </p>
-
-              </div>
-
-            </label>
-
           </div>
 
           {/* Footer Buttons */}

@@ -6,38 +6,51 @@ import {
   FaPen,
   FaTrash,
 } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import {
+  getAnnouncements,
+  deleteAnnouncement,
+} from "../../api/announcementApi";
 
 import { useNavigate } from "react-router-dom";
 
 function Announcements() {
     const navigate = useNavigate();
 
-  const announcements = [
-    {
-      id: 1,
-      title: "Mid Semester Examination Schedule",
-      priority: "High",
-      target: "All Students",
-      acknowledgements: "892 / 1200",
-      date: "31 Jul 2026",
-    },
-    {
-      id: 2,
-      title: "Placement Training Registration",
-      priority: "Normal",
-      target: "Final Year",
-      acknowledgements: "315 / 420",
-      date: "30 Jul 2026",
-    },
-    {
-      id: 3,
-      title: "Fire Safety Drill",
-      priority: "Emergency",
-      target: "Entire College",
-      acknowledgements: "1105 / 1200",
-      date: "29 Jul 2026",
-    },
-  ];
+  const [announcements, setAnnouncements] = useState([]);
+  useEffect(() => {
+  loadAnnouncements();
+}, []);
+
+const loadAnnouncements = async () => {
+  try {
+    const data = await getAnnouncements();
+    setAnnouncements(data);
+  } catch (err) {
+    console.error("Error loading announcements:", err);
+  }
+};
+const handleDelete = async (id) => {
+
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this announcement?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+
+    await deleteAnnouncement(id);
+
+    loadAnnouncements();
+
+  } catch (err) {
+
+    console.error("Delete failed:", err);
+
+  }
+
+};
 
   const priorityColor = (priority) => {
     switch (priority) {
@@ -140,15 +153,15 @@ function Announcements() {
                   </td>
 
                   <td className="px-6 text-gray-600">
-                    {item.target}
+                    {item.target_role}
                   </td>
 
                   <td className="px-6 text-gray-600">
-                    {item.acknowledgements}
+                    {item.acknowledgements} Students
                   </td>
 
                   <td className="px-6 text-gray-600">
-                    {item.date}
+                    {new Date(item.created_at).toLocaleDateString()}
                   </td>
 
                   <td className="px-6">
@@ -167,9 +180,12 @@ function Announcements() {
                         <FaPen />
                       </button>
 
-                      <button className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition">
-                        <FaTrash />
-                      </button>
+                      <button
+  onClick={() => handleDelete(item.id)}
+  className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition"
+>
+  <FaTrash />
+</button>
 
                     </div>
                   </td>

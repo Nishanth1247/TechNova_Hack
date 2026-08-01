@@ -10,38 +10,53 @@ import {
   FaMagnifyingGlass,
 } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import {
+    getResources,
+    deleteResource,
+} from "../../api/resourceApi";
 
 function Resources() {
     const navigate = useNavigate();
-  const resources = [
-    {
-      id: 1,
-      title: "Mid Semester Timetable",
-      category: "Timetable",
-      department: "All",
-      type: "PDF",
-      uploadedBy: "Academic Office",
-      date: "31 Jul 2026",
-    },
-    {
-      id: 2,
-      title: "Data Structures Notes - Unit 1",
-      category: "Study Material",
-      department: "CSE",
-      type: "PDF",
-      uploadedBy: "Dr. Kumar",
-      date: "30 Jul 2026",
-    },
-    {
-      id: 3,
-      title: "Placement Orientation PPT",
-      category: "Placement",
-      department: "Final Year",
-      type: "PPT",
-      uploadedBy: "Placement Cell",
-      date: "29 Jul 2026",
-    },
-  ];
+  const [resources, setResources] = useState([]);
+  useEffect(() => {
+    loadResources();
+}, []);
+
+const loadResources = async () => {
+
+    try {
+
+        const data = await getResources();
+
+        setResources(data);
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+};
+const handleDelete = async (id) => {
+
+    if (!window.confirm("Delete this resource?"))
+        return;
+
+    try {
+
+        await deleteResource(id);
+
+        loadResources();
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+};
 
   const fileIcon = (type) => {
     switch (type) {
@@ -121,7 +136,7 @@ function Resources() {
               <div className="flex gap-4 flex-1">
 
                 <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
-                  {fileIcon(item.type)}
+                  {fileIcon(item.file_url.split(".").pop().toUpperCase())}
                 </div>
 
                 <div>
@@ -133,7 +148,7 @@ function Resources() {
                     </h2>
 
                     <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                      {item.category}
+                      Subject: {item.subject}
                     </span>
 
                   </div>
@@ -145,11 +160,11 @@ function Resources() {
                     </span>
 
                     <span>
-                      Uploaded By: {item.uploadedBy}
+                      Uploaded By: {item.uploadedBy || "Admin"}
                     </span>
 
                     <span>
-                      {item.date}
+                      {new Date(item.created_at).toLocaleDateString()}
                     </span>
 
                   </div>
@@ -165,11 +180,19 @@ function Resources() {
                   <FaEye />
                 </button>
 
-                <button className="p-2 rounded-lg text-green-600 hover:bg-green-100 transition">
-                  <FaDownload />
-                </button>
+                <a
+    href={item.file_url}
+    target="_blank"
+    rel="noreferrer"
+    className="p-2 rounded-lg text-green-600 hover:bg-green-100 transition"
+>
+    <FaDownload />
+</a>
 
-                <button className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition">
+                <button
+    onClick={() => handleDelete(item.id)}
+    className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition"
+>
                   <FaTrash />
                 </button>
 

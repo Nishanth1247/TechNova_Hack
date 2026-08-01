@@ -8,46 +8,55 @@ import {
   FaCircleCheck,
   FaTrash,
 } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+
+import {
+    getNotifications,
+    markAllRead,
+    deleteNotification,
+} from "../../api/notificationApi";
 
 function Notifications() {
-  const notifications = [
-    {
-      id: 1,
-      type: "Announcement",
-      title: "New Mid Semester Examination Schedule Published",
-      time: "5 mins ago",
-      icon: <FaBullhorn className="text-blue-600" />,
-      color: "bg-blue-50",
-      unread: true,
-    },
-    {
-      id: 2,
-      type: "Resource",
-      title: "Data Structures Unit-1 Notes Uploaded",
-      time: "30 mins ago",
-      icon: <FaFolderOpen className="text-green-600" />,
-      color: "bg-green-50",
-      unread: true,
-    },
-    {
-      id: 3,
-      type: "Support",
-      title: "Support Ticket #SUP-101 marked as Resolved",
-      time: "2 hours ago",
-      icon: <FaHeadset className="text-orange-600" />,
-      color: "bg-orange-50",
-      unread: false,
-    },
-    {
-      id: 4,
-      type: "Emergency",
-      title: "Emergency Drill Scheduled Tomorrow",
-      time: "Yesterday",
-      icon: <FaTriangleExclamation className="text-red-600" />,
-      color: "bg-red-50",
-      unread: false,
-    },
-  ];
+  const [notifications, setNotifications] = useState([]);
+  useEffect(() => {
+    loadNotifications();
+}, []);
+
+const loadNotifications = async () => {
+
+    try {
+
+        const data = await getNotifications();
+
+        setNotifications(data);
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+};
+
+const getIcon = (title) => {
+
+    const text = title.toLowerCase();
+
+    if (text.includes("announcement"))
+        return <FaBullhorn className="text-blue-600" />;
+
+    if (text.includes("resource"))
+        return <FaFolderOpen className="text-green-600" />;
+
+    if (text.includes("support"))
+        return <FaHeadset className="text-orange-600" />;
+
+    if (text.includes("emergency"))
+        return <FaTriangleExclamation className="text-red-600" />;
+
+    return <FaBell className="text-gray-600" />;
+
+};
 
   return (
   <DashboardLayout>
@@ -67,10 +76,16 @@ function Notifications() {
             </p>
           </div>
 
-          <button className="flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white px-5 py-2.5 rounded-lg transition">
-            <FaCircleCheck />
-            Mark All Read
-          </button>
+          <button
+    onClick={async () => {
+        await markAllRead();
+        loadNotifications();
+    }}
+    className="flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white px-5 py-2.5 rounded-lg transition"
+>
+    <FaCircleCheck />
+    Mark All Read
+</button>
 
         </div>
 
@@ -87,7 +102,7 @@ function Notifications() {
                 <div className="flex gap-4">
 
                   <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-lg text-blue-600">
-                    {item.icon}
+                    {getIcon(item.title)}
                   </div>
 
                   <div>
@@ -98,27 +113,40 @@ function Notifications() {
                         {item.title}
                       </h2>
 
-                      {item.unread && (
-                        <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
-                          New
-                        </span>
-                      )}
+                     {!item.is_read && (
+    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+        New
+    </span>
+)}
 
                     </div>
 
                     <p className="text-sm text-gray-600 mt-1">
-                      {item.type}
+                      {item.message}
                     </p>
 
                     <p className="text-xs text-gray-400 mt-1">
-                      {item.time}
+                      {new Date(item.created_at).toLocaleString()}
                     </p>
 
                   </div>
 
                 </div>
 
-                <button className="p-2 rounded-lg text-red-500 hover:bg-red-100 transition">
+                <button
+    onClick={async () => {
+
+        if (window.confirm("Delete notification?")) {
+
+            await deleteNotification(item.id);
+
+            loadNotifications();
+
+        }
+
+    }}
+    className="p-2 rounded-lg text-red-500 hover:bg-red-100 transition"
+>
                   <FaTrash />
                 </button>
 

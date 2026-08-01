@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import DashboardLayout from "../../layouts/DashboardLayout";
 import {
   FaUserGraduate,
@@ -7,29 +7,73 @@ import {
   FaCircleCheck,
   FaReply,
 } from "react-icons/fa6";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getTicket,
+  getReplies,
+  sendReply,
+  updateStatus,
+} from "../../api/supportApi";
 
 function SupportTicketDetails() {
   const [status, setStatus] = useState("Open");
   const [reply, setReply] = useState("");
 
-  const ticket = {
-    id: "SUP-001",
-    title: "Unable to Access Student Portal",
-    student: "Rahul Kumar",
-    regNo: "22CS101",
-    category: "Technical",
-    priority: "High",
-    createdOn: "31 Jul 2026",
-    description:
-      "I am unable to log in to the student portal since yesterday. It shows an authentication error even after resetting my password.",
-  };
+  const { id } = useParams();
 
-  const handleReply = () => {
-    if (!reply.trim()) return;
+const [ticket, setTicket] = useState(null);
 
-    alert("Reply Sent Successfully");
+const [replies, setReplies] = useState([]);
+
+useEffect(() => {
+
+    loadTicket();
+
+    loadReplies();
+
+}, [id]);
+
+const loadTicket = async () => {
+
+    const data = await getTicket(id);
+
+    setTicket(data);
+
+    setStatus(data.status);
+
+};
+
+const loadReplies = async () => {
+
+    const data = await getReplies(id);
+
+    setReplies(data);
+
+};
+
+  const handleReply = async () => {
+
+    if (!reply.trim())
+        return;
+
+    await sendReply(id, reply);
+
     setReply("");
-  };
+
+    loadReplies();
+
+};
+
+if (!ticket) {
+  return (
+    <DashboardLayout>
+      <div className="p-8">
+        Loading...
+      </div>
+    </DashboardLayout>
+  );
+}
 
   return (
   <DashboardLayout>
@@ -74,27 +118,40 @@ function SupportTicketDetails() {
 
             <div className="space-y-4">
 
-              <div className="bg-gray-50 border rounded-lg p-4">
-                <p className="font-semibold text-gray-800">
-                  Rahul Kumar
-                </p>
+  {replies.length === 0 ? (
 
-                <p className="text-gray-600 mt-2">
-                  I cannot access the portal after changing my password.
-                </p>
-              </div>
+    <p className="text-gray-500">
+      No replies yet.
+    </p>
 
-              <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
-                <p className="font-semibold text-blue-700">
-                  Admin
-                </p>
+  ) : (
 
-                <p className="text-gray-600 mt-2">
-                  We are checking the authentication service.
-                </p>
-              </div>
+    replies.map((item) => (
 
-            </div>
+      <div
+        key={item.id}
+        className={`rounded-lg p-4 border ${
+          item.name === "Admin"
+            ? "bg-blue-50 border-blue-100"
+            : "bg-gray-50"
+        }`}
+      >
+
+        <p className="font-semibold">
+          {item.name}
+        </p>
+
+        <p className="mt-2 text-gray-600">
+          {item.message}
+        </p>
+
+      </div>
+
+    ))
+
+  )}
+
+</div>
 
           </div>
 
@@ -160,7 +217,7 @@ function SupportTicketDetails() {
               </p>
 
               <p className="font-medium">
-                {ticket.createdOn}
+                {new Date(ticket.created_at).toLocaleDateString()}
               </p>
             </div>
 
@@ -176,14 +233,23 @@ function SupportTicketDetails() {
               >
                 <option>Open</option>
                 <option>In Progress</option>
-                <option>Resolved</option>
+                <option>Closed</option>
               </select>
             </div>
 
-            <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-lg transition flex justify-center items-center gap-2">
-              <FaCircleCheck />
-              Update Status
-            </button>
+            <button
+    onClick={async () => {
+
+        await updateStatus(id, status);
+
+        alert("Status Updated");
+
+    }}
+    className="w-full bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-lg flex justify-center items-center gap-2"
+>
+    <FaCircleCheck />
+    Update Status
+</button>
 
           </div>
 

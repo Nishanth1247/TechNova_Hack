@@ -1,15 +1,18 @@
 import { useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
+import { uploadResource } from "../../api/resourceApi";
+import { useNavigate } from "react-router-dom";
 
 function UploadResource() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    title: "",
-    category: "Study Material",
-    department: "All",
-    year: "All",
-    description: "",
-    file: null,
-  });
+  title: "",
+  category: "Study Material",
+  department: "All",
+  year: "All",
+  description: "",
+  file: null,
+});
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -20,13 +23,27 @@ function UploadResource() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
 
-    console.log(formData);
+    try {
 
-    alert("Resource uploaded successfully!");
-  };
+        await uploadResource(formData);
+
+        alert("Resource Uploaded Successfully!");
+
+        navigate("/admin/resources");
+
+    } catch (err) {
+
+        console.log(err);
+
+        alert("Upload Failed");
+
+    }
+
+};
 
   return (
   <DashboardLayout>
@@ -85,76 +102,27 @@ function UploadResource() {
 
               {/* Category & Department */}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                <div>
-
-                  <label className="block text-sm font-medium text-gray-600 mb-2">
-                    Category
-                  </label>
-
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                  >
-                    <option>Study Material</option>
-                    <option>Timetable</option>
-                    <option>Question Paper</option>
-                    <option>Lab Manual</option>
-                    <option>Circular</option>
-                    <option>Placement</option>
-                  </select>
-
-                </div>
-
-                <div>
-
-                  <label className="block text-sm font-medium text-gray-600 mb-2">
-                    Department
-                  </label>
-
-                  <select
-                    name="department"
-                    value={formData.department}
-                    onChange={handleChange}
-                    className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                  >
-                    <option>All</option>
-                    <option>CSE</option>
-                    <option>IT</option>
-                    <option>ECE</option>
-                    <option>EEE</option>
-                    <option>Mechanical</option>
-                  </select>
-
-                </div>
-
-              </div>
-
-              {/* Academic Year */}
-
               <div>
 
-                <label className="block text-sm font-medium text-gray-600 mb-2">
-                  Academic Year
-                </label>
+  <label className="block text-sm font-medium text-gray-600 mb-2">
+    Subject
+  </label>
 
-                <select
-                  name="year"
-                  value={formData.year}
-                  onChange={handleChange}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                >
-                  <option>All</option>
-                  <option>First Year</option>
-                  <option>Second Year</option>
-                  <option>Third Year</option>
-                  <option>Final Year</option>
-                </select>
+  <select
+    name="subject"
+    value={formData.subject}
+    onChange={handleChange}
+    className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none"
+  >
+    <option>Data Structures</option>
+    <option>Database Management Systems</option>
+    <option>Operating Systems</option>
+    <option>Computer Networks</option>
+  </select>
 
-              </div>
+</div>
+
+              
 
               {/* Description */}
 

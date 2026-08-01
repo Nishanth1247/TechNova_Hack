@@ -6,45 +6,39 @@ import {
   FaPen,
 } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getSupportTickets } from "../../api/supportApi";
 
 function SupportDesk() {
   const navigate = useNavigate();
 
-  const tickets = [
-    {
-      id: 1,
-      title: "Unable to Access Student Portal",
-      category: "Technical",
-      student: "Rahul Kumar",
-      priority: "High",
-      status: "Open",
-      date: "31 Jul 2026",
-    },
-    {
-      id: 2,
-      title: "Library Card Renewal",
-      category: "Library",
-      student: "Priya S",
-      priority: "Medium",
-      status: "In Progress",
-      date: "30 Jul 2026",
-    },
-    {
-      id: 3,
-      title: "Exam Hall Ticket Issue",
-      category: "Examination",
-      student: "Arun V",
-      priority: "High",
-      status: "Resolved",
-      date: "29 Jul 2026",
-    },
-  ];
+  const [tickets, setTickets] = useState([]);
+  useEffect(() => {
+    loadTickets();
+}, []);
+
+const loadTickets = async () => {
+
+    try {
+
+        const data = await getSupportTickets();
+
+        setTickets(data);
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+};
+
 
   const statusColor = {
     Open: "bg-red-100 text-red-700",
     "In Progress": "bg-yellow-100 text-yellow-700",
-    Resolved: "bg-green-100 text-green-700",
-  };
+    Closed: "bg-green-100 text-green-700",
+};
 
   return (
   <DashboardLayout>
@@ -92,10 +86,10 @@ function SupportDesk() {
 
           <select className="rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500">
 
-            <option>All Status</option>
-            <option>Open</option>
-            <option>In Progress</option>
-            <option>Resolved</option>
+           <option>All Status</option>
+<option>Open</option>
+<option>In Progress</option>
+<option>Closed</option>
 
           </select>
 
@@ -132,17 +126,12 @@ function SupportDesk() {
                 </th>
 
                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
-                  Category
-                </th>
+  Category
+</th>
 
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
-                  Priority
-                </th>
-
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
-                  Status
-                </th>
-
+<th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+  Status
+</th>
                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
                   Date
                 </th>
@@ -176,19 +165,23 @@ function SupportDesk() {
                     {ticket.category}
                   </td>
 
-                  <td className="px-6 py-5">
+                  <td className="px-6 py-5 text-gray-600">
+    {ticket.category}
+</td>
 
-                    <span
-                      className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${
-                        ticket.priority === "High"
-                          ? "bg-red-100 text-red-600"
-                          : "bg-yellow-100 text-yellow-700"
-                      }`}
-                    >
-                      {ticket.priority}
-                    </span>
+<td className="px-6 py-5">
+    <span
+        className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${
+            statusColor[ticket.status] || "bg-gray-100 text-gray-700"
+        }`}
+    >
+        {ticket.status}
+    </span>
+</td>
 
-                  </td>
+<td className="px-6 py-5 text-gray-500">
+    {new Date(ticket.created_at).toLocaleDateString()}
+</td>
 
                   <td className="px-6 py-5">
 
@@ -201,7 +194,7 @@ function SupportDesk() {
                   </td>
 
                   <td className="px-6 py-5 text-gray-500">
-                    {ticket.date}
+                    {new Date(ticket.created_at).toLocaleDateString()}
                   </td>
 
                   <td className="px-6 py-5">

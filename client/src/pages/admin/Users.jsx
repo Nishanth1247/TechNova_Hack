@@ -8,35 +8,56 @@ import {
   FaUserTie,
 } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import {
+    getUsers,
+    deleteUser,
+} from "../../api/userApi";
 
 function Users() {
     const navigate = useNavigate();
-  const users = [
-    {
-      id: 1,
-      name: "Rahul Kumar",
-      role: "Student",
-      department: "CSE",
-      email: "rahul@college.edu",
-      status: "Active",
-    },
-    {
-      id: 2,
-      name: "Priya Sharma",
-      role: "Faculty",
-      department: "IT",
-      email: "priya@college.edu",
-      status: "Active",
-    },
-    {
-      id: 3,
-      name: "Arun Kumar",
-      role: "Student",
-      department: "ECE",
-      email: "arun@college.edu",
-      status: "Inactive",
-    },
-  ];
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    loadUsers();
+}, []);
+
+const loadUsers = async () => {
+
+    try {
+
+        const data = await getUsers();
+
+        setUsers(data);
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+};
+const handleDelete = async (id) => {
+
+    const confirmDelete = window.confirm(
+        "Delete this user?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+
+        await deleteUser(id);
+
+        loadUsers();
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+};
 
   return (
   <DashboardLayout>
@@ -132,12 +153,12 @@ function Users() {
 
                       <div
                         className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                          user.role === "Student"
+                          user.role === "student"
                             ? "bg-blue-100 text-blue-600"
                             : "bg-green-100 text-green-600"
                         }`}
                       >
-                        {user.role === "Student" ? (
+                        {user.role === "student" ? (
                           <FaUserGraduate />
                         ) : (
                           <FaUserTie />
@@ -153,7 +174,7 @@ function Users() {
                   </td>
 
                   <td className="px-6 text-gray-600">
-                    {user.role}
+                    {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
                   </td>
 
                   <td className="px-6 text-gray-600">
@@ -186,7 +207,10 @@ function Users() {
                         <FaPen />
                       </button>
 
-                      <button className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition">
+                      <button
+    onClick={() => handleDelete(user.id)}
+    className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition"
+>
                         <FaTrash />
                       </button>
 

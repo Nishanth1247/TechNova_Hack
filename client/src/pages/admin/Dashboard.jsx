@@ -7,34 +7,61 @@ import {
   FaTriangleExclamation,
   FaArrowTrendUp,
 } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import { getDashboardStats } from "../../api/dashboardApi";
 
 function Dashboard() {
-  const stats = [
+
+  const [stats, setStats] = useState(null);
+
+useEffect(() => {
+
+    const fetchDashboard = async () => {
+
+        try {
+
+            const data = await getDashboardStats();
+
+            setStats(data);
+
+        } catch (err) {
+
+            console.log(err);
+
+        }
+
+    };
+
+    fetchDashboard();
+
+}, []);
+
+  const statsData = [
     {
-      title: "Total Students",
-      value: "1,248",
-      icon: <FaUsers size={24} />,
-      color: "bg-blue-100 text-blue-700",
+        title: "Total Students",
+        value: stats?.totalStudents ?? "-",
+        icon: <FaUsers size={24} />,
+        color: "bg-blue-100 text-blue-700",
     },
     {
-      title: "Faculty Members",
-      value: "86",
-      icon: <FaUserTie size={24} />,
-      color: "bg-green-100 text-green-700",
+        title: "Faculty Members",
+        value: stats?.totalFaculty ?? "-",
+        icon: <FaUserTie size={24} />,
+        color: "bg-green-100 text-green-700",
     },
     {
-      title: "Announcements",
-      value: "24",
-      icon: <FaBullhorn size={24} />,
-      color: "bg-yellow-100 text-yellow-700",
+        title: "Announcements",
+        value: stats?.totalAnnouncements ?? "-",
+        icon: <FaBullhorn size={24} />,
+        color: "bg-yellow-100 text-yellow-700",
     },
     {
-      title: "Open Tickets",
-      value: "18",
-      icon: <FaHeadset size={24} />,
-      color: "bg-red-100 text-red-700",
+        title: "Open Tickets",
+        value: stats?.openTickets ?? "-",
+        icon: <FaHeadset size={24} />,
+        color: "bg-red-100 text-red-700",
     },
-  ];
+];
 
   return (
   <DashboardLayout>
@@ -56,7 +83,7 @@ function Dashboard() {
 
         {/* Statistics */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-          {stats.map((item) => (
+          {statsData.map((item) => (
             <div
               key={item.title}
               className="bg-white border rounded-xl shadow-sm p-5 hover:shadow-md transition"
@@ -96,37 +123,26 @@ function Dashboard() {
 
             <div className="space-y-3">
 
-              <div className="border rounded-lg p-4 hover:bg-gray-50 transition">
-                <h3 className="font-medium">
-                  Mid Semester Examination Schedule
-                </h3>
+    {stats?.recentAnnouncements?.map((item, index) => (
 
-                <p className="text-sm text-gray-500 mt-1">
-                  Published for all departments.
-                </p>
-              </div>
+        <div
+            key={index}
+            className="border rounded-lg p-4 hover:bg-gray-50 transition"
+        >
 
-              <div className="border rounded-lg p-4 hover:bg-gray-50 transition">
-                <h3 className="font-medium">
-                  Placement Training Registration
-                </h3>
+            <h3 className="font-medium">
+                {item.title}
+            </h3>
 
-                <p className="text-sm text-gray-500 mt-1">
-                  Open for Final Year Students.
-                </p>
-              </div>
+            <p className="text-sm text-gray-500 mt-1">
+                {item.description}
+            </p>
 
-              <div className="border rounded-lg p-4 hover:bg-gray-50 transition">
-                <h3 className="font-medium">
-                  Internal Assessment Circular
-                </h3>
+        </div>
 
-                <p className="text-sm text-gray-500 mt-1">
-                  Published by Academic Office.
-                </p>
-              </div>
+    ))}
 
-            </div>
+</div>
 
           </div>
 
@@ -179,28 +195,32 @@ function Dashboard() {
 
             <div className="space-y-4">
 
-              <div className="flex justify-between border-b pb-3">
-                <span>Exam Hall Ticket Issue</span>
-                <span className="text-orange-500 font-medium">
-                  Pending
-                </span>
-              </div>
+    {stats?.recentTickets?.map((ticket, index) => (
 
-              <div className="flex justify-between border-b pb-3">
-                <span>Library Card Renewal</span>
-                <span className="text-blue-600 font-medium">
-                  In Progress
-                </span>
-              </div>
+        <div
+            key={index}
+            className="flex justify-between border-b pb-3"
+        >
 
-              <div className="flex justify-between">
-                <span>WiFi Connectivity</span>
-                <span className="text-green-600 font-medium">
-                  Resolved
-                </span>
-              </div>
+            <span>{ticket.title}</span>
 
-            </div>
+            <span
+                className={`font-medium ${
+                    ticket.status === "Open"
+                        ? "text-red-600"
+                        : ticket.status === "In Progress"
+                        ? "text-orange-500"
+                        : "text-green-600"
+                }`}
+            >
+                {ticket.status}
+            </span>
+
+        </div>
+
+    ))}
+
+</div>
 
           </div>
 
@@ -216,17 +236,17 @@ function Dashboard() {
 
             <ul className="space-y-3 text-gray-600">
 
-              <li>✔ Faculty uploaded Data Structures notes.</li>
+    {stats?.recentNotifications?.map((item, index) => (
 
-              <li>✔ Emergency alert acknowledged by 98% students.</li>
+        <li key={index}>
 
-              <li>✔ 12 new support tickets created today.</li>
+            ✔ {item.title}
 
-              <li>✔ Placement circular published.</li>
+        </li>
 
-              <li>✔ 36 students acknowledged exam schedule.</li>
+    ))}
 
-            </ul>
+</ul>
 
           </div>
 
