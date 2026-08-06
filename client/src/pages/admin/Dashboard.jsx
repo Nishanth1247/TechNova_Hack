@@ -9,10 +9,12 @@ import {
 } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { getDashboardStats } from "../../api/dashboardApi";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
 
   const [stats, setStats] = useState(null);
+  const navigate = useNavigate();
 
 useEffect(() => {
 
@@ -173,9 +175,12 @@ useEffect(() => {
                 No Active Emergency
               </h3>
 
-              <button className="mt-6 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg transition">
-                Broadcast Alert
-              </button>
+              <button
+              onClick={() => navigate("/admin/emergency")}
+              className="mt-6 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg transition"
+            >
+              Broadcast Alert
+            </button>
 
             </div>
 

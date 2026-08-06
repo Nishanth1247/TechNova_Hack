@@ -11,6 +11,8 @@ import { getSupportTickets } from "../../api/supportApi";
 
 function SupportDesk() {
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+const [statusFilter, setStatusFilter] = useState("All");
 
   const [tickets, setTickets] = useState([]);
   useEffect(() => {
@@ -39,6 +41,21 @@ const loadTickets = async () => {
     "In Progress": "bg-yellow-100 text-yellow-700",
     Closed: "bg-green-100 text-green-700",
 };
+
+const filteredTickets = tickets.filter((ticket) => {
+
+  const matchesSearch =
+    ticket.title.toLowerCase().includes(search.toLowerCase()) ||
+    ticket.student.toLowerCase().includes(search.toLowerCase()) ||
+    ticket.category.toLowerCase().includes(search.toLowerCase());
+
+  const matchesStatus =
+    statusFilter === "All" ||
+    ticket.status === statusFilter;
+
+  return matchesSearch && matchesStatus;
+
+});
 
   return (
   <DashboardLayout>
@@ -78,19 +95,24 @@ const loadTickets = async () => {
             <FaMagnifyingGlass className="text-gray-400" />
 
             <input
+              type="text"
               placeholder="Search tickets..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               className="w-full bg-transparent px-3 py-3 outline-none"
             />
 
           </div>
 
-          <select className="rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500">
-
-           <option>All Status</option>
-<option>Open</option>
-<option>In Progress</option>
-<option>Closed</option>
-
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500"
+          >
+            <option value="All">All Status</option>
+            <option value="Open">Open</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Closed">Closed</option>
           </select>
 
         </div>
@@ -146,85 +168,85 @@ const loadTickets = async () => {
 
             <tbody>
 
-              {tickets.map((ticket) => (
+  {filteredTickets.length > 0 ? (
 
-                <tr
-                  key={ticket.id}
-                  className="border-t border-gray-100 hover:bg-gray-50 transition"
-                >
+    filteredTickets.map((ticket) => (
 
-                  <td className="px-6 py-5 font-medium text-gray-800">
-                    {ticket.title}
-                  </td>
+      <tr
+        key={ticket.id}
+        className="border-t border-gray-100 hover:bg-gray-50 transition"
+      >
 
-                  <td className="px-6 py-5 text-gray-600">
-                    {ticket.student}
-                  </td>
+        <td className="px-6 py-5 font-medium text-gray-800">
+          {ticket.title}
+        </td>
 
-                  <td className="px-6 py-5 text-gray-600">
-                    {ticket.category}
-                  </td>
+        <td className="px-6 py-5 text-gray-600">
+          {ticket.student}
+        </td>
 
-                  <td className="px-6 py-5 text-gray-600">
-    {ticket.category}
-</td>
+        <td className="px-6 py-5 text-gray-600">
+          {ticket.category}
+        </td>
 
-<td className="px-6 py-5">
-    <span
-        className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${
-            statusColor[ticket.status] || "bg-gray-100 text-gray-700"
-        }`}
-    >
-        {ticket.status}
-    </span>
-</td>
+        <td className="px-6 py-5">
+          <span
+            className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${
+              statusColor[ticket.status] ||
+              "bg-gray-100 text-gray-700"
+            }`}
+          >
+            {ticket.status}
+          </span>
+        </td>
 
-<td className="px-6 py-5 text-gray-500">
-    {new Date(ticket.created_at).toLocaleDateString()}
-</td>
+        <td className="px-6 py-5 text-gray-500">
+          {new Date(ticket.created_at).toLocaleDateString()}
+        </td>
 
-                  <td className="px-6 py-5">
+        <td className="px-6 py-5">
 
-                    <span
-                      className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${statusColor[ticket.status]}`}
-                    >
-                      {ticket.status}
-                    </span>
+          <div className="flex justify-center gap-3">
 
-                  </td>
+            <button
+              onClick={() =>
+                navigate(`/admin/support/${ticket.id}`)
+              }
+              className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
+            >
+              <FaEye />
+            </button>
 
-                  <td className="px-6 py-5 text-gray-500">
-                    {new Date(ticket.created_at).toLocaleDateString()}
-                  </td>
+            <button
+              className="flex h-9 w-9 items-center justify-center rounded-lg bg-yellow-50 text-yellow-600 hover:bg-yellow-100 transition"
+            >
+              <FaPen />
+            </button>
 
-                  <td className="px-6 py-5">
+          </div>
 
-                    <div className="flex justify-center gap-3">
+        </td>
 
-                      <button
-                        onClick={() =>
-                          navigate(`/admin/support/${ticket.id}`)
-                        }
-                        className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
-                      >
-                        <FaEye />
-                      </button>
+      </tr>
 
-                      <button
-                        className="flex h-9 w-9 items-center justify-center rounded-lg bg-yellow-50 text-yellow-600 hover:bg-yellow-100 transition"
-                      >
-                        <FaPen />
-                      </button>
+    ))
 
-                    </div>
+  ) : (
 
-                  </td>
+    <tr>
 
-                </tr>
+      <td
+        colSpan="6"
+        className="py-10 text-center text-gray-500"
+      >
+        No support tickets found.
+      </td>
 
-              ))}
+    </tr>
 
-            </tbody>
+  )}
+
+</tbody>
 
           </table>
 

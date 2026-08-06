@@ -16,11 +16,14 @@ import { useNavigate } from "react-router-dom";
 
 function Announcements() {
     const navigate = useNavigate();
+    const [search, setSearch] = useState("");
+  const [priorityFilter, setPriorityFilter] = useState("All");
 
   const [announcements, setAnnouncements] = useState([]);
   useEffect(() => {
   loadAnnouncements();
 }, []);
+  
 
 const loadAnnouncements = async () => {
   try {
@@ -64,11 +67,25 @@ const handleDelete = async (id) => {
         return "bg-green-100 text-green-700";
     }
   };
+  const filteredAnnouncements = announcements.filter((item) => {
+
+  const matchesSearch =
+    item.title.toLowerCase().includes(search.toLowerCase()) ||
+    item.description.toLowerCase().includes(search.toLowerCase());
+
+  const matchesPriority =
+    priorityFilter === "All" ||
+    item.priority === priorityFilter;
+
+  return matchesSearch && matchesPriority;
+});
+
+  
 
   return (
   <DashboardLayout>
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-7xl mx-auto bg-white rounded-xl shadow border">
+   
+      
 
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
@@ -99,15 +116,22 @@ const handleDelete = async (id) => {
             <input
               type="text"
               placeholder="Search announcements..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               className="flex-1 px-3 py-3 outline-none"
             />
           </div>
 
-          <select className="border rounded-lg px-4 py-3 md:w-56">
-            <option>All Priority</option>
-            <option>Emergency</option>
-            <option>High</option>
-            <option>Normal</option>
+          <select
+            value={priorityFilter}
+            onChange={(e) => setPriorityFilter(e.target.value)}
+            className="border rounded-lg px-4 py-3 md:w-56"
+          >
+            <option value="All">All Priority</option>
+            <option value="Emergency">Emergency</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
           </select>
 
         </div>
@@ -133,73 +157,92 @@ const handleDelete = async (id) => {
 
             <tbody>
 
-              {announcements.map((item) => (
-                <tr
-                  key={item.id}
-                  className="border-t hover:bg-gray-50 transition"
-                >
-                  <td className="px-6 py-5 font-medium text-gray-800">
-                    {item.title}
-                  </td>
+  {filteredAnnouncements.length > 0 ? (
 
-                  <td className="px-6">
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm font-medium ${priorityColor(
-                        item.priority
-                      )}`}
-                    >
-                      {item.priority}
-                    </span>
-                  </td>
+    filteredAnnouncements.map((item) => (
 
-                  <td className="px-6 text-gray-600">
-                    {item.target_role}
-                  </td>
+      <tr
+        key={item.id}
+        className="border-t hover:bg-gray-50 transition"
+      >
+        <td className="px-6 py-5 font-medium text-gray-800">
+          {item.title}
+        </td>
 
-                  <td className="px-6 text-gray-600">
-                    {item.acknowledgements} Students
-                  </td>
+        <td className="px-6">
+          <span
+            className={`px-3 py-1 rounded-full text-sm font-medium ${priorityColor(
+              item.priority
+            )}`}
+          >
+            {item.priority}
+          </span>
+        </td>
 
-                  <td className="px-6 text-gray-600">
-                    {new Date(item.created_at).toLocaleDateString()}
-                  </td>
+        <td className="px-6 text-gray-600">
+          {item.target_role}
+        </td>
 
-                  <td className="px-6">
-                    <div className="flex justify-center gap-2">
+        <td className="px-6 text-gray-600">
+          {item.acknowledgements} Students
+        </td>
 
-                      <button
-                        onClick={() =>
-                          navigate(`/admin/announcements/${item.id}`)
-                        }
-                        className="p-2 rounded-lg text-blue-600 hover:bg-blue-100 transition"
-                      >
-                        <FaEye />
-                      </button>
+        <td className="px-6 text-gray-600">
+          {new Date(item.created_at).toLocaleDateString()}
+        </td>
 
-                      <button className="p-2 rounded-lg text-yellow-600 hover:bg-yellow-100 transition">
-                        <FaPen />
-                      </button>
+        <td className="px-6">
+          <div className="flex justify-center gap-2">
 
-                      <button
-  onClick={() => handleDelete(item.id)}
-  className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition"
->
-  <FaTrash />
-</button>
+            <button
+              onClick={() =>
+                navigate(`/admin/announcements/${item.id}`)
+              }
+              className="p-2 rounded-lg text-blue-600 hover:bg-blue-100"
+            >
+              <FaEye />
+            </button>
 
-                    </div>
-                  </td>
+            <button className="p-2 rounded-lg text-yellow-600 hover:bg-yellow-100">
+              <FaPen />
+            </button>
 
-                </tr>
-              ))}
+            <button
+              onClick={() => handleDelete(item.id)}
+              className="p-2 rounded-lg text-red-600 hover:bg-red-100"
+            >
+              <FaTrash />
+            </button>
 
-            </tbody>
+          </div>
+        </td>
+
+      </tr>
+
+    ))
+
+  ) : (
+
+    <tr>
+
+      <td
+        colSpan="6"
+        className="text-center py-10 text-gray-500"
+      >
+        No announcements found.
+      </td>
+
+    </tr>
+
+  )}
+
+</tbody>
 
           </table>
         </div>
 
-      </div>
-    </div>
+      
+    
   </DashboardLayout>
 );
 }

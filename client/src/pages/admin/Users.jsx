@@ -17,6 +17,9 @@ import {
 
 function Users() {
     const navigate = useNavigate();
+    const [search, setSearch] = useState("");
+    const [roleFilter, setRoleFilter] = useState("All");
+
   const [users, setUsers] = useState([]);
   useEffect(() => {
     loadUsers();
@@ -58,7 +61,21 @@ const handleDelete = async (id) => {
     }
 
 };
+const searchText = search.toLowerCase();
 
+const filteredUsers = users.filter((user) => {
+
+  const matchesSearch =
+    (user.name ?? "").toLowerCase().includes(searchText) ||
+    (user.email ?? "").toLowerCase().includes(searchText) ||
+    (user.department ?? "").toLowerCase().includes(searchText);
+
+  const matchesRole =
+    roleFilter === "All" ||
+    (user.role ?? "") === roleFilter;
+
+  return matchesSearch && matchesRole;
+});
   return (
   <DashboardLayout>
     <div className="min-h-screen bg-gray-100 p-6">
@@ -88,21 +105,34 @@ const handleDelete = async (id) => {
         </div>
 
         {/* Search */}
-        <div className="p-6 border-b">
+        <div className="flex flex-col md:flex-row gap-4 p-6 border-b">
 
-          <div className="flex items-center border rounded-lg px-4">
+  <div className="flex flex-1 items-center border rounded-lg px-4">
 
-            <FaMagnifyingGlass className="text-gray-400" />
+    <FaMagnifyingGlass className="text-gray-400" />
 
-            <input
-              type="text"
-              placeholder="Search users..."
-              className="flex-1 px-3 py-3 outline-none"
-            />
+    <input
+      type="text"
+      placeholder="Search users..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="flex-1 px-3 py-3 outline-none"
+    />
 
-          </div>
+  </div>
 
-        </div>
+  <select
+    value={roleFilter}
+    onChange={(e) => setRoleFilter(e.target.value)}
+    className="border rounded-lg px-4 py-3 md:w-56"
+  >
+    <option value="All">All Roles</option>
+    <option value="student">Student</option>
+    <option value="faculty">Faculty</option>
+    <option value="admin">Admin</option>
+  </select>
+
+</div>
 
         {/* User Table */}
         <div className="overflow-x-auto">
@@ -141,87 +171,108 @@ const handleDelete = async (id) => {
 
             <tbody>
 
-              {users.map((user) => (
-                <tr
-                  key={user.id}
-                  className="border-t hover:bg-gray-50 transition"
-                >
+  {filteredUsers.length > 0 ? (
 
-                  <td className="px-6 py-5">
+    filteredUsers.map((user) => (
 
-                    <div className="flex items-center gap-3">
+      <tr
+        key={user.id}
+        className="border-t hover:bg-gray-50 transition"
+      >
 
-                      <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                          user.role === "student"
-                            ? "bg-blue-100 text-blue-600"
-                            : "bg-green-100 text-green-600"
-                        }`}
-                      >
-                        {user.role === "student" ? (
-                          <FaUserGraduate />
-                        ) : (
-                          <FaUserTie />
-                        )}
-                      </div>
+        <td className="px-6 py-5">
 
-                      <span className="font-medium text-gray-800">
-                        {user.name}
-                      </span>
+          <div className="flex items-center gap-3">
 
-                    </div>
+            <div
+              className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                user.role === "student"
+                  ? "bg-blue-100 text-blue-600"
+                  : user.role === "faculty"
+                  ? "bg-green-100 text-green-600"
+                  : "bg-red-100 text-red-600"
+              }`}
+            >
+              {user.role === "student" ? (
+                <FaUserGraduate />
+              ) : (
+                <FaUserTie />
+              )}
+            </div>
 
-                  </td>
+            <span className="font-medium text-gray-800">
+              {user.name}
+            </span>
 
-                  <td className="px-6 text-gray-600">
-                    {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
-                  </td>
+          </div>
 
-                  <td className="px-6 text-gray-600">
-                    {user.department}
-                  </td>
+        </td>
 
-                  <td className="px-6 text-gray-600">
-                    {user.email}
-                  </td>
+        <td className="px-6 text-gray-600 capitalize">
+          {user.role}
+        </td>
 
-                  <td className="px-6">
+        <td className="px-6 text-gray-600">
+          {user.department}
+        </td>
 
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        user.status === "Active"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
-                    >
-                      {user.status}
-                    </span>
+        <td className="px-6 text-gray-600">
+          {user.email}
+        </td>
 
-                  </td>
+        <td className="px-6">
 
-                  <td className="px-6">
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-medium ${
+              user.status === "Active"
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
+          >
+            {user.status}
+          </span>
 
-                    <div className="flex justify-center gap-2">
+        </td>
 
-                      <button className="p-2 rounded-lg text-yellow-600 hover:bg-yellow-100 transition">
-                        <FaPen />
-                      </button>
+        <td className="px-6">
 
-                      <button
-    onClick={() => handleDelete(user.id)}
-    className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition"
->
-                        <FaTrash />
-                      </button>
+          <div className="flex justify-center gap-2">
 
-                    </div>
+            <button className="p-2 rounded-lg text-yellow-600 hover:bg-yellow-100 transition">
+              <FaPen />
+            </button>
 
-                  </td>
+            <button
+              onClick={() => handleDelete(user.id)}
+              className="p-2 rounded-lg text-red-600 hover:bg-red-100 transition"
+            >
+              <FaTrash />
+            </button>
 
-                </tr>
-              ))}
+          </div>
 
-            </tbody>
+        </td>
+
+      </tr>
+
+    ))
+
+  ) : (
+
+    <tr>
+
+      <td
+        colSpan="6"
+        className="py-10 text-center text-gray-500"
+      >
+        No users found.
+      </td>
+
+    </tr>
+
+  )}
+
+</tbody>
 
           </table>
 
